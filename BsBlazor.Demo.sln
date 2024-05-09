@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BsBlazor.Demo", "BsBlazor.Demo\BsBlazor.Demo\BsBlazor.Demo.csproj", "{30502547-BE7F-4A19-A201-DCD7C9499D40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BsBlazor.Demo", "BsBlazor.Demo\BsBlazor.Demo\BsBlazor.Demo.csproj", "{30502547-BE7F-4A19-A201-DCD7C9499D40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BsBlazor.Demo.Client", "BsBlazor.Demo\BsBlazor.Demo.Client\BsBlazor.Demo.Client.csproj", "{994AB5CC-4A89-4F51-888C-76C265B261EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BsBlazor.Demo.Client", "BsBlazor.Demo\BsBlazor.Demo.Client\BsBlazor.Demo.Client.csproj", "{994AB5CC-4A89-4F51-888C-76C265B261EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BsBlazor", "BsBlazor\BsBlazor.csproj", "{D462E946-914E-4E26-B2B0-9D046F988B13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BsBlazor", "BsBlazor\BsBlazor.csproj", "{D462E946-914E-4E26-B2B0-9D046F988B13}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Root", "_Root", "{A63AB313-0D66-47D5-A56F-301EBD7B54C6}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

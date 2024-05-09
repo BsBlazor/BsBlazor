@@ -9,7 +9,7 @@
     tabindex="-1" 
     aria-hidden="true"
     @attributes="_additionalAttributes">
-    <div class="modal-dialog @(Scrollable? "modal-dialog-scrollable" : "")">
+    <div class="modal-dialog @SizeClass @(Scrollable? "modal-dialog-scrollable" : "") @(Centered ? "modal-dialog-centered" : "")">
         <div class="modal-content">
             <div class="modal-header">
                 @ModalHeader
@@ -46,7 +46,13 @@
     public bool Scrollable { get; set; } = false;
 
     [Parameter]
+    public bool Centered { get; set; } = false;
+
+    [Parameter]
     public BsModalBackdrop Backdrop { get; set; } = BsModalBackdrop.True;
+
+    [Parameter]
+    public BsModalSize Size { get; set; } = BsModalSize.Default;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -74,6 +80,14 @@
 
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
+
+    private string SizeClass => Size switch
+    {
+        BsModalSize.Small => "modal-sm",
+        BsModalSize.Large => "modal-lg",
+        BsModalSize.ExtraLarge => "modal-xl",
+        _ => ""
+    };
 
     protected override void OnParametersSet()
     {
