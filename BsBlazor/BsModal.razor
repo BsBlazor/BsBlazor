@@ -9,7 +9,7 @@
     tabindex="-1" 
     aria-hidden="true"
     @attributes="_additionalAttributes">
-    <div class="modal-dialog">
+    <div class="modal-dialog @(Scrollable? "modal-dialog-scrollable" : "")">
         <div class="modal-content">
             <div class="modal-header">
                 @ModalHeader
@@ -41,6 +41,9 @@
 
     [Parameter]
     public bool Keyboard { get; set; } = true;
+
+    [Parameter]
+    public bool Scrollable { get; set; } = false;
 
     [Parameter]
     public BsModalBackdrop Backdrop { get; set; } = BsModalBackdrop.True;
