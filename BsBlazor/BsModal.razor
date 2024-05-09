@@ -9,7 +9,7 @@
     tabindex="-1" 
     aria-hidden="true"
     @attributes="_additionalAttributes">
-    <div class="modal-dialog @SizeClass @(Scrollable? "modal-dialog-scrollable" : "") @(Centered ? "modal-dialog-centered" : "")">
+    <div class="modal-dialog @SizeClass @FullscreenClass @(Scrollable? "modal-dialog-scrollable" : "") @(Centered ? "modal-dialog-centered" : "")">
         <div class="modal-content">
             <div class="modal-header">
                 @ModalHeader
@@ -55,6 +55,9 @@
     public BsModalSize Size { get; set; } = BsModalSize.Default;
 
     [Parameter]
+    public BsModalFullscreen Fullscreen { get; set; } = BsModalFullscreen.Never;
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
@@ -86,6 +89,17 @@
         BsModalSize.Small => "modal-sm",
         BsModalSize.Large => "modal-lg",
         BsModalSize.ExtraLarge => "modal-xl",
+        _ => ""
+    };
+
+    private string FullscreenClass => Fullscreen switch
+    {
+        BsModalFullscreen.Always => "modal-fullscreen",
+        BsModalFullscreen.BelowSmall => "modal-fullscreen-sm-down",
+        BsModalFullscreen.BelowMedium => "modal-fullscreen-md-down",
+        BsModalFullscreen.BelowLarge => "modal-fullscreen-lg-down",
+        BsModalFullscreen.BelowExtraLarge => "modal-fullscreen-xl-down",
+        BsModalFullscreen.BelowExtraExtraLarge => "modal-fullscreen-xxl-down",
         _ => ""
     };
 
