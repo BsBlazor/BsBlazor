@@ -1,0 +1,8 @@
+﻿<h5 class="modal-title" @attributes="AdditionalAttributes">@ChildContent</h5>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
+}

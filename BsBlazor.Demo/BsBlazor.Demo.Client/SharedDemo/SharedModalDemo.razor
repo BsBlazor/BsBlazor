@@ -1,0 +1,72 @@
+﻿@using System.Text
+<h3>Static modal example</h3>
+<BsModal Class="position-static d-block" Fade="false">
+    <ModalHeader>
+        <BsModalTitle>Modal title</BsModalTitle>
+        <BsModalCloseButton />
+    </ModalHeader>
+    <ChildContent>
+        Modal body text goes here.
+    </ChildContent>
+    <ModalFooter>
+        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
+        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
+    </ModalFooter>
+</BsModal>
+<hr />
+<h3>Live demo</h3>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModal">Launch demo modal</BsButton>
+<BsModal Id="exampleModal"
+         aria-labelledby="exampleModalLabel"
+         OnShow="@(() => _sb1.AppendLine("Show"))"
+         OnShown="@(() => _sb1.AppendLine("Shown"))"
+         OnHide="@(() => _sb1.AppendLine("Hide"))"
+         OnHidePrevented="@(() => _sb1.AppendLine("HidePrevented"))"
+         OnHidden="@(() => _sb1.AppendLine("Hidden"))">
+    <ModalHeader>
+        <BsModalTitle id="exampleModalLabel">Modal title</BsModalTitle>
+        <BsModalCloseButton />
+    </ModalHeader>
+    <ChildContent>
+        ...
+    </ChildContent>
+    <ModalFooter>
+        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
+        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
+    </ModalFooter>
+</BsModal>
+<div class="mt-4">Events detected by Blazor interactivity:</div>
+<div style="height: 50px; overflow-y: auto; border: 1px solid black">@_sb1</div>
+<hr />
+<h3>Static backdrop</h3>
+<BsButton Variant="BsButtonVariant.Primary" 
+          Toggle="BsButtonTogle.Modal" 
+          Target="#staticBackdrop">Launch static backdrop modal</BsButton>
+<BsModal Id="staticBackdrop"
+         Backdrop="BsModalBackdrop.Static"
+         Keyboard="false"
+         aria-labelledby="staticBackdropLabel"
+         OnShow="@(() => _sb2.AppendLine("Show"))"
+         OnShown="@(() => _sb2.AppendLine("Shown"))"
+         OnHide="@(() => _sb2.AppendLine("Hide"))"
+         OnHidePrevented="@(() => _sb2.AppendLine("HidePrevented"))"
+         OnHidden="@(() => _sb2.AppendLine("Hidden"))">
+    <ModalHeader>
+        <BsModalTitle id="staticBackdropLabel">Modal title</BsModalTitle>
+        <BsModalCloseButton />
+    </ModalHeader>
+    <ChildContent>
+        ...
+    </ChildContent>
+    <ModalFooter>
+        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
+        <BsButton Variant="BsButtonVariant.Primary">Understood</BsButton>
+    </ModalFooter>
+</BsModal>
+<div class="mt-4">Events detected by Blazor interactivity:</div>
+<div style="height: 50px; overflow-y: auto; border: 1px solid black">@_sb2</div>
+<hr />
+@code {
+    private StringBuilder _sb1 = new();
+    private StringBuilder _sb2 = new();
+}

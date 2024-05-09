@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+<button type="@Type.ToString().ToLower()"
+        class="btn btn-@Variant.ToString().ToLower()"
+        @attributes="_additionalAttributes">
+    @ChildContent
+</button>
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public BsButtonVariant Variant { get; set; }
+
+    [Parameter]
+    public BsButtonType Type { get; set; } = BsButtonType.Button;
+
+    [Parameter]
+    public BsButtonDismiss? Dismiss { get; set; }
+
+    [Parameter]
+    public BsButtonTogle? Toggle { get; set; }
+
+    [Parameter]
+    public string? Target { get; set; }
+
+    private Dictionary<string, object> _additionalAttributes = [];
+
+
+    protected override void OnParametersSet()
+    {
+        _additionalAttributes = new Dictionary<string, object>();
+        if(Dismiss != null)
+        {
+            _additionalAttributes["data-bs-dismiss"] = Dismiss.ToString()!.ToLower();
+        }
+        if(Toggle != null)
+        {
+            _additionalAttributes["data-bs-toggle"] = Toggle.ToString()!.ToLower();
+        }
+        if(Target != null)
+        {
+            _additionalAttributes["data-bs-target"] = Target;
+        }
+    }
+
+}
