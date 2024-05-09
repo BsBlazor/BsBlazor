@@ -1,0 +1,31 @@
+name: DEMO - DEPLOY
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: 'Demo'
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Set up dependency caching for faster builds
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+          
+    - run: dotnet publish BsBlazor.Demo/BsBlazor.Demo -c Release -o Package
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ secrets.APP_NAME }}
+        publish-profile: ${{ secrets.PUBLISH_PROFILE }}
+        package: Package
