@@ -9,11 +9,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="SharedDemo\Examples.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Examples.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\BsBlazor\BsBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="SharedDemo\Examples.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Examples.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SharedDemo\Examples.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Examples.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

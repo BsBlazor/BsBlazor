@@ -1,0 +1,36 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+namespace BsBlazor;
+public static class Examples 
+{
+	public static readonly IReadOnlyDictionary<string, string> Contents = new Dictionary<string, string>(){
+<#
+	// Get files in this directory and sub-folders
+	var dirName = System.IO.Path.GetDirectoryName(Host.TemplateFile);
+	var files = System.IO.Directory.EnumerateFiles(dirName, "*", System.IO.SearchOption.AllDirectories);
+	foreach (var file in files)
+	{
+	    if(!file.EndsWith("Example.razor")){ continue; }
+		var fileName = System.IO.Path.GetFileName(file);
+		var exampleName = fileName.Replace(".razor", "");
+		WriteLine("		{");
+		WriteLine($"""
+				  			"{exampleName}",
+				  """);
+		var content = System.IO.File.ReadAllText(file);
+		WriteLine(""""
+				  """
+				  """");
+		WriteLine(content);
+		WriteLine(""""
+				  """
+				  """");
+		WriteLine("		}");
+	}
+#>
+	};
+}
