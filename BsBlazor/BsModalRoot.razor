@@ -1,0 +1,104 @@
+﻿@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+<div @ref="_elementReference" 
+    class="modal @(Fade ? "fade" : "") @Class"
+    @onhide.bs.modal="() => OnHide.InvokeAsync()"
+    @onhidden.bs.modal="() => OnHidden.InvokeAsync()"
+    @onhidePrevented.bs.modal="() => OnHidePrevented.InvokeAsync()"
+    @onshow.bs.modal="() => OnShow.InvokeAsync()"
+    @onshown.bs.modal="() => OnShown.InvokeAsync()"
+    tabindex="-1" 
+    aria-hidden="true"
+    @attributes="_additionalAttributes">
+    @ChildContent
+</div>
+@code {
+    private Dictionary<string, object> _additionalAttributes = [];
+    private ElementReference _elementReference;
+    private IJSObjectReference _jsInstance = default!;
+
+    [Parameter]
+    public string? Id { get; set; }
+
+    [Parameter]
+    public string Class { get; set; } = "";
+
+    [Parameter]
+    public bool Fade { get; set; } = true;
+
+    [Parameter]
+    public bool Keyboard { get; set; } = true;
+
+    [Parameter]
+    public BsModalBackdrop Backdrop { get; set; } = BsModalBackdrop.True;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnHide { get; set; }
+
+    [Parameter]
+    public EventCallback OnHidePrevented { get; set; }
+
+    [Parameter]
+    public EventCallback OnHidden { get; set; }
+
+    [Parameter]
+    public EventCallback OnShow { get; set; }
+
+    [Parameter]
+    public EventCallback OnShown { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            _jsInstance = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Modal.getOrCreateInstance", _elementReference);
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        _additionalAttributes = new Dictionary<string, object>(AdditionalAttributes.ToList());
+        if (Id != null)
+        {
+            _additionalAttributes["id"] = Id;
+        }
+        _additionalAttributes["data-bs-backdrop"] = Backdrop.ToString().ToLower();
+        _additionalAttributes["data-bs-keyboard"] = Keyboard.ToString().ToLower();
+    }
+
+    public async Task Show()
+    {
+        await _jsInstance.InvokeVoidAsync("show");
+    }
+
+    public async Task Hide()
+    {
+        await _jsInstance.InvokeVoidAsync("hide");
+    }
+
+    public async Task Toggle()
+    {
+        await _jsInstance.InvokeVoidAsync("toggle");
+    }
+
+    public async Task HandleUpdate()
+    {
+        await _jsInstance.InvokeVoidAsync("handleUpdate");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_jsInstance != null)
+        {
+            await _jsInstance.InvokeVoidAsync("dispose");
+            await _jsInstance.DisposeAsync();
+        }
+    }
+}

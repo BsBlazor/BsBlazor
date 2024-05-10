@@ -1,40 +1,34 @@
 ﻿@using Microsoft.JSInterop
-@implements IAsyncDisposable
-@inject IJSRuntime JS
-<div @ref="_elementReference" 
-    class="modal @(Fade ? "fade" : "") @Class"
-    @onhide.bs.modal="() => OnHide.InvokeAsync()"
-    @onhidden.bs.modal="() => OnHidden.InvokeAsync()"
-    @onhidePrevented.bs.modal="() => OnHidePrevented.InvokeAsync()"
-    @onshow.bs.modal="() => OnShow.InvokeAsync()"
-    @onshown.bs.modal="() => OnShown.InvokeAsync()"
-    tabindex="-1" 
-    aria-hidden="true"
-    @attributes="_additionalAttributes">
-    <div class="modal-dialog @SizeClass @FullscreenClass @(Scrollable? "modal-dialog-scrollable" : "") @(Centered ? "modal-dialog-centered" : "")">
-        <div class="modal-content">
-            <div class="modal-header">
-                @ModalHeader
-            </div>
-            <div class="modal-body">
-                @ChildContent
-            </div>
-            <div class="modal-footer">
-                @ModalFooter
-            </div>
-        </div>
-    </div>
-</div>
+<BsModalRoot @ref="_modalRoot"
+             Id="@Id"
+             AdditionalAttributes="AdditionalAttributes"
+             Fade="Fade"
+             Backdrop="Backdrop"
+             OnHide="OnHide"
+             OnHidden="OnHidden"
+             OnHidePrevented="OnHidePrevented"
+             OnShow="OnShow"
+             OnShown="OnShown">
+    <BsModalDialog Centered="Centered"
+                   Scrollable="Scrollable"
+                   Size="Size"
+                   Fullscreen="Fullscreen">
+        <ModalHeader>
+            @ModalHeader
+        </ModalHeader>
+        <ChildContent>
+            @ChildContent
+        </ChildContent>
+        <ModalFooter>
+            @ModalFooter
+        </ModalFooter>
+    </BsModalDialog>
+    </BsModalRoot>
 @code {
-    private Dictionary<string, object> _additionalAttributes = [];
-    private ElementReference _elementReference;
-    private IJSObjectReference _jsInstance = default!;
+    private BsModalRoot _modalRoot = default!;
 
     [Parameter]
     public string? Id { get; set; }
-
-    [Parameter]
-    public string Title { get; set; } = "";
 
     [Parameter]
     public string Class { get; set; } = "";
@@ -86,73 +80,8 @@
 
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
-
-    private string SizeClass => Size switch
-    {
-        BsModalSize.Small => "modal-sm",
-        BsModalSize.Large => "modal-lg",
-        BsModalSize.ExtraLarge => "modal-xl",
-        _ => ""
-    };
-
-    private string FullscreenClass => Fullscreen switch
-    {
-        BsModalFullscreen.Always => "modal-fullscreen",
-        BsModalFullscreen.BelowSmall => "modal-fullscreen-sm-down",
-        BsModalFullscreen.BelowMedium => "modal-fullscreen-md-down",
-        BsModalFullscreen.BelowLarge => "modal-fullscreen-lg-down",
-        BsModalFullscreen.BelowExtraLarge => "modal-fullscreen-xl-down",
-        BsModalFullscreen.BelowExtraExtraLarge => "modal-fullscreen-xxl-down",
-        _ => ""
-    };
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if(firstRender)
-        {
-            _jsInstance = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Modal.getOrCreateInstance", _elementReference);
-
-        }
-    }
-
-
-    protected override void OnParametersSet()
-    {
-        _additionalAttributes = new Dictionary<string, object>(AdditionalAttributes.ToList());
-        if (Id != null)
-        {
-            _additionalAttributes["id"] = Id;
-        }
-        _additionalAttributes["data-bs-backdrop"] = Backdrop.ToString().ToLower();
-        _additionalAttributes["data-bs-keyboard"] = Keyboard.ToString().ToLower();
-    }
-
-    public async Task Show()
-    {
-        await _jsInstance.InvokeVoidAsync("show");
-    }
-
-    public async Task Hide()
-    {
-        await _jsInstance.InvokeVoidAsync("hide");
-    }
-
-    public async Task Toggle()
-    {
-        await _jsInstance.InvokeVoidAsync("toggle");
-    }
-
-    public async Task HandleUpdate()
-    {
-        await _jsInstance.InvokeVoidAsync("handleUpdate");
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        if (_jsInstance != null)
-        {
-            await _jsInstance.InvokeVoidAsync("dispose");
-            await _jsInstance.DisposeAsync();
-        }
-    }
+    public async Task Show() => await _modalRoot.Show();
+    public async Task Hide() => await _modalRoot.Hide();
+    public async Task Toggle() => await _modalRoot.Toggle();
+    public async Task HandleUpdate() => await _modalRoot.HandleUpdate();
 }

@@ -1,0 +1,64 @@
+﻿<div class="modal-dialog @SizeClass @FullscreenClass @(Scrollable? "modal-dialog-scrollable" : "") @(Centered ? "modal-dialog-centered" : "")">
+    <div class="modal-content">
+        <div class="modal-header">
+            @ModalHeader
+        </div>
+        <div class="modal-body">
+            @ChildContent
+        </div>
+        <div class="modal-footer">
+            @ModalFooter
+        </div>
+    </div>
+</div>
+@code {
+    private Dictionary<string, object> _additionalAttributes = [];
+
+    [Parameter]
+    public bool Scrollable { get; set; } = false;
+
+    [Parameter]
+    public bool Centered { get; set; } = false;
+
+    [Parameter]
+    public BsModalSize Size { get; set; } = BsModalSize.Default;
+
+    [Parameter]
+    public BsModalFullscreen Fullscreen { get; set; } = BsModalFullscreen.Never;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ModalHeader { get; set; }
+
+    [Parameter]
+    public RenderFragment? ModalFooter { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
+
+    private string SizeClass => Size switch
+    {
+        BsModalSize.Small => "modal-sm",
+        BsModalSize.Large => "modal-lg",
+        BsModalSize.ExtraLarge => "modal-xl",
+        _ => ""
+    };
+
+    private string FullscreenClass => Fullscreen switch
+    {
+        BsModalFullscreen.Always => "modal-fullscreen",
+        BsModalFullscreen.BelowSmall => "modal-fullscreen-sm-down",
+        BsModalFullscreen.BelowMedium => "modal-fullscreen-md-down",
+        BsModalFullscreen.BelowLarge => "modal-fullscreen-lg-down",
+        BsModalFullscreen.BelowExtraLarge => "modal-fullscreen-xl-down",
+        BsModalFullscreen.BelowExtraExtraLarge => "modal-fullscreen-xxl-down",
+        _ => ""
+    };
+
+    protected override void OnParametersSet()
+    {
+        _additionalAttributes = new Dictionary<string, object>(AdditionalAttributes.ToList());
+    }
+}
