@@ -1,5 +1,4 @@
 ﻿@namespace BsBlazor
-@using Microsoft.JSInterop
 @implements IAsyncDisposable
 @inject IJSRuntime JS
 <div @ref="_elementReference" 
@@ -96,7 +95,7 @@
 
     public async ValueTask DisposeAsync()
     {
-        if (_jsInstance != null)
+        if (_jsInstance.IsNotNull())
         {
             await _jsInstance.InvokeVoidAsync("dispose");
             await _jsInstance.DisposeAsync();

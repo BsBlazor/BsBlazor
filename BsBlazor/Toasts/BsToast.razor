@@ -1,13 +1,76 @@
 ﻿@namespace BsBlazor
 @inherits BsComponentBase
+@implements IAsyncDisposable
+@inject IJSRuntime JS
 
-<div class="toast @Class" role="alert" aria-live="assertive" aria-atomic="true" @attributes="AdditionalAttributes">
-   @ChildContent
+<div class="@CssContainerClass">
+    <div
+        @ref="_elementReference"
+        @onhide.bs.toast="() => OnHide.InvokeAsync()"
+        @onhidden.bs.toast="() => OnHidden.InvokeAsync()"
+        @onshow.bs.toast="() => OnShow.InvokeAsync()"
+        @onshown.bs.toast="() => OnShown.InvokeAsync()"
+        class="@CssClass"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        @attributes="AdditionalAttributes">
+        @ChildContent
+    </div>
 </div>
 
-@code 
+@code
 {
-   [Parameter]
-   [EditorRequired]
-   public required RenderFragment ChildContent { get; set; }
+    private ElementReference _elementReference;
+    private IJSObjectReference _jsInstance = default!;
+
+    private string CssClass => CssBuilder.New("toast").AddClass(Class).Build();
+
+    private string CssContainerClass => CssBuilder
+        .New("toast-container position-fixed")
+        .AddClass("top-0 start-0", Placement is BsToastPlacement.TopLeft)
+        .AddClass("top-0 start-50 translate-middle-x", Placement is BsToastPlacement.TopCenter)
+        .AddClass("top-0 end-0", Placement is BsToastPlacement.TopRight)
+        .AddClass("top-50 start-0 translate-middle-y", Placement is BsToastPlacement.MiddleLeft)
+        .AddClass("top-50 start-50 translate-middle", Placement is BsToastPlacement.MiddleCenter)
+        .AddClass("top-50 end-0 translate-middle-y", Placement is BsToastPlacement.MiddleRight)
+        .AddClass("bottom-0 start-0", Placement is BsToastPlacement.BottomLeft)
+        .AddClass("bottom-0 start-50 translate-middle-x", Placement is BsToastPlacement.BottomCenter)
+        .AddClass("bottom-0 end-0", Placement is BsToastPlacement.BottomRight)
+        .Build();
+
+    [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
+
+    [Parameter] public BsToastPlacement Placement { get; set; } = BsToastPlacement.TopRight;
+
+    [Parameter] public EventCallback OnHide { get; set; }
+
+    [Parameter] public EventCallback OnHidden { get; set; }
+
+    [Parameter] public EventCallback OnShow { get; set; }
+
+    [Parameter] public EventCallback OnShown { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _jsInstance = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Toast.getOrCreateInstance", _elementReference);
+        }
+    }
+
+    public async Task ShowAsync() => await _jsInstance.InvokeVoidAsync("show");
+
+    public async Task HideAsync() => await _jsInstance.InvokeVoidAsync("hide");
+
+    public async Task<bool> IsShownAsync() => await _jsInstance.InvokeAsync<bool>("isShown");
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_jsInstance.IsNotNull())
+        {
+            await _jsInstance.InvokeVoidAsync("dispose");
+            await _jsInstance.DisposeAsync();
+        }
+    }
 }

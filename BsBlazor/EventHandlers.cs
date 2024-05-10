@@ -7,7 +7,8 @@ namespace BsBlazor;
 [EventHandler("onhidePrevented.bs.modal", typeof(EventArgs))]
 [EventHandler("onshow.bs.modal", typeof(EventArgs))]
 [EventHandler("onshown.bs.modal", typeof(EventArgs))]
-public static class  EventHandlers
-{
-    
-}
+[EventHandler("onhide.bs.toast", typeof(EventArgs))]
+[EventHandler("onhidden.bs.toast", typeof(EventArgs))]
+[EventHandler("onshow.bs.toast", typeof(EventArgs))]
+[EventHandler("onshown.bs.toast", typeof(EventArgs))]
+public static class EventHandlers;

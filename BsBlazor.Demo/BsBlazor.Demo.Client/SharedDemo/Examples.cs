@@ -325,5 +325,31 @@ public static class Examples
 </BsToast>
 """
 		},
+		{
+			"ToastLiveExample",
+"""
+<BsButton Type="BsButtonType.Button" Variant="BsButtonVariant.Primary" OnClick="() => _toast.ShowAsync()">
+    Show live toast
+</BsButton>
+
+<BsToast @ref="_toast">
+    <BsToastHeader>
+        <MyIcon />
+        <strong class="me-auto">Bootstrap</strong>
+        <small>11 mins ago</small>
+        <BsToastCloseButton/>
+    </BsToastHeader>
+    <BsToastBody>
+        Hello, world! This is a toast message.
+    </BsToastBody>
+</BsToast>
+
+@code
+{
+    private BsToast _toast = default!;
+}
+
+"""
+		},
 	};
 }
