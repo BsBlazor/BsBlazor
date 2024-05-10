@@ -52,11 +52,11 @@ public static class Examples
 		{
 			"ModalInteractiveExample",
 """
-<BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.Show()">Modal.Show()</BsButton>
-<BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.Toggle()">Modal.Toggle()</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.ShowAsync()">Modal.Show()</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.ToggleAsync()">Modal.Toggle()</BsButton>
 <BsModal @ref="_modal" Keyboard="false" Backdrop="BsModalBackdrop.Static">
-    <BsButton Variant="BsButtonVariant.Secondary" OnClick="() => _modal.Hide()">Hide</BsButton>
-    <BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.Toggle()">Modal.Toggle()</BsButton>
+    <BsButton Variant="BsButtonVariant.Secondary" OnClick="() => _modal.HideAsync()">Hide</BsButton>
+    <BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.ToggleAsync()">Modal.Toggle()</BsButton>
 </BsModal>
 @code {
     private BsModal _modal = default!;
@@ -171,8 +171,7 @@ public static class Examples
 @code {
     private async void ShowModalAsync()
     {
-        //var modalReference = 
-        await ModalService.ShowDialogAsync<ModalServiceDialogExample>();
+        var modalReference = await ModalService.ShowDialogAsync<ModalServiceDialogExample>();
     }
 }
 
@@ -341,7 +340,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -349,7 +348,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -357,7 +356,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -365,7 +364,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -397,7 +396,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -420,7 +419,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -428,7 +427,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -436,7 +435,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -444,7 +443,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -476,7 +475,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
