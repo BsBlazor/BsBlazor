@@ -1,20 +1,32 @@
-﻿<BsButton Type="BsButtonType.Button" Variant="BsButtonVariant.Primary" OnClick="() => _toast.ShowAsync()">
+﻿@using System.Text
+
+<BsButton Type="BsButtonType.Button" Variant="BsButtonVariant.Primary" OnClick="() => _toast.ShowAsync()">
     Show live toast
 </BsButton>
 
-<BsToast @ref="_toast" Placement="BsToastPlacement.BottomRight">
-    <BsToastHeader>
-        <MyIcon />
-        <strong class="me-auto">Bootstrap</strong>
-        <small>11 mins ago</small>
-        <BsToastCloseButton/>
-    </BsToastHeader>
-    <BsToastBody>
-        Hello, world! This is a toast message.
-    </BsToastBody>
-</BsToast>
+<BsToastContainer Placement="BsToastPlacement.BottomRight">
+    <BsToast @ref="_toast"
+             OnShow="@(() => _sb1.AppendLine("Show"))"
+             OnShown="@(() => _sb1.AppendLine("Shown"))"
+             OnHide="@(() => _sb1.AppendLine("Hide"))"
+             OnHidden="@(() => _sb1.AppendLine("Hidden"))">
+        <BsToastHeader>
+            <MyIcon />
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <BsToastCloseButton/>
+        </BsToastHeader>
+        <BsToastBody>
+            Hello, world! This is a toast message.
+        </BsToastBody>
+    </BsToast>
+</BsToastContainer>
+
+<div class="mt-4">Events detected by Blazor interactivity:</div>
+<div style="height: 50px; overflow-y: auto; border: 1px solid black">@_sb1</div>
 
 @code
 {
+    private StringBuilder _sb1 = new();
     private BsToast _toast = default!;
 }

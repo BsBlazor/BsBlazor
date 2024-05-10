@@ -1,0 +1,32 @@
+﻿@namespace BsBlazor
+@inherits BsComponentBase
+
+<div id="@_id" class="@CssContainerClass" @attributes="AdditionalAttributes" style="z-index: 1000;">
+    @ChildContent
+</div>
+@code 
+{
+    private string _id = Guid.NewGuid().ToString("N");
+    
+    private string CssContainerClass => CssBuilder
+        .Default("toast-container")
+        .AddClass("position-fixed", Position is BsToastPosition.Fixed)
+        .AddClass("position-static", Position is BsToastPosition.Static)
+        .AddClass("position-relative", Position is BsToastPosition.Relative)
+        .AddClass("p-3")
+        .AddClass("top-0 start-0", Placement is BsToastPlacement.TopLeft)
+        .AddClass("top-0 start-50 translate-middle-x", Placement is BsToastPlacement.TopCenter)
+        .AddClass("top-0 end-0", Placement is BsToastPlacement.TopRight)
+        .AddClass("top-50 start-0 translate-middle-y", Placement is BsToastPlacement.MiddleLeft)
+        .AddClass("top-50 start-50 translate-middle", Placement is BsToastPlacement.MiddleCenter)
+        .AddClass("top-50 end-0 translate-middle-y", Placement is BsToastPlacement.MiddleRight)
+        .AddClass("bottom-0 start-0", Placement is BsToastPlacement.BottomLeft)
+        .AddClass("bottom-0 start-50 translate-middle-x", Placement is BsToastPlacement.BottomCenter)
+        .AddClass("bottom-0 end-0", Placement is BsToastPlacement.BottomRight)
+        .Build();
+    
+    [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
+    
+    [Parameter] public BsToastPlacement Placement { get; set; } = BsToastPlacement.TopRight;
+    [Parameter] public BsToastPosition? Position { get; set; } = BsToastPosition.Fixed;
+}
