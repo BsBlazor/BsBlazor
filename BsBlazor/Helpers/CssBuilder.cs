@@ -6,7 +6,7 @@ internal readonly struct CssBuilder
 {
     private readonly StringBuilder _buffer = new();
     
-    public static CssBuilder New(string value) => new(value);
+    public static CssBuilder Default(string value) => new(value);
     public static CssBuilder Empty() => new(string.Empty);
     private CssBuilder(string value) => _buffer.Append(value);
     

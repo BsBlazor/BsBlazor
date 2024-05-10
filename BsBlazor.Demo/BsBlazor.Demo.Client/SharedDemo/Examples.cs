@@ -326,29 +326,285 @@ public static class Examples
 """
 		},
 		{
+			"ToastColorSchemesCodeSampleExample",
+"""
+<BsToastContainer>
+    <BsToast Variant="BsToastVariant.Default">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Variant="BsToastVariant.Primary">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Variant="BsToastVariant.Secondary">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Variant="BsToastVariant.Success">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Variant="BsToastVariant.Danger">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Variant="BsToastVariant.Warning">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Variant="BsToastVariant.Info">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Variant="BsToastVariant.Light">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Variant="BsToastVariant.Dark">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+</BsToastContainer>
+"""
+		},
+		{
+			"ToastColorSchemesExample",
+"""
+<BsToastContainer Position="null">
+    <BsToast Class="fade show" Variant="BsToastVariant.Default">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Primary">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Secondary">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Success">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Danger">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Warning">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Info">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Light">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Dark">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto"/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+</BsToastContainer>
+"""
+		},
+		{
+			"ToastCustomContentAlternativeExample",
+"""
+<BsToast Class="fade show">
+    <BsToastBody>
+        Hello, world! This is a toast message.
+        <hr/>
+        <BsButton Type="BsButtonType.Button" Variant="BsButtonVariant.Primary">Take action</BsButton>
+        <BsButton Type="BsButtonType.Button" Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Toast">Close</BsButton>
+    </BsToastBody>
+</BsToast>
+"""
+		},
+		{
+			"ToastCustomContentExample",
+"""
+<BsToast Class="fade show">
+    <BsToastBody>
+        <div class="d-flex">
+            Hello, world! This is a toast message.
+            <BsToastCloseButton Class="me-2 m-auto"/>
+        </div>
+    </BsToastBody>
+</BsToast>
+"""
+		},
+		{
 			"ToastLiveExample",
 """
+@using System.Text
+
 <BsButton Type="BsButtonType.Button" Variant="BsButtonVariant.Primary" OnClick="() => _toast.ShowAsync()">
     Show live toast
 </BsButton>
 
-<BsToast @ref="_toast">
-    <BsToastHeader>
-        <MyIcon />
-        <strong class="me-auto">Bootstrap</strong>
-        <small>11 mins ago</small>
-        <BsToastCloseButton/>
-    </BsToastHeader>
-    <BsToastBody>
-        Hello, world! This is a toast message.
-    </BsToastBody>
-</BsToast>
+<BsToastContainer Placement="BsToastPlacement.BottomRight">
+    <BsToast @ref="_toast"
+             OnShow="@(() => _sb1.AppendLine("Show"))"
+             OnShown="@(() => _sb1.AppendLine("Shown"))"
+             OnHide="@(() => _sb1.AppendLine("Hide"))"
+             OnHidden="@(() => _sb1.AppendLine("Hidden"))">
+        <BsToastHeader>
+            <MyIcon />
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <BsToastCloseButton/>
+        </BsToastHeader>
+        <BsToastBody>
+            Hello, world! This is a toast message.
+        </BsToastBody>
+    </BsToast>
+</BsToastContainer>
+
+<div class="mt-4">Events detected by Blazor interactivity:</div>
+<div style="height: 50px; overflow-y: auto; border: 1px solid black">@_sb1</div>
 
 @code
 {
+    private StringBuilder _sb1 = new();
     private BsToast _toast = default!;
 }
 
+"""
+		},
+		{
+			"ToastStackingCodeSampleExample",
+"""
+<BsToastContainer>
+    <BsToast>
+        <BsToastHeader>
+            <MyIcon />
+            <strong class="me-auto">Bootstrap</strong>
+            <small>just now</small>
+            <BsToastCloseButton/>
+        </BsToastHeader>
+        <BsToastBody>
+            See? Just like this
+        </BsToastBody>
+    </BsToast>
+    
+    <BsToast>
+        <BsToastHeader>
+            <MyIcon />
+            <strong class="me-auto">Bootstrap</strong>
+            <small>2 seconds ago</small>
+            <BsToastCloseButton/>
+        </BsToastHeader>
+        <BsToastBody>
+            Heads up, toasts will stack automatically
+        </BsToastBody>
+    </BsToast>
+</BsToastContainer>
+"""
+		},
+		{
+			"ToastStackingExample",
+"""
+<BsToastContainer Placement="BsToastPlacement.BottomLeft" Position="null">
+    <BsToast Class="fase show">
+        <BsToastHeader>
+            <MyIcon />
+            <strong class="me-auto">Bootstrap</strong>
+            <small>just now</small>
+            <BsToastCloseButton/>
+        </BsToastHeader>
+        <BsToastBody>
+            See? Just like this
+        </BsToastBody>
+    </BsToast>
+    
+    <BsToast Class="fase show">
+        <BsToastHeader>
+            <MyIcon />
+            <strong class="me-auto">Bootstrap</strong>
+            <small>2 seconds ago</small>
+            <BsToastCloseButton/>
+        </BsToastHeader>
+        <BsToastBody>
+            Heads up, toasts will stack automatically
+        </BsToastBody>
+    </BsToast>
+</BsToastContainer>
 """
 		},
 	};

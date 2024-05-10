@@ -3,45 +3,43 @@
 @implements IAsyncDisposable
 @inject IJSRuntime JS
 
-<div class="@CssContainerClass">
-    <div
-        @ref="_elementReference"
-        @onhide.bs.toast="() => OnHide.InvokeAsync()"
-        @onhidden.bs.toast="() => OnHidden.InvokeAsync()"
-        @onshow.bs.toast="() => OnShow.InvokeAsync()"
-        @onshown.bs.toast="() => OnShown.InvokeAsync()"
-        class="@CssClass"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-        @attributes="AdditionalAttributes">
-        @ChildContent
-    </div>
+<div
+    id="@_id"
+    @ref="_elementReference"
+    @onhide.bs.toast="() => OnHide.InvokeAsync()"
+    @onhidden.bs.toast="() => OnHidden.InvokeAsync()"
+    @onshow.bs.toast="() => OnShow.InvokeAsync()"
+    @onshown.bs.toast="() => OnShown.InvokeAsync()"
+    class="@CssClass"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    @attributes="AdditionalAttributes">
+    @ChildContent
 </div>
 
 @code
 {
+    private string _id = Guid.NewGuid().ToString("N");
     private ElementReference _elementReference;
     private IJSObjectReference _jsInstance = default!;
 
-    private string CssClass => CssBuilder.New("toast").AddClass(Class).Build();
-
-    private string CssContainerClass => CssBuilder
-        .New("toast-container position-fixed")
-        .AddClass("top-0 start-0", Placement is BsToastPlacement.TopLeft)
-        .AddClass("top-0 start-50 translate-middle-x", Placement is BsToastPlacement.TopCenter)
-        .AddClass("top-0 end-0", Placement is BsToastPlacement.TopRight)
-        .AddClass("top-50 start-0 translate-middle-y", Placement is BsToastPlacement.MiddleLeft)
-        .AddClass("top-50 start-50 translate-middle", Placement is BsToastPlacement.MiddleCenter)
-        .AddClass("top-50 end-0 translate-middle-y", Placement is BsToastPlacement.MiddleRight)
-        .AddClass("bottom-0 start-0", Placement is BsToastPlacement.BottomLeft)
-        .AddClass("bottom-0 start-50 translate-middle-x", Placement is BsToastPlacement.BottomCenter)
-        .AddClass("bottom-0 end-0", Placement is BsToastPlacement.BottomRight)
+    private string CssClass => CssBuilder
+        .Default("toast")
+        .AddClass("text-white bg-primary", Variant == BsToastVariant.Primary)
+        .AddClass("text-white bg-secondary", Variant == BsToastVariant.Secondary)
+        .AddClass("text-white bg-success", Variant == BsToastVariant.Success)
+        .AddClass("text-white bg-danger", Variant == BsToastVariant.Danger)
+        .AddClass("text-black bg-warning", Variant == BsToastVariant.Warning)
+        .AddClass("text-black bg-info", Variant == BsToastVariant.Info)
+        .AddClass("text-dark bg-light", Variant == BsToastVariant.Light)
+        .AddClass("text-light bg-dark", Variant == BsToastVariant.Dark)
+        .AddClass(Class)
         .Build();
 
     [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
 
-    [Parameter] public BsToastPlacement Placement { get; set; } = BsToastPlacement.TopRight;
+    [Parameter] public BsToastVariant Variant { get; set; } = BsToastVariant.Default;
 
     [Parameter] public EventCallback OnHide { get; set; }
 
