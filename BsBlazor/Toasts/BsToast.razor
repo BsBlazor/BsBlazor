@@ -1,0 +1,13 @@
+﻿@namespace BsBlazor
+@inherits BsComponentBase
+
+<div class="toast @Class" role="alert" aria-live="assertive" aria-atomic="true" @attributes="AdditionalAttributes">
+   @ChildContent
+</div>
+
+@code 
+{
+   [Parameter]
+   [EditorRequired]
+   public required RenderFragment ChildContent { get; set; }
+}

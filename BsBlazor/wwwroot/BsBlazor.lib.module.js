@@ -7,9 +7,17 @@ export function afterWebStarted(blazor) {
             }
         });
     }
+    
+    // Modal events
     registerSimpleEvent('show.bs.modal');
     registerSimpleEvent('shown.bs.modal');
     registerSimpleEvent('hide.bs.modal');
     registerSimpleEvent('hideprevented.bs.modal');
     registerSimpleEvent('hidden.bs.modal');
+    
+    // Toast events
+    registerSimpleEvent('hide.bs.toast');
+    registerSimpleEvent('hidden.bs.toast');
+    registerSimpleEvent('show.bs.toast');
+    registerSimpleEvent('shown.bs.toast');
 }

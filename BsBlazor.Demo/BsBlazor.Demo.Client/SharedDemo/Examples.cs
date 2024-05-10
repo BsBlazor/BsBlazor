@@ -156,6 +156,29 @@ public static class Examples
 """
 		},
 		{
+			"ModalServiceDialogExample",
+"""
+<BsModalDialog>
+    Hi
+</BsModalDialog>
+"""
+		},
+		{
+			"ModalServiceExample",
+"""
+@inject IModalService ModalService
+<BsButton OnClick="ShowModalAsync" Variant="BsButtonVariant.Primary">Show Modal</BsButton>
+@code {
+    private async void ShowModalAsync()
+    {
+        //var modalReference = 
+        await ModalService.ShowDialogAsync<ModalServiceDialogExample>();
+    }
+}
+
+"""
+		},
+		{
 			"ModalStaticBackdropExample",
 """
 @using System.Text
@@ -284,6 +307,22 @@ public static class Examples
         <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
     </ModalFooter>
 </BsModal>
+"""
+		},
+		{
+			"ToastBasicExample",
+"""
+<BsToast Class="fade show">
+    <BsToastHeader>
+        <MyIcon />
+        <strong class="me-auto">Bootstrap</strong>
+        <small>11 mins ago</small>
+        <BsToastCloseButton/>
+    </BsToastHeader>
+    <BsToastBody>
+        Hello, world! This is a toast message.
+    </BsToastBody>
+</BsToast>
 """
 		},
 	};
