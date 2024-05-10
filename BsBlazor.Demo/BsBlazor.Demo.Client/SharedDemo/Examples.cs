@@ -50,6 +50,21 @@ public static class Examples
 """
 		},
 		{
+			"ModalInteractiveExample",
+"""
+<BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.Show()">Modal.Show()</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.Toggle()">Modal.Toggle()</BsButton>
+<BsModal @ref="_modal" Keyboard="false" Backdrop="BsModalBackdrop.Static">
+    <BsButton Variant="BsButtonVariant.Secondary" OnClick="() => _modal.Hide()">Hide</BsButton>
+    <BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.Toggle()">Modal.Toggle()</BsButton>
+</BsModal>
+@code {
+    private BsModal _modal = default!;
+}
+
+"""
+		},
+		{
 			"ModalLiveDemoExample",
 """
 @using System.Text

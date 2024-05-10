@@ -1,4 +1,6 @@
-﻿@using BsBlazor
+﻿@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
 <div @ref="_elementReference" 
     class="modal @(Fade ? "fade" : "") @Class"
     @onhide.bs.modal="() => OnHide.InvokeAsync()"
@@ -26,6 +28,7 @@
 @code {
     private Dictionary<string, object> _additionalAttributes = [];
     private ElementReference _elementReference;
+    private IJSObjectReference _jsInstance = default!;
 
     [Parameter]
     public string? Id { get; set; }
@@ -103,6 +106,16 @@
         _ => ""
     };
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            _jsInstance = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Modal.getOrCreateInstance", _elementReference);
+
+        }
+    }
+
+
     protected override void OnParametersSet()
     {
         _additionalAttributes = new Dictionary<string, object>(AdditionalAttributes.ToList());
@@ -114,7 +127,32 @@
         _additionalAttributes["data-bs-keyboard"] = Keyboard.ToString().ToLower();
     }
 
-    public void Show()
+    public async Task Show()
     {
+        await _jsInstance.InvokeVoidAsync("show");
+    }
+
+    public async Task Hide()
+    {
+        await _jsInstance.InvokeVoidAsync("hide");
+    }
+
+    public async Task Toggle()
+    {
+        await _jsInstance.InvokeVoidAsync("toggle");
+    }
+
+    public async Task HandleUpdate()
+    {
+        await _jsInstance.InvokeVoidAsync("handleUpdate");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_jsInstance != null)
+        {
+            await _jsInstance.InvokeVoidAsync("dispose");
+            await _jsInstance.DisposeAsync();
+        }
     }
 }

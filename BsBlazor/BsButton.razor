@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
 <button type="@Type.ToString().ToLower()"
         class="btn btn-@Variant.ToString().ToLower()"
+        @onclick="@(() => OnClick.InvokeAsync())"
         @attributes="_additionalAttributes">
     @ChildContent
 </button>
@@ -23,7 +24,11 @@
     [Parameter]
     public string? Target { get; set; }
 
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
     private Dictionary<string, object> _additionalAttributes = [];
+
 
 
     protected override void OnParametersSet()
