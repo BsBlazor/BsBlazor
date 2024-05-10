@@ -1,0 +1,25 @@
+﻿@namespace BsBlazor
+@inject IModalService ModalService
+@if (ConcreteModalService != null)
+{
+    foreach (var modalReference in ConcreteModalService.ModalReferences)
+    {
+        BsModalRoot? currentRef = null;
+        <BsModalRoot @key="modalReference" 
+                     @ref="currentRef" 
+                     ShowWhenRendered
+                     OnHidden="modalReference.InvokHidden">
+            <DynamicComponent Type="modalReference.DialogType" />
+        </BsModalRoot>
+        modalReference.Initialize(currentRef!);
+    }
+}
+@code {
+    private ModalService? ConcreteModalService => ModalService as ModalService;
+    protected override void OnInitialized()
+    {
+        if (ConcreteModalService == null) { return; }
+        ConcreteModalService.OnModalAdded += (modalReference) => StateHasChanged();
+        ConcreteModalService.OnModalRemoved += (modalReference) => StateHasChanged();
+    }
+}

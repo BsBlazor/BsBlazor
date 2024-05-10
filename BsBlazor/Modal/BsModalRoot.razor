@@ -19,6 +19,9 @@
     private IJSObjectReference _jsInstance = default!;
 
     [Parameter]
+    public bool ShowWhenRendered { get; set; }
+
+    [Parameter]
     public string? Id { get; set; }
 
     [Parameter]
@@ -59,6 +62,10 @@
         if(firstRender)
         {
             _jsInstance = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Modal.getOrCreateInstance", _elementReference);
+            if (ShowWhenRendered)
+            {
+                await ShowAsync();
+            }
         }
     }
 
@@ -73,22 +80,22 @@
         _additionalAttributes["data-bs-keyboard"] = Keyboard.ToString().ToLower();
     }
 
-    public async Task Show()
+    public async Task ShowAsync()
     {
         await _jsInstance.InvokeVoidAsync("show");
     }
 
-    public async Task Hide()
+    public async Task HideAsync()
     {
         await _jsInstance.InvokeVoidAsync("hide");
     }
 
-    public async Task Toggle()
+    public async Task ToggleAsync()
     {
         await _jsInstance.InvokeVoidAsync("toggle");
     }
 
-    public async Task HandleUpdate()
+    public async Task HandleUpdateAsync()
     {
         await _jsInstance.InvokeVoidAsync("handleUpdate");
     }

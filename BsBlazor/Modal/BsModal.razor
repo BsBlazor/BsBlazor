@@ -80,8 +80,8 @@
 
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
-    public async Task Show() => await _modalRoot.Show();
-    public async Task Hide() => await _modalRoot.Hide();
-    public async Task Toggle() => await _modalRoot.Toggle();
-    public async Task HandleUpdate() => await _modalRoot.HandleUpdate();
+    public async Task ShowAsync() => await _modalRoot.ShowAsync();
+    public async Task HideAsync() => await _modalRoot.HideAsync();
+    public async Task ToggleAsync() => await _modalRoot.ToggleAsync();
+    public async Task HandleUpdateAsync() => await _modalRoot.HandleUpdateAsync();
 }
