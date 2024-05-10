@@ -341,7 +341,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -349,7 +349,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -357,7 +357,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -365,7 +365,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -397,7 +397,7 @@ public static class Examples
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -408,7 +408,7 @@ public static class Examples
 			"ToastColorSchemesExample",
 """
 <BsToastContainer Position="null">
-    <BsToast Class="fade show" Variant="BsToastVariant.Default">
+    <BsToast Class="fade show" Variant="BsToastVariant.Default" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -416,7 +416,39 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Primary">
+    <BsToast Class="fade show" Variant="BsToastVariant.Primary" AutoHide="false">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto" White/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Secondary" AutoHide="false">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto" White/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Success" AutoHide="false">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto" White/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Danger" AutoHide="false">
+        <BsToastBody>
+            <div class="d-flex">
+                Hello, world! This is a toast message.
+                <BsToastCloseButton Class="me-2 m-auto" White/>
+            </div>
+        </BsToastBody>
+    </BsToast>
+    <BsToast Class="fade show" Variant="BsToastVariant.Warning" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -424,7 +456,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Secondary">
+    <BsToast Class="fade show" Variant="BsToastVariant.Info" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -432,7 +464,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Success">
+    <BsToast Class="fade show" Variant="BsToastVariant.Light" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -440,43 +472,11 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Danger">
+    <BsToast Class="fade show" Variant="BsToastVariant.Dark" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
-            </div>
-        </BsToastBody>
-    </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Warning">
-        <BsToastBody>
-            <div class="d-flex">
-                Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
-            </div>
-        </BsToastBody>
-    </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Info">
-        <BsToastBody>
-            <div class="d-flex">
-                Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
-            </div>
-        </BsToastBody>
-    </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Light">
-        <BsToastBody>
-            <div class="d-flex">
-                Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
-            </div>
-        </BsToastBody>
-    </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Dark">
-        <BsToastBody>
-            <div class="d-flex">
-                Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
+                <BsToastCloseButton Class="me-2 m-auto" White/>
             </div>
         </BsToastBody>
     </BsToast>
@@ -581,7 +581,7 @@ public static class Examples
 			"ToastStackingExample",
 """
 <BsToastContainer Placement="BsToastPlacement.BottomLeft" Position="null">
-    <BsToast Class="fase show">
+    <BsToast Class="fase show" AutoHide="false">
         <BsToastHeader>
             <MyIcon />
             <strong class="me-auto">Bootstrap</strong>
@@ -593,7 +593,7 @@ public static class Examples
         </BsToastBody>
     </BsToast>
     
-    <BsToast Class="fase show">
+    <BsToast Class="fase show" AutoHide="false">
         <BsToastHeader>
             <MyIcon />
             <strong class="me-auto">Bootstrap</strong>

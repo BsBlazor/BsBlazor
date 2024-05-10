@@ -40,6 +40,10 @@
     [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
 
     [Parameter] public BsToastVariant Variant { get; set; } = BsToastVariant.Default;
+    
+    [Parameter] public bool Animation { get; set; } = true;
+    [Parameter] public bool AutoHide { get; set; } = true;
+    [Parameter] public int Delay { get; set; } = 2000;
 
     [Parameter] public EventCallback OnHide { get; set; }
 
@@ -55,6 +59,13 @@
         {
             _jsInstance = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Toast.getOrCreateInstance", _elementReference);
         }
+    }
+
+    protected override void OnParametersSet()
+    {
+        AdditionalAttributes["data-bs-autohide"] = AutoHide.ToString().ToLower();
+        AdditionalAttributes["data-bs-delay"] = Delay.ToString();
+        AdditionalAttributes["data-bs-animation"] = Animation.ToString().ToLower();
     }
 
     public async Task ShowAsync() => await _jsInstance.InvokeVoidAsync("show");
