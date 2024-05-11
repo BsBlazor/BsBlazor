@@ -4,5 +4,7 @@
     private async void ShowModalAsync()
     {
         var modalReference = await ModalService.ShowDialogAsync<ModalServiceDialogExample>();
+        await modalReference.WaitClosedAsync();
+        Console.WriteLine($"Modal closed");
     }
 }

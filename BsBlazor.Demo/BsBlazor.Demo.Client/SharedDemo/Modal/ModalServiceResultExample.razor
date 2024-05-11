@@ -1,0 +1,10 @@
+﻿@inject IModalService ModalService
+<BsButton OnClick="ShowModalAsync" Variant="BsButtonVariant.Primary">Show Modal</BsButton>
+@code {
+    private async void ShowModalAsync()
+    {
+        var modalReference = await ModalService.ShowDialogAsync<ModalServiceResultDialogExample>();
+        var result = await modalReference.WaitClosedAsync<bool>();
+        Console.WriteLine($"Modal closed with result '{result}'.");
+    }
+}

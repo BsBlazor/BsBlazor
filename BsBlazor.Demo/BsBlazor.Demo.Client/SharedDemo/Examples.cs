@@ -160,7 +160,12 @@ public static class Examples
 """
 <BsModalDialog>
     Hi
+    <BsButton OnClick="() => ModalReference.CloseAsync()">Close myself</BsButton>
 </BsModalDialog>
+@code{
+    [CascadingParameter]
+    public required IModalReference ModalReference { get; set; }
+}
 """
 		},
 		{
@@ -172,6 +177,37 @@ public static class Examples
     private async void ShowModalAsync()
     {
         var modalReference = await ModalService.ShowDialogAsync<ModalServiceDialogExample>();
+        await modalReference.WaitClosedAsync();
+        Console.WriteLine($"Modal closed");
+    }
+}
+
+"""
+		},
+		{
+			"ModalServiceResultDialogExample",
+"""
+<BsModalDialog>
+    Hi
+    <BsButton OnClick="() => ModalReference.CloseAsync(true)">Close myself</BsButton>
+</BsModalDialog>
+@code{
+    [CascadingParameter]
+    public required IModalReference ModalReference { get; set; }
+}
+"""
+		},
+		{
+			"ModalServiceResultExample",
+"""
+@inject IModalService ModalService
+<BsButton OnClick="ShowModalAsync" Variant="BsButtonVariant.Primary">Show Modal</BsButton>
+@code {
+    private async void ShowModalAsync()
+    {
+        var modalReference = await ModalService.ShowDialogAsync<ModalServiceResultDialogExample>();
+        var result = await modalReference.WaitClosedAsync<bool>();
+        Console.WriteLine($"Modal closed with result '{result}'.");
     }
 }
 
