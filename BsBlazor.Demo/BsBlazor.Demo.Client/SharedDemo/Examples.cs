@@ -443,7 +443,7 @@ public static class Examples
 			"ToastColorSchemesExample",
 """
 <BsToastContainer Position="null">
-    <BsToast Class="fade show" Variant="BsToastVariant.Default">
+    <BsToast Class="fade show" Variant="BsToastVariant.Default" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -451,7 +451,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Primary">
+    <BsToast Class="fade show" Variant="BsToastVariant.Primary" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -459,7 +459,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Secondary">
+    <BsToast Class="fade show" Variant="BsToastVariant.Secondary" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -467,7 +467,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Success">
+    <BsToast Class="fade show" Variant="BsToastVariant.Success" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -475,7 +475,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Danger">
+    <BsToast Class="fade show" Variant="BsToastVariant.Danger" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -483,7 +483,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Warning">
+    <BsToast Class="fade show" Variant="BsToastVariant.Warning" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -491,7 +491,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Info">
+    <BsToast Class="fade show" Variant="BsToastVariant.Info" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -499,7 +499,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Light">
+    <BsToast Class="fade show" Variant="BsToastVariant.Light" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -507,7 +507,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Dark">
+    <BsToast Class="fade show" Variant="BsToastVariant.Dark" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -616,7 +616,7 @@ public static class Examples
 			"ToastStackingExample",
 """
 <BsToastContainer Placement="BsToastPlacement.BottomLeft" Position="null">
-    <BsToast Class="fase show">
+    <BsToast Class="fase show" AutoHide="false">
         <BsToastHeader>
             <MyIcon />
             <strong class="me-auto">Bootstrap</strong>
@@ -628,7 +628,7 @@ public static class Examples
         </BsToastBody>
     </BsToast>
     
-    <BsToast Class="fase show">
+    <BsToast Class="fase show" AutoHide="false">
         <BsToastHeader>
             <MyIcon />
             <strong class="me-auto">Bootstrap</strong>
