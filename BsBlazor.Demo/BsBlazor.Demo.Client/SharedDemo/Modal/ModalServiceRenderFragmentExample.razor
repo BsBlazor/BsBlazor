@@ -3,6 +3,9 @@
 @code {
     private async void ShowModalAsync()
     {
-        await ModalService.ShowDialogAsync(@<BsModalDialogShorthand>Render fragment</BsModalDialogShorthand>);
+        await ModalService.ShowDialogAsync(@<BsModalDialogShorthand Title="Render fragment title">
+            Render fragment
+            
+        </BsModalDialogShorthand>);
     }
 }

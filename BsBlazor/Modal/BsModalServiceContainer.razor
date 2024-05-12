@@ -6,20 +6,25 @@
     {
         BsModal? currentRef = null;
         <BsModal @key="modalReference"
-                     @ref="currentRef"
-                     ShowWhenRendered
-                     OnHidden="modalReference.InvokHidden">
+                 @ref="currentRef"
+                 ShowWhenRendered
+                 OnHidden="modalReference.InvokHidden">
             @{
                 modalReference.Initialize(currentRef!);
             }
             <CascadingValue TValue="IModalReference" IsFixed Value="modalReference">
-            @if (modalReference.DialogType != null)
-            {
-                <DynamicComponent Type="modalReference.DialogType" />
-            }else if(modalReference.RenderFragment != null)
-            {
-                @modalReference.RenderFragment;
-            }
+                @if (modalReference.DialogType != null)
+                {
+                    <DynamicComponent Type="modalReference.DialogType" />
+                }
+                else if (modalReference.RenderFragment != null)
+                {
+                    @modalReference.RenderFragment
+                }
+                else if (modalReference.ContextualRenderFragment != null)
+                {
+                    @modalReference.ContextualRenderFragment(modalReference)
+                }
             </CascadingValue>
         </BsModal>
     }

@@ -8,7 +8,8 @@ internal class ModalReference : IModalReference
     private BsModal? _modal;
     internal event Action? OnHidden;
     internal Type? DialogType { get; set; }
-    internal RenderFragment? RenderFragment { get; set; } 
+    internal RenderFragment? RenderFragment { get; set; }
+    internal RenderFragment<IModalReference>? ContextualRenderFragment { get; set; }
     internal virtual Type ResultType => typeof(object);
     internal void InvokHidden()
     {

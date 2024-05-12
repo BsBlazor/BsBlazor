@@ -158,7 +158,34 @@ public static class Examples
 @code {
     private async void ShowModalAsync()
     {
-        await ModalService.ShowDialogAsync(@<BsModalDialogShorthand>Render fragment</BsModalDialogShorthand>);
+        await ModalService.ShowDialogAsync(@<BsModalDialogShorthand Title="Render fragment title">
+            Render fragment
+            
+        </BsModalDialogShorthand>);
+    }
+}
+"""
+		},
+		{
+			"ModalServiceRenderFragmentWithReferenceExample",
+"""
+@inject IModalService ModalService
+<BsButton OnClick="ShowModalAsync" Variant="BsButtonVariant.Primary">Show Modal</BsButton>
+<div>Last result: @_lastResult</div>
+@code {
+    private bool? _lastResult;
+    private async void ShowModalAsync()
+    {
+        var modalReference = await ModalService.ShowDialogAsync(modalReference => 
+            @<BsModalDialogShorthand ShowPrimaryButton
+                                     PrimaryButtonText="Save and close"
+                                     OnPrimaryButtonClick="() => modalReference.CloseAsync(true)"
+                                     Title="Render fragment + reference title">
+                Render fragment with modal reference
+            </BsModalDialogShorthand>
+        );
+        _lastResult = await modalReference.WaitClosedAsync<bool>();
+        StateHasChanged();
     }
 }
 """

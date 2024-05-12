@@ -7,9 +7,3 @@ public interface IModalReference
     Task WaitClosedAsync();
     Task<TResult> WaitClosedAsync<TResult>();
 }
-
-public interface IModalReference<TResult>
-{
-    Task<TResult> WaitClosedAsync();
-    Task CloseAsync(TResult? result = default);
-}

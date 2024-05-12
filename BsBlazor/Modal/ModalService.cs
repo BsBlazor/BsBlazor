@@ -17,6 +17,16 @@ internal class ModalService: IModalService
         return await ShowDialogAsync(modalReference);
     }
 
+
+    public async Task<IModalReference> ShowDialogAsync(RenderFragment<IModalReference> contextualRenderFragment)
+    {
+        var modalReference = new ModalReference
+        {
+            ContextualRenderFragment = contextualRenderFragment
+        };
+        return await ShowDialogAsync(modalReference);
+    }
+
     public async Task<IModalReference> ShowDialogAsync<TDialogComponent>()
     {
         var modalReference = new ModalReference
