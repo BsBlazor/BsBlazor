@@ -34,6 +34,10 @@ internal class ModalReference : IModalReference
     public async Task<TResult> WaitClosedAsync<TResult>()
     {
         var obj = await _resultCompletion.Task;
+        if(obj is null)
+        {
+            return default!;
+        }
         return (TResult)obj!;
     }
 }
