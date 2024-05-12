@@ -10,6 +10,7 @@ internal class ModalReference : IModalReference
     internal Type? DialogType { get; set; }
     internal RenderFragment? RenderFragment { get; set; }
     internal RenderFragment<IModalReference>? ContextualRenderFragment { get; set; }
+    internal required ModalOptions ModalOptions { get; init; } = new();
     internal virtual Type ResultType => typeof(object);
     internal void InvokHidden()
     {

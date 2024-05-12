@@ -11,7 +11,8 @@
                                      OnPrimaryButtonClick="() => modalReference.CloseAsync(true)"
                                      Title="Render fragment + reference title">
                 Render fragment with modal reference
-            </BsModalDialogShorthand>
+            </BsModalDialogShorthand>,
+            new ModalOptions { Keyboard = false, Backdrop = BsModalBackdrop.Static }
         );
         _lastResult = await modalReference.WaitClosedAsync<bool>();
         StateHasChanged();

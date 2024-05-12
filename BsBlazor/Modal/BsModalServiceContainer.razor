@@ -8,10 +8,11 @@
         <BsModal @key="modalReference"
                  @ref="currentRef"
                  ShowWhenRendered
+                 Fade="modalReference.ModalOptions.Fade"
+                 Keyboard="modalReference.ModalOptions.Keyboard"
+                 Backdrop="modalReference.ModalOptions.Backdrop"
                  OnHidden="modalReference.InvokHidden">
-            @{
-                modalReference.Initialize(currentRef!);
-            }
+            @{ modalReference.Initialize(currentRef!); }
             <CascadingValue TValue="IModalReference" IsFixed Value="modalReference">
                 @if (modalReference.DialogType != null)
                 {

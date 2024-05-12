@@ -8,30 +8,33 @@ internal class ModalService: IModalService
     public event Action<ModalReference>? OnModalRemoved;
     public List<ModalReference> ModalReferences { get; private set; } = [];
 
-    public async Task<IModalReference> ShowDialogAsync(RenderFragment renderFragment)
+    public async Task<IModalReference> ShowDialogAsync(RenderFragment renderFragment, ModalOptions? modalOptions = null)
     {
         var modalReference = new ModalReference
         {
-            RenderFragment = renderFragment
+            RenderFragment = renderFragment,
+            ModalOptions = modalOptions ?? new ModalOptions()
         };
         return await ShowDialogAsync(modalReference);
     }
 
 
-    public async Task<IModalReference> ShowDialogAsync(RenderFragment<IModalReference> contextualRenderFragment)
+    public async Task<IModalReference> ShowDialogAsync(RenderFragment<IModalReference> contextualRenderFragment, ModalOptions? modalOptions = null)
     {
         var modalReference = new ModalReference
         {
-            ContextualRenderFragment = contextualRenderFragment
+            ContextualRenderFragment = contextualRenderFragment,
+            ModalOptions = modalOptions ?? new ModalOptions()
         };
         return await ShowDialogAsync(modalReference);
     }
 
-    public async Task<IModalReference> ShowDialogAsync<TDialogComponent>()
+    public async Task<IModalReference> ShowDialogAsync<TDialogComponent>(ModalOptions? modalOptions = null)
     {
         var modalReference = new ModalReference
         {
-            DialogType = typeof(TDialogComponent)
+            DialogType = typeof(TDialogComponent),
+            ModalOptions = modalOptions ?? new ModalOptions()
         };
        return await ShowDialogAsync(modalReference);
     }

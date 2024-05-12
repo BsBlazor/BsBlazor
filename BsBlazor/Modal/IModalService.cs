@@ -3,7 +3,7 @@
 namespace BsBlazor;
 public interface IModalService
 {
-    Task<IModalReference> ShowDialogAsync<TDialogComponent>();
-    Task<IModalReference> ShowDialogAsync(RenderFragment renderFragment);
-    Task<IModalReference> ShowDialogAsync(RenderFragment<IModalReference> contextualRenderFragment);
+    Task<IModalReference> ShowDialogAsync<TDialogComponent>(ModalOptions? modalOptions = null);
+    Task<IModalReference> ShowDialogAsync(RenderFragment renderFragment, ModalOptions? modalOptions = null);
+    Task<IModalReference> ShowDialogAsync(RenderFragment<IModalReference> contextualRenderFragment, ModalOptions? modalOptions = null);
 }
