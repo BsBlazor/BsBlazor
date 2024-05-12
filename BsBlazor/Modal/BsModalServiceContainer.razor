@@ -9,9 +9,17 @@
                      @ref="currentRef"
                      ShowWhenRendered
                      OnHidden="modalReference.InvokHidden">
-            @{ modalReference.Initialize(currentRef!); }
+            @{
+                modalReference.Initialize(currentRef!);
+            }
             <CascadingValue TValue="IModalReference" IsFixed Value="modalReference">
+            @if (modalReference.DialogType != null)
+            {
                 <DynamicComponent Type="modalReference.DialogType" />
+            }else if(modalReference.RenderFragment != null)
+            {
+                @modalReference.RenderFragment;
+            }
             </CascadingValue>
         </BsModal>
     }

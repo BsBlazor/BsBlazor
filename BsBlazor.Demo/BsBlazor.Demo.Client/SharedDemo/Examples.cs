@@ -151,6 +151,19 @@ public static class Examples
 """
 		},
 		{
+			"ModalServiceRenderFragmentExample",
+"""
+@inject IModalService ModalService
+<BsButton OnClick="ShowModalAsync" Variant="BsButtonVariant.Primary">Show Modal</BsButton>
+@code {
+    private async void ShowModalAsync()
+    {
+        await ModalService.ShowDialogAsync(@<BsModalDialogShorthand>Render fragment</BsModalDialogShorthand>);
+    }
+}
+"""
+		},
+		{
 			"ModalServiceResultDialogExample",
 """
 <BsModalDialogShorthand>

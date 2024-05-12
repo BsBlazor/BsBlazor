@@ -1,4 +1,6 @@
-﻿namespace BsBlazor;
+﻿using Microsoft.AspNetCore.Components;
+
+namespace BsBlazor;
 
 internal class ModalService: IModalService
 {
@@ -6,6 +8,14 @@ internal class ModalService: IModalService
     public event Action<ModalReference>? OnModalRemoved;
     public List<ModalReference> ModalReferences { get; private set; } = [];
 
+    public async Task<IModalReference> ShowDialogAsync(RenderFragment renderFragment)
+    {
+        var modalReference = new ModalReference
+        {
+            RenderFragment = renderFragment
+        };
+        return await ShowDialogAsync(modalReference);
+    }
 
     public async Task<IModalReference> ShowDialogAsync<TDialogComponent>()
     {
@@ -13,6 +23,11 @@ internal class ModalService: IModalService
         {
             DialogType = typeof(TDialogComponent)
         };
+       return await ShowDialogAsync(modalReference);
+    }
+
+    private async Task<IModalReference> ShowDialogAsync(ModalReference modalReference)
+    {
         ModalReferences.Add(modalReference);
         OnModalAdded?.Invoke(modalReference);
         modalReference.OnHidden += () =>

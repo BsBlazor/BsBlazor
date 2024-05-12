@@ -1,11 +1,14 @@
-﻿namespace BsBlazor;
+﻿using Microsoft.AspNetCore.Components;
+
+namespace BsBlazor;
 
 internal class ModalReference : IModalReference
 {
     private readonly TaskCompletionSource<object?> _resultCompletion = new();
     private BsModal? _modal;
     internal event Action? OnHidden;
-    internal required Type DialogType { get; init; }
+    internal Type? DialogType { get; set; }
+    internal RenderFragment? RenderFragment { get; set; } 
     internal virtual Type ResultType => typeof(object);
     internal void InvokHidden()
     {
