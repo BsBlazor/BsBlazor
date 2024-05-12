@@ -12,8 +12,7 @@
     [Parameter]
     [EditorRequired]
     public required string For { get; set; }
-
-
+    
     private string GetCodeContent()
     {
         if (Examples.Contents.TryGetValue(For, out var content))
