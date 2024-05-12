@@ -8,6 +8,7 @@ internal class ModalReference : IModalReference
     private BsModal? _modal;
     internal event Action? OnHidden;
     internal Type? DialogType { get; set; }
+    internal Dictionary<string, object?>? Parameters { get; set; }
     internal RenderFragment? RenderFragment { get; set; }
     internal RenderFragment<IModalReference>? ContextualRenderFragment { get; set; }
     internal required ModalOptions ModalOptions { get; init; } = new();

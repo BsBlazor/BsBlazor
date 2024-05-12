@@ -3,7 +3,10 @@
 @code {
     private async void ShowModalAsync()
     {
-        var modalReference = await ModalService.ShowDialogAsync<ModalServiceDialogExample>();
+        var modalReference = await ModalService.ShowDialogAsync<ModalServiceDialogExample>(
+            parameters: p => p.Add(c => c.Name, "Name Parameter")
+                              .Add(c => c.SecondParameter, "X")
+        );
         await modalReference.WaitClosedAsync();
         Console.WriteLine($"Modal closed");
     }

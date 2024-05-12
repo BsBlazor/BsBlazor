@@ -16,7 +16,7 @@
             <CascadingValue TValue="IModalReference" IsFixed Value="modalReference">
                 @if (modalReference.DialogType != null)
                 {
-                    <DynamicComponent Type="modalReference.DialogType" />
+                    <DynamicComponent Type="modalReference.DialogType" Parameters="modalReference.Parameters" />
                 }
                 else if (modalReference.RenderFragment != null)
                 {

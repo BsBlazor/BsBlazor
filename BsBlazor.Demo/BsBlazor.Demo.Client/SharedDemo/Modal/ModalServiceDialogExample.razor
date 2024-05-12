@@ -1,8 +1,17 @@
-﻿<BsModalDialogShorthand>
-    Hi
-    <BsButton OnClick="() => ModalReference.CloseAsync()">Close myself</BsButton>
+﻿<BsModalDialogShorthand Title="Modal Service with parameters">
+    <div>
+        Hi, @Name
+    </div>
+    <div>
+        Second Parameter: @SecondParameter
+    </div>
+    <BsButton Variant="BsButtonVariant.Secondary" OnClick="() => ModalReference.CloseAsync()">Close myself</BsButton>
 </BsModalDialogShorthand>
 @code{
     [CascadingParameter]
     public required IModalReference ModalReference { get; set; }
+    [Parameter]
+    public string Name { get; set; } = "";
+    [Parameter]
+    public string SecondParameter { get; set; } = "";
 }

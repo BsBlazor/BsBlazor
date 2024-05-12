@@ -29,12 +29,18 @@ internal class ModalService: IModalService
         return await ShowDialogAsync(modalReference);
     }
 
-    public async Task<IModalReference> ShowDialogAsync<TDialogComponent>(ModalOptions? modalOptions = null)
+    public async Task<IModalReference> ShowDialogAsync<TDialogComponent>(
+        ModalOptions? modalOptions = null,
+        Action<DialogComponentParameters<TDialogComponent>>? parameters = null
+    )
     {
+        var p = new DialogComponentParameters<TDialogComponent>();
+        parameters?.Invoke(p);
         var modalReference = new ModalReference
         {
             DialogType = typeof(TDialogComponent),
-            ModalOptions = modalOptions ?? new ModalOptions()
+            ModalOptions = modalOptions ?? new ModalOptions(),
+            Parameters = p.Parameters
         };
        return await ShowDialogAsync(modalReference);
     }

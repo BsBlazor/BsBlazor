@@ -124,13 +124,22 @@ public static class Examples
 		{
 			"ModalServiceDialogExample",
 """
-<BsModalDialogShorthand>
-    Hi
-    <BsButton OnClick="() => ModalReference.CloseAsync()">Close myself</BsButton>
+<BsModalDialogShorthand Title="Modal Service with parameters">
+    <div>
+        Hi, @Name
+    </div>
+    <div>
+        Second Parameter: @SecondParameter
+    </div>
+    <BsButton Variant="BsButtonVariant.Secondary" OnClick="() => ModalReference.CloseAsync()">Close myself</BsButton>
 </BsModalDialogShorthand>
 @code{
     [CascadingParameter]
     public required IModalReference ModalReference { get; set; }
+    [Parameter]
+    public string Name { get; set; } = "";
+    [Parameter]
+    public string SecondParameter { get; set; } = "";
 }
 """
 		},
@@ -142,7 +151,10 @@ public static class Examples
 @code {
     private async void ShowModalAsync()
     {
-        var modalReference = await ModalService.ShowDialogAsync<ModalServiceDialogExample>();
+        var modalReference = await ModalService.ShowDialogAsync<ModalServiceDialogExample>(
+            parameters: p => p.Add(c => c.Name, "Name Parameter")
+                              .Add(c => c.SecondParameter, "X")
+        );
         await modalReference.WaitClosedAsync();
         Console.WriteLine($"Modal closed");
     }
@@ -158,10 +170,11 @@ public static class Examples
 @code {
     private async void ShowModalAsync()
     {
-        await ModalService.ShowDialogAsync(@<BsModalDialogShorthand Title="Render fragment title">
-            Render fragment
-            
-        </BsModalDialogShorthand>);
+        await ModalService.ShowDialogAsync(
+            @<BsModalDialogShorthand Title="Render fragment title">
+                Render fragment
+            </BsModalDialogShorthand>, 
+            new ModalOptions { Keyboard = false, Backdrop = BsModalBackdrop.Static });
     }
 }
 """
@@ -182,7 +195,8 @@ public static class Examples
                                      OnPrimaryButtonClick="() => modalReference.CloseAsync(true)"
                                      Title="Render fragment + reference title">
                 Render fragment with modal reference
-            </BsModalDialogShorthand>
+            </BsModalDialogShorthand>,
+            new ModalOptions { Keyboard = false, Backdrop = BsModalBackdrop.Static }
         );
         _lastResult = await modalReference.WaitClosedAsync<bool>();
         StateHasChanged();
