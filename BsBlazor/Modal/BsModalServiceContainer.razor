@@ -4,24 +4,16 @@
 {
     foreach (var modalReference in ConcreteModalService.ModalReferences)
     {
-        BsModalRoot? currentRef = null;
-        <BsModalRoot @key="modalReference"
+        BsModal? currentRef = null;
+        <BsModal @key="modalReference"
                      @ref="currentRef"
                      ShowWhenRendered
                      OnHidden="modalReference.InvokHidden">
             @{ modalReference.Initialize(currentRef!); }
             <CascadingValue TValue="IModalReference" IsFixed Value="modalReference">
                 <DynamicComponent Type="modalReference.DialogType" />
-               @*  @if (typeof(IModalReference<>).IsAssignableFrom(modalReference))
-                {
-
-                }
-                else
-                {
-                    <DynamicComponent Type="modalReference.DialogType" />
-                } *@
             </CascadingValue>
-        </BsModalRoot>
+        </BsModal>
     }
 }
 @code {

@@ -1,9 +1,9 @@
 ﻿<BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.ShowAsync()">Modal.Show()</BsButton>
 <BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.ToggleAsync()">Modal.Toggle()</BsButton>
-<BsModal @ref="_modal" Keyboard="false" Backdrop="BsModalBackdrop.Static">
+<BsModalShorthand @ref="_modal" Keyboard="false" Backdrop="BsModalBackdrop.Static">
     <BsButton Variant="BsButtonVariant.Secondary" OnClick="() => _modal.HideAsync()">Hide</BsButton>
     <BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.ToggleAsync()">Modal.Toggle()</BsButton>
-</BsModal>
+</BsModalShorthand>
 @code {
-    private BsModal _modal = default!;
+    private BsModalShorthand _modal = default!;
 }

@@ -1,29 +1,25 @@
 ﻿<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalToggle">Open first modal</BsButton>
-<BsModal Id="exampleModalToggle" Centered>
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
+<BsModalShorthand Id="exampleModalToggle"
+                  Title="Modal 1"
+                  Centered>
     <ChildContent>
         Show a second modal and hide this one with the button below.
     </ChildContent>
-    <ModalFooter>
+    <CustomFooter>
         <BsButton Variant="BsButtonVariant.Primary" Dismiss="BsButtonDismiss.Modal"
                   Target="#exampleModalToggle2"
                   Toggle="BsButtonTogle.Modal">Open second modal</BsButton>
-    </ModalFooter>
-</BsModal>
-<BsModal Id="exampleModalToggle2" Centered>
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
+    </CustomFooter>
+</BsModalShorthand>
+<BsModalShorthand Id="exampleModalToggle2" 
+                  Title="Modal 2"
+                  Centered>
     <ChildContent>
         Hide this modal and show the first with the button below.
     </ChildContent>
-    <ModalFooter>
+    <CustomFooter>
         <BsButton Variant="BsButtonVariant.Primary" Dismiss="BsButtonDismiss.Modal"
                   Target="#exampleModalToggle"
                   Toggle="BsButtonTogle.Modal">Back to first</BsButton>
-    </ModalFooter>
-</BsModal>
+    </CustomFooter>
+</BsModalShorthand>

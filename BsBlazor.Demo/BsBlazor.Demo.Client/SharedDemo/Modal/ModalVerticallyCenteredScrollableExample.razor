@@ -1,18 +1,13 @@
 ﻿<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#verticallyCenteredScrollable">
     Vertically centered scrollable modal
 </BsButton>
-<BsModal Id="verticallyCenteredScrollable" Scrollable Centered>
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        <p>This is some placeholder content to show a vertically centered modal. We've added some extra copy here to show how vertically centering the modal works when combined with scrollable modals. We also use some repeated line breaks to quickly extend the height of the content, thereby triggering the scrolling. When content becomes longer than the prefedined max-height of modal, content will be cropped and scrollable within the modal.</p>
-        <br><br><br><br><br><br><br><br><br><br>
-        <p>Just like that.</p>
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
-    </ModalFooter>
-</BsModal>
+<BsModalShorthand Id="verticallyCenteredScrollable"
+                  Title="Modal title"
+                  Scrollable
+                  ShowPrimaryButton
+                  PrimaryButtonText="Save changes"
+                  Centered>
+    <p>This is some placeholder content to show a vertically centered modal. We've added some extra copy here to show how vertically centering the modal works when combined with scrollable modals. We also use some repeated line breaks to quickly extend the height of the content, thereby triggering the scrolling. When content becomes longer than the prefedined max-height of modal, content will be cropped and scrollable within the modal.</p>
+    <br><br><br><br><br><br><br><br><br><br>
+    <p>Just like that.</p>
+</BsModalShorthand>

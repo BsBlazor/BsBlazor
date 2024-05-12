@@ -1,0 +1,92 @@
+﻿@namespace BsBlazor
+@inherits BsParentComponentBase
+@implements IBsModalParameters
+@implements IBsModalDialogParameters
+@implements IBsModalDialogShorthandParameters
+<BsModal @ref="_modal"
+         Id="@Id"
+         Class="@Class" 
+         AdditionalAttributes="AdditionalAttributes"
+         Fade="Fade"
+         Keyboard="Keyboard"
+         Backdrop="Backdrop"
+         OnHide="OnHide"
+         OnHidePrevented="OnHidePrevented"
+         OnHidden="OnHidden"
+         OnShow="OnShow"
+         OnShown="OnShown"
+         ShowWhenRendered="ShowWhenRendered">
+         <BsModalDialogShorthand Centered="Centered"
+                                 Scrollable="Scrollable"
+                                 Size="Size"
+                                 Fullscreen="Fullscreen"
+                                 Title="@Title"
+                                 ShowDismissButton="@ShowDismissButton"
+                                 ShowPrimaryButton="@ShowPrimaryButton"
+                                 DismissButtonText="@DismissButtonText"
+                                 PrimaryButtonText="@PrimaryButtonText"
+                                 OnPrimaryButtonClick="OnPrimaryButtonClick"
+                                 CustomFooter="CustomFooter!">
+             @ChildContent
+         </BsModalDialogShorthand>
+</BsModal>
+@code{
+    private BsModal _modal = default!;
+
+    [Parameter]
+    public string Title { get; set; } = "";
+    [Parameter]
+    public bool ShowDismissButton { get; set; } = true;
+    [Parameter]
+    public bool ShowPrimaryButton { get; set; } = false;
+    [Parameter]
+    public string DismissButtonText { get; set; } = "Close";
+    [Parameter]
+    public string PrimaryButtonText { get; set; } = "Ok";
+    [Parameter]
+    public EventCallback OnPrimaryButtonClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? CustomFooter { get; set; }
+
+    // Modal
+    [Parameter]
+    public string? Id {get;set;}
+    [Parameter]
+    public bool Fade { get; set; } = true;
+    [Parameter]
+    public bool Keyboard { get; set; } = true;
+    [Parameter]
+    public BsModalBackdrop Backdrop { get; set; } = BsModalBackdrop.True;
+    [Parameter]
+    public bool ShowWhenRendered { get; set; }
+
+    [Parameter]
+    public EventCallback OnHide { get; set; }
+    [Parameter]
+    public EventCallback OnHidePrevented { get; set; }
+    [Parameter]
+    public EventCallback OnHidden { get; set; }
+    [Parameter]
+    public EventCallback OnShow { get; set; }
+    [Parameter]
+    public EventCallback OnShown { get; set; }
+
+    // ModalDialog
+    [Parameter]
+    public bool Scrollable { get; set; } = false;
+
+    [Parameter]
+    public bool Centered { get; set; } = false;
+
+    [Parameter]
+    public BsModalSize Size { get; set; } = BsModalSize.Default;
+
+    [Parameter]
+    public BsModalFullscreen Fullscreen { get; set; } = BsModalFullscreen.Never;
+
+    public async Task ShowAsync() => await _modal.ShowAsync();
+    public async Task HideAsync() => await _modal.HideAsync();
+    public async Task ToggleAsync() => await _modal.ToggleAsync();
+    public async Task HandleUpdateAsync() => await _modal.HandleUpdateAsync();
+}

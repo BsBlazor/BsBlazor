@@ -1,19 +1,26 @@
 ﻿@namespace BsBlazor
-<div class="modal-dialog @SizeClass @FullscreenClass @(Scrollable? "modal-dialog-scrollable" : "") @(Centered ? "modal-dialog-centered" : "")">
-    <div class="modal-content">
-        <div class="modal-header">
-            @ModalHeader
-        </div>
-        <div class="modal-body">
-            @ChildContent
-        </div>
-        <div class="modal-footer">
-            @ModalFooter
-        </div>
-    </div>
+@inherits BsParentComponentBase
+@implements IBsModalDialogParameters
+<div class="@CssClass" @attributes="AdditionalAttributes">
+   @ChildContent
 </div>
 @code {
     private Dictionary<string, object> _additionalAttributes = [];
+
+    private string CssClass => CssBuilder.Default("modal-dialog")
+                                        .AddClass("modal-sm", Size == BsModalSize.Small)
+                                        .AddClass("modal-lg", Size == BsModalSize.Large)
+                                        .AddClass("modal-xl", Size == BsModalSize.ExtraLarge)
+                                        .AddClass("modal-fullscreen", Fullscreen == BsModalFullscreen.Always)
+                                        .AddClass("modal-fullscreen-sm-down", Fullscreen == BsModalFullscreen.BelowSmall)
+                                        .AddClass("modal-fullscreen-md-down", Fullscreen == BsModalFullscreen.BelowMedium)
+                                        .AddClass("modal-fullscreen-lg-down", Fullscreen == BsModalFullscreen.BelowLarge)
+                                        .AddClass("modal-fullscreen-xl-down", Fullscreen == BsModalFullscreen.BelowExtraLarge)
+                                        .AddClass("modal-fullscreen-xxl-down", Fullscreen == BsModalFullscreen.BelowExtraExtraLarge)
+                                        .AddClass("modal-dialog-centered", Centered)
+                                        .AddClass("modal-dialog-scrollable", Scrollable)
+                                        .AddClass(Class)
+                                        .Build();
 
     [Parameter]
     public bool Scrollable { get; set; } = false;
@@ -26,37 +33,6 @@
 
     [Parameter]
     public BsModalFullscreen Fullscreen { get; set; } = BsModalFullscreen.Never;
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter]
-    public RenderFragment? ModalHeader { get; set; }
-
-    [Parameter]
-    public RenderFragment? ModalFooter { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
-
-    private string SizeClass => Size switch
-    {
-        BsModalSize.Small => "modal-sm",
-        BsModalSize.Large => "modal-lg",
-        BsModalSize.ExtraLarge => "modal-xl",
-        _ => ""
-    };
-
-    private string FullscreenClass => Fullscreen switch
-    {
-        BsModalFullscreen.Always => "modal-fullscreen",
-        BsModalFullscreen.BelowSmall => "modal-fullscreen-sm-down",
-        BsModalFullscreen.BelowMedium => "modal-fullscreen-md-down",
-        BsModalFullscreen.BelowLarge => "modal-fullscreen-lg-down",
-        BsModalFullscreen.BelowExtraLarge => "modal-fullscreen-xl-down",
-        BsModalFullscreen.BelowExtraExtraLarge => "modal-fullscreen-xxl-down",
-        _ => ""
-    };
 
     protected override void OnParametersSet()
     {

@@ -7,17 +7,21 @@
          OnHide="@(() => _sb1.AppendLine("Hide"))"
          OnHidePrevented="@(() => _sb1.AppendLine("HidePrevented"))"
          OnHidden="@(() => _sb1.AppendLine("Hidden"))">
-    <ModalHeader>
-        <BsModalTitle id="exampleModalLabel">Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        ...
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
-    </ModalFooter>
+    <BsModalDialog>
+        <BsModalContent>
+            <BsModalHeader>
+                 <BsModalTitle id="exampleModalLabel">Modal title</BsModalTitle>
+                 <BsModalCloseButton />
+            </BsModalHeader>
+            <BsModalBody>
+                Woohoo, you're reading this text in a modal!
+            </BsModalBody>
+            <BsModalFooter>
+                <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
+                <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
+            </BsModalFooter>
+        </BsModalContent>
+    </BsModalDialog>
 </BsModal>
 <div class="mt-4">Events detected by Blazor interactivity:</div>
 <div style="height: 50px; overflow-y: auto; border: 1px solid black">@_sb1</div>

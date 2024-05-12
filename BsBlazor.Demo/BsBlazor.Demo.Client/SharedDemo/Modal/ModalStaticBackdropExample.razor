@@ -2,27 +2,17 @@
 <BsButton Variant="BsButtonVariant.Primary"
           Toggle="BsButtonTogle.Modal"
           Target="#staticBackdrop">Launch static backdrop modal</BsButton>
-<BsModal Id="staticBackdrop"
-         Backdrop="BsModalBackdrop.Static"
-         Keyboard="false"
-         aria-labelledby="staticBackdropLabel"
-         OnShow="@(() => _sb2.AppendLine("Show"))"
-         OnShown="@(() => _sb2.AppendLine("Shown"))"
-         OnHide="@(() => _sb2.AppendLine("Hide"))"
-         OnHidePrevented="@(() => _sb2.AppendLine("HidePrevented"))"
-         OnHidden="@(() => _sb2.AppendLine("Hidden"))">
-    <ModalHeader>
-        <BsModalTitle id="staticBackdropLabel">Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        ...
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Understood</BsButton>
-    </ModalFooter>
-</BsModal>
+<BsModalShorthand Id="staticBackdrop"
+                  Backdrop="BsModalBackdrop.Static"
+                  Keyboard="false"
+                  Title="Modal title"
+                  OnShow="@(() => _sb2.AppendLine("Show"))"
+                  OnShown="@(() => _sb2.AppendLine("Shown"))"
+                  OnHide="@(() => _sb2.AppendLine("Hide"))"
+                  OnHidePrevented="@(() => _sb2.AppendLine("HidePrevented"))"
+                  OnHidden="@(() => _sb2.AppendLine("Hidden"))"
+                  ShowPrimaryButton
+                  PrimaryButtonText="Understood">I will not close if you click outside me. Don't even try to press escape key.</BsModalShorthand>
 <div class="mt-4">Events detected by Blazor interactivity:</div>
 <div style="height: 50px; overflow-y: auto; border: 1px solid black">@_sb2</div>
 @code {

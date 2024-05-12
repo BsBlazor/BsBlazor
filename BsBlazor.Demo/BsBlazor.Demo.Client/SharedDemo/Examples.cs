@@ -11,42 +11,24 @@ public static class Examples
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalFullscreenLg">Full screen below lg</BsButton>
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalFullscreenXl">Full screen below xl</BsButton>
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalFullscreenXxl">Full screen below xxl</BsButton>
-<BsModal Id="exampleModalFullscreen" Fullscreen="BsModalFullscreen.Always">
-    <ChildContent>...</ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-    </ModalFooter>
-</BsModal>
-<BsModal Id="exampleModalFullscreenSm" Fullscreen="BsModalFullscreen.BelowSmall">
-    <ChildContent>...</ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-    </ModalFooter>
-</BsModal>
-<BsModal Id="exampleModalFullscreenMd" Fullscreen="BsModalFullscreen.BelowMedium">
-    <ChildContent>...</ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-    </ModalFooter>
-</BsModal>
-<BsModal Id="exampleModalFullscreenLg" Fullscreen="BsModalFullscreen.BelowLarge">
-    <ChildContent>...</ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-    </ModalFooter>
-</BsModal>
-<BsModal Id="exampleModalFullscreenXl" Fullscreen="BsModalFullscreen.BelowExtraLarge">
-    <ChildContent>...</ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-    </ModalFooter>
-</BsModal>
-<BsModal Id="exampleModalFullscreenXxl" Fullscreen="BsModalFullscreen.BelowExtraExtraLarge">
-    <ChildContent>...</ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-    </ModalFooter>
-</BsModal>
+<BsModalShorthand Id="exampleModalFullscreen"
+                  Fullscreen="BsModalFullscreen.Always"
+                  Title="Full screen modal">...</BsModalShorthand>
+<BsModalShorthand Id="exampleModalFullscreenSm"
+                  Fullscreen="BsModalFullscreen.BelowSmall"
+                  Title="Full screen modal below sm">...</BsModalShorthand>
+<BsModalShorthand Id="exampleModalFullscreenMd"
+                  Fullscreen="BsModalFullscreen.BelowMedium"
+                  Title="Full screen modal below md">...</BsModalShorthand>
+<BsModalShorthand Id="exampleModalFullscreenLg"
+                  Fullscreen="BsModalFullscreen.BelowLarge"
+                  Title="Full screen modal below lg">...</BsModalShorthand>
+<BsModalShorthand Id="exampleModalFullscreenXl"
+                  Fullscreen="BsModalFullscreen.BelowExtraLarge"
+                  Title="Full screen modal below xl">...</BsModalShorthand>
+<BsModalShorthand Id="exampleModalFullscreenXxl"
+                  Fullscreen="BsModalFullscreen.BelowExtraExtraLarge"
+                  Title="Full screen modal below xxl">...</BsModalShorthand>
 """
 		},
 		{
@@ -54,12 +36,12 @@ public static class Examples
 """
 <BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.ShowAsync()">Modal.Show()</BsButton>
 <BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.ToggleAsync()">Modal.Toggle()</BsButton>
-<BsModal @ref="_modal" Keyboard="false" Backdrop="BsModalBackdrop.Static">
+<BsModalShorthand @ref="_modal" Keyboard="false" Backdrop="BsModalBackdrop.Static">
     <BsButton Variant="BsButtonVariant.Secondary" OnClick="() => _modal.HideAsync()">Hide</BsButton>
     <BsButton Variant="BsButtonVariant.Primary" OnClick="() => _modal.ToggleAsync()">Modal.Toggle()</BsButton>
-</BsModal>
+</BsModalShorthand>
 @code {
-    private BsModal _modal = default!;
+    private BsModalShorthand _modal = default!;
 }
 
 """
@@ -76,17 +58,21 @@ public static class Examples
          OnHide="@(() => _sb1.AppendLine("Hide"))"
          OnHidePrevented="@(() => _sb1.AppendLine("HidePrevented"))"
          OnHidden="@(() => _sb1.AppendLine("Hidden"))">
-    <ModalHeader>
-        <BsModalTitle id="exampleModalLabel">Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        ...
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
-    </ModalFooter>
+    <BsModalDialog>
+        <BsModalContent>
+            <BsModalHeader>
+                 <BsModalTitle id="exampleModalLabel">Modal title</BsModalTitle>
+                 <BsModalCloseButton />
+            </BsModalHeader>
+            <BsModalBody>
+                Woohoo, you're reading this text in a modal!
+            </BsModalBody>
+            <BsModalFooter>
+                <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
+                <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
+            </BsModalFooter>
+        </BsModalContent>
+    </BsModalDialog>
 </BsModal>
 <div class="mt-4">Events detected by Blazor interactivity:</div>
 <div style="height: 50px; overflow-y: auto; border: 1px solid black">@_sb1</div>
@@ -103,65 +89,45 @@ public static class Examples
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#extraLargeModal">Extra large modal</BsButton>
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#largeModal">Large modal</BsButton>
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#smallModal">Small modal</BsButton>
-<BsModal Id="extraLargeModal" Size="BsModalSize.ExtraLarge">...</BsModal>
-<BsModal Id="largeModal" Size="BsModalSize.Large">...</BsModal>
-<BsModal Id="smallModal" Size="BsModalSize.Small">...</BsModal>
+<BsModalShorthand Id="extraLargeModal" Title="Extra large modal" Size="BsModalSize.ExtraLarge">...</BsModalShorthand>
+<BsModalShorthand Id="largeModal" Size="BsModalSize.Large" Title="Large modal">...</BsModalShorthand>
+<BsModalShorthand Id="smallModal" Size="BsModalSize.Small" Title="Small modal">...</BsModalShorthand>
 """
 		},
 		{
 			"ModalRemoveAnimationExample",
 """
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#noAnimation">No animation</BsButton>
-<BsModal Id="noAnimation" Centered Fade="false">
+<BsModalShorthand Id="noAnimation" Centered Fade="false">
         No animation
-</BsModal>
+</BsModalShorthand>
 """
 		},
 		{
 			"ModalScrollingLongContentExample",
 """
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#scrollingModal">Launch demo modal</BsButton>
-<BsModal Id="scrollingModal">
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        <p style="min-height: 1500px">This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed.</p>
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
-    </ModalFooter>
-</BsModal>
+<BsModalShorthand Id="scrollingModal" ShowPrimaryButton PrimaryButtonText="Save changes">
+    <p style="min-height: 1500px">This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed.</p>
+</BsModalShorthand>
 """
 		},
 		{
 			"ModalScrollingLongContentScrollableExample",
 """
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#scrollableModal">Launch demo modal</BsButton>
-<BsModal Id="scrollableModal" Scrollable>
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        <p style="min-height: 1500px">This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed.</p>
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
-    </ModalFooter>
-</BsModal>
+<BsModalShorthand Id="scrollableModal" Scrollable ShowPrimaryButton PrimaryButtonText="Save changes">
+    <p style="min-height: 1500px">This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed.</p>
+</BsModalShorthand>
 """
 		},
 		{
 			"ModalServiceDialogExample",
 """
-<BsModalDialog>
+<BsModalDialogShorthand>
     Hi
     <BsButton OnClick="() => ModalReference.CloseAsync()">Close myself</BsButton>
-</BsModalDialog>
+</BsModalDialogShorthand>
 @code{
     [CascadingParameter]
     public required IModalReference ModalReference { get; set; }
@@ -187,10 +153,10 @@ public static class Examples
 		{
 			"ModalServiceResultDialogExample",
 """
-<BsModalDialog>
+<BsModalDialogShorthand>
     Hi
     <BsButton OnClick="() => ModalReference.CloseAsync(true)">Close myself</BsButton>
-</BsModalDialog>
+</BsModalDialogShorthand>
 @code{
     [CascadingParameter]
     public required IModalReference ModalReference { get; set; }
@@ -220,27 +186,17 @@ public static class Examples
 <BsButton Variant="BsButtonVariant.Primary"
           Toggle="BsButtonTogle.Modal"
           Target="#staticBackdrop">Launch static backdrop modal</BsButton>
-<BsModal Id="staticBackdrop"
-         Backdrop="BsModalBackdrop.Static"
-         Keyboard="false"
-         aria-labelledby="staticBackdropLabel"
-         OnShow="@(() => _sb2.AppendLine("Show"))"
-         OnShown="@(() => _sb2.AppendLine("Shown"))"
-         OnHide="@(() => _sb2.AppendLine("Hide"))"
-         OnHidePrevented="@(() => _sb2.AppendLine("HidePrevented"))"
-         OnHidden="@(() => _sb2.AppendLine("Hidden"))">
-    <ModalHeader>
-        <BsModalTitle id="staticBackdropLabel">Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        ...
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Understood</BsButton>
-    </ModalFooter>
-</BsModal>
+<BsModalShorthand Id="staticBackdrop"
+                  Backdrop="BsModalBackdrop.Static"
+                  Keyboard="false"
+                  Title="Modal title"
+                  OnShow="@(() => _sb2.AppendLine("Show"))"
+                  OnShown="@(() => _sb2.AppendLine("Shown"))"
+                  OnHide="@(() => _sb2.AppendLine("Hide"))"
+                  OnHidePrevented="@(() => _sb2.AppendLine("HidePrevented"))"
+                  OnHidden="@(() => _sb2.AppendLine("Hidden"))"
+                  ShowPrimaryButton
+                  PrimaryButtonText="Understood">I will not close if you click outside me. Don't even try to press escape key.</BsModalShorthand>
 <div class="mt-4">Events detected by Blazor interactivity:</div>
 <div style="height: 50px; overflow-y: auto; border: 1px solid black">@_sb2</div>
 @code {
@@ -253,18 +209,42 @@ public static class Examples
 			"ModalStaticExample",
 """
 <BsModal Class="position-static d-block" Fade="false">
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        Modal body text goes here.
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
-    </ModalFooter>
+    <BsModalDialog>
+        <BsModalContent>
+            <BsModalHeader>
+                <BsModalTitle>Modal title</BsModalTitle>
+                <BsModalCloseButton />
+            </BsModalHeader>
+            <BsModalBody>
+                Modal body text goes here.
+            </BsModalBody>
+            <BsModalFooter>
+                <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
+                <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
+            </BsModalFooter>
+        </BsModalContent>
+    </BsModalDialog>
 </BsModal>
+
+"""
+		},
+		{
+			"ModalStaticShorthandDialogExample",
+"""
+<BsModal Class="position-static d-block" Fade="false">
+    <BsModalDialogShorthand Title="Shorthand modal dialog title">
+        Shortand Modal Dialog
+    </BsModalDialogShorthand>
+</BsModal>
+
+"""
+		},
+		{
+			"ModalStaticShorthandExample",
+"""
+<BsModalShorthand Class="position-static d-block" Title="Shortand modal title" Fade="false">
+    Shortand Modal
+</BsModalShorthand>
 
 """
 		},
@@ -272,53 +252,43 @@ public static class Examples
 			"ModalToggleBetweenModalsExample",
 """
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalToggle">Open first modal</BsButton>
-<BsModal Id="exampleModalToggle" Centered>
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
+<BsModalShorthand Id="exampleModalToggle"
+                  Title="Modal 1"
+                  Centered>
     <ChildContent>
         Show a second modal and hide this one with the button below.
     </ChildContent>
-    <ModalFooter>
+    <CustomFooter>
         <BsButton Variant="BsButtonVariant.Primary" Dismiss="BsButtonDismiss.Modal"
                   Target="#exampleModalToggle2"
                   Toggle="BsButtonTogle.Modal">Open second modal</BsButton>
-    </ModalFooter>
-</BsModal>
-<BsModal Id="exampleModalToggle2" Centered>
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
+    </CustomFooter>
+</BsModalShorthand>
+<BsModalShorthand Id="exampleModalToggle2" 
+                  Title="Modal 2"
+                  Centered>
     <ChildContent>
         Hide this modal and show the first with the button below.
     </ChildContent>
-    <ModalFooter>
+    <CustomFooter>
         <BsButton Variant="BsButtonVariant.Primary" Dismiss="BsButtonDismiss.Modal"
                   Target="#exampleModalToggle"
                   Toggle="BsButtonTogle.Modal">Back to first</BsButton>
-    </ModalFooter>
-</BsModal>
+    </CustomFooter>
+</BsModalShorthand>
 """
 		},
 		{
 			"ModalVerticallyCenteredExample",
 """
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#verticallyCentered">Vertically centered modal</BsButton>
-<BsModal Id="verticallyCentered" Centered>
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        This is a vertically centered modal.
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
-    </ModalFooter>
-</BsModal>
+<BsModalShorthand Id="verticallyCentered" 
+                  Title="Modal title" 
+                  ShowPrimaryButton
+                  PrimaryButtonText="Save changes"
+                  Centered>
+    This is a vertically centered modal.
+</BsModalShorthand>
 """
 		},
 		{
@@ -327,21 +297,16 @@ public static class Examples
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#verticallyCenteredScrollable">
     Vertically centered scrollable modal
 </BsButton>
-<BsModal Id="verticallyCenteredScrollable" Scrollable Centered>
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        <p>This is some placeholder content to show a vertically centered modal. We've added some extra copy here to show how vertically centering the modal works when combined with scrollable modals. We also use some repeated line breaks to quickly extend the height of the content, thereby triggering the scrolling. When content becomes longer than the prefedined max-height of modal, content will be cropped and scrollable within the modal.</p>
-        <br><br><br><br><br><br><br><br><br><br>
-        <p>Just like that.</p>
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
-    </ModalFooter>
-</BsModal>
+<BsModalShorthand Id="verticallyCenteredScrollable"
+                  Title="Modal title"
+                  Scrollable
+                  ShowPrimaryButton
+                  PrimaryButtonText="Save changes"
+                  Centered>
+    <p>This is some placeholder content to show a vertically centered modal. We've added some extra copy here to show how vertically centering the modal works when combined with scrollable modals. We also use some repeated line breaks to quickly extend the height of the content, thereby triggering the scrolling. When content becomes longer than the prefedined max-height of modal, content will be cropped and scrollable within the modal.</p>
+    <br><br><br><br><br><br><br><br><br><br>
+    <p>Just like that.</p>
+</BsModalShorthand>
 """
 		},
 		{

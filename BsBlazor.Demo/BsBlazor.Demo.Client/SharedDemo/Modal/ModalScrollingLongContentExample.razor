@@ -1,14 +1,4 @@
 ﻿<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#scrollingModal">Launch demo modal</BsButton>
-<BsModal Id="scrollingModal">
-    <ModalHeader>
-        <BsModalTitle>Modal title</BsModalTitle>
-        <BsModalCloseButton />
-    </ModalHeader>
-    <ChildContent>
-        <p style="min-height: 1500px">This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed.</p>
-    </ChildContent>
-    <ModalFooter>
-        <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
-        <BsButton Variant="BsButtonVariant.Primary">Save Changes</BsButton>
-    </ModalFooter>
-</BsModal>
+<BsModalShorthand Id="scrollingModal" ShowPrimaryButton PrimaryButtonText="Save changes">
+    <p style="min-height: 1500px">This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed.</p>
+</BsModalShorthand>

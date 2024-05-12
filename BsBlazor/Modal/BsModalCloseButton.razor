@@ -1,2 +1,3 @@
 ﻿@namespace BsBlazor
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+@inherits BsComponentBase
+<button type="button" class="btn-close @Class" @attributes="AdditionalAttributes" data-bs-dismiss="modal" aria-label="Close"></button>

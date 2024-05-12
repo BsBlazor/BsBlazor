@@ -1,38 +1,33 @@
 ﻿@namespace BsBlazor
-<BsModalRoot @ref="_modalRoot"
-             Id="@Id"
-             AdditionalAttributes="AdditionalAttributes"
-             Fade="Fade"
-             Backdrop="Backdrop"
-             OnHide="OnHide"
-             OnHidden="OnHidden"
-             OnHidePrevented="OnHidePrevented"
-             OnShow="OnShow"
-             OnShown="OnShown">
-    <BsModalDialog Centered="Centered"
-                   Scrollable="Scrollable"
-                   Size="Size"
-                   Fullscreen="Fullscreen">
-        <ModalHeader>
-            @ModalHeader
-        </ModalHeader>
-        <ChildContent>
-            @ChildContent
-        </ChildContent>
-        <ModalFooter>
-            @ModalFooter
-        </ModalFooter>
-    </BsModalDialog>
-    </BsModalRoot>
+@inherits BsParentComponentBase
+@implements IAsyncDisposable
+@implements IBsModalParameters
+@inject IJSRuntime JS
+<div @ref="_elementReference" 
+    class="@CssClass"
+    @onhide.bs.modal="() => OnHide.InvokeAsync()"
+    @onhidden.bs.modal="() => OnHidden.InvokeAsync()"
+    @onhidePrevented.bs.modal="() => OnHidePrevented.InvokeAsync()"
+    @onshow.bs.modal="() => OnShow.InvokeAsync()"
+    @onshown.bs.modal="() => OnShown.InvokeAsync()"
+    tabindex="-1" 
+    aria-hidden="true"
+    @attributes="_additionalAttributes">
+    @ChildContent
+</div>
 @code {
-    private BsModalRoot _modalRoot = default!;
+    private Dictionary<string, object> _additionalAttributes = [];
+    private ElementReference _elementReference;
+    private IJSObjectReference _jsInstance = default!;
+
+    private string CssClass => CssBuilder.Default("modal")
+                                         .AddClass("fade", Fade)
+                                         .AddClass(Class)
+                                         .Build();
 
     [Parameter]
     public string? Id { get; set; }
-
-    [Parameter]
-    public string Class { get; set; } = "";
-
+    
     [Parameter]
     public bool Fade { get; set; } = true;
 
@@ -40,28 +35,10 @@
     public bool Keyboard { get; set; } = true;
 
     [Parameter]
-    public bool Scrollable { get; set; } = false;
-
-    [Parameter]
-    public bool Centered { get; set; } = false;
-
-    [Parameter]
     public BsModalBackdrop Backdrop { get; set; } = BsModalBackdrop.True;
 
     [Parameter]
-    public BsModalSize Size { get; set; } = BsModalSize.Default;
-
-    [Parameter]
-    public BsModalFullscreen Fullscreen { get; set; } = BsModalFullscreen.Never;
-
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [Parameter]
-    public RenderFragment? ModalHeader { get; set; }
-
-    [Parameter]
-    public RenderFragment? ModalFooter { get; set; }
+    public bool ShowWhenRendered { get; set; }
 
     [Parameter]
     public EventCallback OnHide { get; set; }
@@ -78,10 +55,55 @@
     [Parameter]
     public EventCallback OnShown { get; set; }
 
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
-    public async Task ShowAsync() => await _modalRoot.ShowAsync();
-    public async Task HideAsync() => await _modalRoot.HideAsync();
-    public async Task ToggleAsync() => await _modalRoot.ToggleAsync();
-    public async Task HandleUpdateAsync() => await _modalRoot.HandleUpdateAsync();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            _jsInstance = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Modal.getOrCreateInstance", _elementReference);
+            if (ShowWhenRendered)
+            {
+                await ShowAsync();
+            }
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        _additionalAttributes = new Dictionary<string, object>(AdditionalAttributes.ToList());
+        if (Id != null)
+        {
+            _additionalAttributes["id"] = Id;
+        }
+        _additionalAttributes["data-bs-backdrop"] = Backdrop.ToString().ToLower();
+        _additionalAttributes["data-bs-keyboard"] = Keyboard.ToString().ToLower();
+    }
+
+    public async Task ShowAsync()
+    {
+        await _jsInstance.InvokeVoidAsync("show");
+    }
+
+    public async Task HideAsync()
+    {
+        await _jsInstance.InvokeVoidAsync("hide");
+    }
+
+    public async Task ToggleAsync()
+    {
+        await _jsInstance.InvokeVoidAsync("toggle");
+    }
+
+    public async Task HandleUpdateAsync()
+    {
+        await _jsInstance.InvokeVoidAsync("handleUpdate");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_jsInstance.IsNotNull())
+        {
+            await _jsInstance.InvokeVoidAsync("dispose");
+            await _jsInstance.DisposeAsync();
+        }
+    }
 }

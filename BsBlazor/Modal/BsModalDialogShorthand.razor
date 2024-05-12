@@ -1,0 +1,63 @@
+﻿@namespace BsBlazor
+@inherits BsParentComponentBase
+@implements IBsModalDialogParameters
+@implements IBsModalDialogShorthandParameters
+<BsModalDialog Centered="Centered"
+               Scrollable="Scrollable"
+               Size="Size"
+               Fullscreen="Fullscreen">
+    <BsModalContent>
+        <BsModalHeader>
+            <BsModalTitle>@Title</BsModalTitle>
+            <BsModalCloseButton />
+        </BsModalHeader>
+        <BsModalBody>
+            @ChildContent
+        </BsModalBody>
+        <BsModalFooter>
+            @if(CustomFooter != null)
+            {
+                @CustomFooter
+            }
+            else
+            {
+                if(ShowDismissButton)
+                {
+                    <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">@DismissButtonText</BsButton>
+                }
+                if(ShowPrimaryButton)
+                {
+                    <BsButton Variant="BsButtonVariant.Primary" OnClick="OnPrimaryButtonClick">@PrimaryButtonText</BsButton>
+                }
+            }
+        </BsModalFooter>
+    </BsModalContent>
+</BsModalDialog>
+@code {
+    // Shorthand
+    [Parameter]
+    public string Title { get; set; } = "";
+    [Parameter]
+    public bool ShowDismissButton { get; set; } = true;
+    [Parameter]
+    public bool ShowPrimaryButton { get; set; } = false;
+    [Parameter]
+    public string DismissButtonText { get; set; } = "Close";
+    [Parameter]
+    public string PrimaryButtonText { get; set; } = "Ok";
+    [Parameter]
+    public EventCallback OnPrimaryButtonClick { get; set; }
+
+    [Parameter]
+    public RenderFragment? CustomFooter { get; set; }
+
+    // ModalDialog
+    [Parameter]
+    public bool Scrollable { get; set; } = false;
+    [Parameter]
+    public bool Centered { get; set; } = false;
+    [Parameter]
+    public BsModalSize Size { get; set; } = BsModalSize.Default;
+    [Parameter]
+    public BsModalFullscreen Fullscreen { get; set; } = BsModalFullscreen.Never;
+}

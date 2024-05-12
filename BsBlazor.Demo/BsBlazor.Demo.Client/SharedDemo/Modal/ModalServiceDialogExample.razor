@@ -1,7 +1,7 @@
-﻿<BsModalDialog>
+﻿<BsModalDialogShorthand>
     Hi
     <BsButton OnClick="() => ModalReference.CloseAsync()">Close myself</BsButton>
-</BsModalDialog>
+</BsModalDialogShorthand>
 @code{
     [CascadingParameter]
     public required IModalReference ModalReference { get; set; }
