@@ -2,9 +2,10 @@
 
 namespace BsBlazor.Helpers;
 
-internal readonly struct CssBuilder
+internal sealed class CssBuilder
 {
     private readonly StringBuilder _buffer = new();
+    private BsCssBuilder? _bsCssBuilder;
     
     public static CssBuilder Default(string value) => new(value);
     public static CssBuilder Empty() => new(string.Empty);
@@ -18,7 +19,24 @@ internal readonly struct CssBuilder
     
     public CssBuilder AddClass(string? value) => AddValue(" " + value);
     public CssBuilder AddClass(string? value, bool when) => when ? AddClass(value) : this;
-    public CssBuilder AddClass(string? value, bool? when) => when == true ? AddClass(value) : this;
+    public CssBuilder AddClass(string? value, bool? when) => when is true ? AddClass(value) : this;
+    public CssBuilder AddBsClass(Func<BsCssBuilder, BsCssBuilder> bsClass)
+    {
+        _bsCssBuilder ??= new BsCssBuilder(value => AddClass(value));
+        _bsCssBuilder = bsClass(_bsCssBuilder);
+        return this;
+    }
+    public CssBuilder AddBsClass(Func<BsCssBuilder,BsCssBuilder> bsClass, bool when)
+    {
+        if (!when)
+        {
+            return this;
+        }
+        
+        _bsCssBuilder ??= new BsCssBuilder(value => AddClass(value));
+        _bsCssBuilder = bsClass(_bsCssBuilder);
+        return this;
+    }
     
     public string Build() => _buffer.ToString().Trim();
 

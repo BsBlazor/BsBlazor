@@ -26,24 +26,24 @@
 
     private string CssClass => CssBuilder
         .Default("toast")
-        .AddClass("text-white bg-primary", Variant == BsToastVariant.Primary)
-        .AddClass("text-white bg-secondary", Variant == BsToastVariant.Secondary)
-        .AddClass("text-white bg-success", Variant == BsToastVariant.Success)
-        .AddClass("text-white bg-danger", Variant == BsToastVariant.Danger)
-        .AddClass("text-black bg-warning", Variant == BsToastVariant.Warning)
-        .AddClass("text-black bg-info", Variant == BsToastVariant.Info)
-        .AddClass("text-dark bg-light", Variant == BsToastVariant.Light)
-        .AddClass("text-light bg-dark", Variant == BsToastVariant.Dark)
+        .AddBsClass(bs => bs.TextBgPrimary, Color is BsToastColor.Primary)
+        .AddBsClass(bs => bs.TextBgSecondary, Color is BsToastColor.Secondary)
+        .AddBsClass(bs => bs.TextBgSuccess, Color is BsToastColor.Success)
+        .AddBsClass(bs => bs.TextBgDanger, Color is BsToastColor.Danger)
+        .AddBsClass(bs => bs.TextBgWarning, Color is BsToastColor.Warning)
+        .AddBsClass(bs => bs.TextBgInfo, Color is BsToastColor.Info)
+        .AddBsClass(bs => bs.TextBgLight, Color is BsToastColor.Light)
+        .AddBsClass(bs => bs.TextBgDark, Color is BsToastColor.Dark)
         .AddClass(Class)
         .Build();
 
     [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
 
-    [Parameter] public BsToastVariant Variant { get; set; } = BsToastVariant.Default;
-    
     [Parameter] public bool Animation { get; set; } = true;
     [Parameter] public bool AutoHide { get; set; } = true;
     [Parameter] public int Delay { get; set; } = 2000;
+    
+    [Parameter] public BsToastColor? Color { get; set; }
 
     [Parameter] public EventCallback OnHide { get; set; }
 

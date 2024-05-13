@@ -2,7 +2,9 @@
 
 public enum BsToastPosition
 {
+    Absolute,
     Fixed,
-    Static,
     Relative,
+    Static,
+    Sticky
 }

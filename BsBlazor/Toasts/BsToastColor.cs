@@ -1,8 +1,7 @@
 ﻿namespace BsBlazor;
 
-public enum BsToastVariant
+public enum BsToastColor
 {
-    Default,
     Primary,
     Secondary,
     Success,

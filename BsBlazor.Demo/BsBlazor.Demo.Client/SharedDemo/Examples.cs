@@ -383,15 +383,7 @@ public static class Examples
 			"ToastColorSchemesCodeSampleExample",
 """
 <BsToastContainer>
-    <BsToast Variant="BsToastVariant.Default">
-        <BsToastBody>
-            <div class="d-flex">
-                Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
-            </div>
-        </BsToastBody>
-    </BsToast>
-    <BsToast Variant="BsToastVariant.Primary">
+    <BsToast Class="@Bs.Css.TextBgPrimary">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -399,7 +391,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Variant="BsToastVariant.Secondary">
+    <BsToast Class="@Bs.Css.TextBgSecondary">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -407,7 +399,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Variant="BsToastVariant.Success">
+    <BsToast Class="@Bs.Css.TextBgSuccess">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -415,7 +407,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Variant="BsToastVariant.Danger">
+    <BsToast Class="@Bs.Css.TextBgDanger">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -423,7 +415,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Variant="BsToastVariant.Warning">
+    <BsToast Class="@Bs.Css.TextBgWarning">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -431,7 +423,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Variant="BsToastVariant.Info">
+    <BsToast Class="@Bs.Css.TextBgInfo">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -439,7 +431,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Variant="BsToastVariant.Light">
+    <BsToast Class="@Bs.Css.TextBgLight">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -447,7 +439,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Variant="BsToastVariant.Dark">
+    <BsToast Class="@Bs.Css.TextBgDark">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -461,16 +453,8 @@ public static class Examples
 		{
 			"ToastColorSchemesExample",
 """
-<BsToastContainer Position="null">
-    <BsToast Class="fade show" Variant="BsToastVariant.Default" AutoHide="false">
-        <BsToastBody>
-            <div class="d-flex">
-                Hello, world! This is a toast message.
-                <BsToastCloseButton Class="me-2 m-auto"/>
-            </div>
-        </BsToastBody>
-    </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Primary" AutoHide="false">
+<BsToastContainer Position="BsToastPosition.Relative">
+    <BsToast Class="@Bs.Default("fade show").TextBgPrimary" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -478,7 +462,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Secondary" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBgSecondary" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -486,7 +470,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Success" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBgSuccess" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -494,7 +478,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Danger" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBgDanger" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -502,7 +486,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Warning" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBgWarning" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -510,7 +494,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Info" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBgInfo" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -518,7 +502,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Light" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBgLight" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -526,7 +510,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="fade show" Variant="BsToastVariant.Dark" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBgDark" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.

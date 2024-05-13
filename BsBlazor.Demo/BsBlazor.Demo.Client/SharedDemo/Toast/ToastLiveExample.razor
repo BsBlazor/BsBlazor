@@ -4,7 +4,7 @@
     Show live toast
 </BsButton>
 
-<BsToastContainer Placement="BsToastPlacement.BottomRight">
+<BsToastContainer Class="@Bs.Css.PositionFixed.BottomRight">
     <BsToast @ref="_toast"
              OnShow="@(() => _sb1.AppendLine("Show"))"
              OnShown="@(() => _sb1.AppendLine("Shown"))"
