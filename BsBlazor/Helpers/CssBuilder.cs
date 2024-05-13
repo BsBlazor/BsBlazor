@@ -39,6 +39,6 @@ internal sealed class CssBuilder
     }
     
     public string Build() => _buffer.ToString().Trim();
-
+    public static implicit operator string(CssBuilder builder) => builder.Build();
     public override string ToString() => Build();
 }

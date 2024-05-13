@@ -1,7 +1,7 @@
 ﻿@namespace BsBlazor
 @inherits BsComponentBase
 
-<div class="toast-body" @attributes="AdditionalAttributes">
+<div class="@CssBuilder.Default("toast-body").AddClass(Class)" @attributes="AdditionalAttributes">
     @ChildContent
 </div>
 

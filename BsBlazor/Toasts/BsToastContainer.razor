@@ -10,7 +10,7 @@
     
     private string CssContainerClass => CssBuilder
         .Default("toast-container")
-        .AddClass("p-3")
+        .AddBsClass(bs => bs.Padding3)
         .AddBsClass(bs => bs.PositionAbsolute, Position is BsToastPosition.Absolute)
         .AddBsClass(bs => bs.PositionFixed, Position is BsToastPosition.Fixed)
         .AddBsClass(bs => bs.PositionRelative, Position is BsToastPosition.Relative)
