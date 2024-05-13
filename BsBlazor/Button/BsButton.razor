@@ -1,6 +1,6 @@
 ﻿@namespace BsBlazor
 <button type="@Type.ToString().ToLower()"
-        class="btn btn-@Variant.ToString().ToLower()"
+        class="btn btn-@Variant.ToKebabCase()"
         @onclick="@(() => OnClick.InvokeAsync())"
         @attributes="_additionalAttributes">
     @ChildContent
@@ -29,8 +29,6 @@
 
     private Dictionary<string, object> _additionalAttributes = [];
 
-
-
     protected override void OnParametersSet()
     {
         _additionalAttributes = new Dictionary<string, object>();
@@ -47,5 +45,4 @@
             _additionalAttributes["data-bs-target"] = Target;
         }
     }
-
 }

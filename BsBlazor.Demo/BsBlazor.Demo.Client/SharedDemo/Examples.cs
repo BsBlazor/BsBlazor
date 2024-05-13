@@ -3,6 +3,25 @@ public static class Examples
 {
 	public static readonly IReadOnlyDictionary<string, string> Contents = new Dictionary<string, string>(){
 		{
+			"ButtonBaseExample",
+"""
+<BsButton>Base button</BsButton>
+
+"""
+		},
+		{
+			"ButtonVariantsExample",
+"""
+<BsButton Variant="BsButtonVariant.Primary">Primary</BsButton>
+<BsButton Variant="BsButtonVariant.Secondary">Secondary</BsButton>
+<br />
+<h4>Outline</h4>
+<BsButton Variant="BsButtonVariant.OutlinePrimary">Primary</BsButton>
+<BsButton Variant="BsButtonVariant.OutlineSecondary">Secondary</BsButton>
+
+"""
+		},
+		{
 			"ModalFullscreenExample",
 """
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalFullscreen">Full screen</BsButton>
