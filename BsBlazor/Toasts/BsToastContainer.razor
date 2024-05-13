@@ -23,6 +23,7 @@
         .AddClass("bottom-0 start-0", Placement is BsToastPlacement.BottomLeft)
         .AddClass("bottom-0 start-50 translate-middle-x", Placement is BsToastPlacement.BottomCenter)
         .AddClass("bottom-0 end-0", Placement is BsToastPlacement.BottomRight)
+        .AddClass(Class)
         .Build();
     
     [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }

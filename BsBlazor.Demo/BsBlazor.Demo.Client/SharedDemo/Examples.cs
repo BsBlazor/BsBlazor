@@ -602,6 +602,67 @@ public static class Examples
 """
 		},
 		{
+			"ToastPlacementCodeSampleExample",
+"""
+<InputSelect @bind-Value="_placement" class="form-select">
+    @foreach (var placement in Enum.GetValues(typeof(BsToastPlacement)).Cast<BsToastPlacement>())
+    {
+        <option value="@placement">@placement</option>
+    }
+</InputSelect>
+
+<BsToastContainer Placement="_placement">
+    <BsToast>
+        <BsToastHeader>
+            <MyIcon/>
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <BsToastCloseButton/>
+        </BsToastHeader>
+        <BsToastBody>
+            Hello, world! This is a toast message.
+        </BsToastBody>
+    </BsToast>
+</BsToastContainer>
+
+@code 
+{
+    private BsToastPlacement _placement = BsToastPlacement.TopLeft;
+}
+"""
+		},
+		{
+			"ToastPlacementExample",
+"""
+<InputSelect @bind-Value="_placement" class="form-select my-3">
+    @foreach(var placement in Enum.GetValues(typeof(BsToastPlacement)).Cast<BsToastPlacement>())
+    {
+        <option value="@placement">@placement</option>
+    }
+</InputSelect>
+
+<div aria-live="polite" aria-atomic="true" class="bg-secondary position-relative rounded-3 " style="min-height: 400px;">
+    <BsToastContainer Class="position-absolute" Position="null" Placement="_placement">
+        <BsToast Class="fade show" AutoHide="false">
+            <BsToastHeader>
+                <MyIcon />
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <BsToastCloseButton/>
+            </BsToastHeader>
+            <BsToastBody>
+                Hello, world! This is a toast message.
+            </BsToastBody>
+        </BsToast>
+    </BsToastContainer>
+</div>
+
+@code {
+    private BsToastPlacement _placement = BsToastPlacement.TopLeft;
+}
+"""
+		},
+		{
 			"ToastStackingCodeSampleExample",
 """
 <BsToastContainer>

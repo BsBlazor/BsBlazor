@@ -1,0 +1,25 @@
+﻿<InputSelect @bind-Value="_placement" class="form-select">
+    @foreach (var placement in Enum.GetValues(typeof(BsToastPlacement)).Cast<BsToastPlacement>())
+    {
+        <option value="@placement">@placement</option>
+    }
+</InputSelect>
+
+<BsToastContainer Placement="_placement">
+    <BsToast>
+        <BsToastHeader>
+            <MyIcon/>
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <BsToastCloseButton/>
+        </BsToastHeader>
+        <BsToastBody>
+            Hello, world! This is a toast message.
+        </BsToastBody>
+    </BsToast>
+</BsToastContainer>
+
+@code 
+{
+    private BsToastPlacement _placement = BsToastPlacement.TopLeft;
+}
