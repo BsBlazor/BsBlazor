@@ -1,0 +1,109 @@
+﻿@inject IToastService ToastService
+@inherits BsComponentBase
+
+@if (ConcreteModalService is not null)
+{
+    <BsToastContainer Placement="Placement" Position="Position" Class="@Class" AdditionalAttributes="AdditionalAttributes">
+        @foreach (var toastReference in ConcreteModalService.ToastReferences)
+        {
+            BsToast? currentRef = null;
+            <BsToast
+                @key="toastReference"
+                @ref="currentRef"
+                ShowWhenRendered
+                OnHidden="toastReference.InvokeHidden"
+                Animation="toastReference.Options.Animation ?? Animation ?? true"
+                Delay="toastReference.Options.Delay ?? Delay ?? 2000"
+                AutoHide="toastReference.Options.AutoHide ?? AutoHide ?? true"
+                Color="toastReference.Options.Color ?? Color"
+                Class="@toastReference.Options.Class">
+                @{ toastReference.Initialize(currentRef!); }
+                <CascadingValue TValue="IToastReference" IsFixed Value="toastReference">
+
+                    @if (toastReference.ReferenceType is ToastReferenceType.Standalone)
+                    {
+                        @if (!string.IsNullOrEmpty(toastReference.Title))
+                        {
+                            <BsToastHeader>
+                                <strong class="me-auto">@toastReference.Title</strong>
+                                @if (toastReference.Options.ShowCloseButtonIcon) { <BsToastCloseButton/> }
+                            </BsToastHeader>
+                        }
+
+                        <BsToastBody>
+
+                            @if (string.IsNullOrEmpty(toastReference.Title) && toastReference.Options.ShowCloseButtonIcon)
+                            {
+                                <div class="d-flex">
+                                    @toastReference.Message
+                                    <BsToastCloseButton Class="me-2 m-auto"/>
+                                </div>
+                            }
+                            else
+                            {
+                                @toastReference.Message
+                            }
+                        </BsToastBody>
+                    }
+
+                    @if (toastReference.ReferenceType is ToastReferenceType.RenderFragment)
+                    {
+                        @toastReference.RenderFragment
+                    }
+
+                    @if (toastReference.ReferenceType is ToastReferenceType.ContextualRenderFragment && toastReference.ContextualRenderFragment is not null)
+                    {
+                        @toastReference.ContextualRenderFragment(toastReference)
+                    }
+
+                    @if (toastReference.ReferenceType is ToastReferenceType.Component && toastReference.ToastContentType is not null)
+                    {
+                        <DynamicComponent Type="toastReference.ToastContentType" Parameters="toastReference.Parameters"/>
+                    }
+
+                </CascadingValue>
+            </BsToast>
+        }
+    </BsToastContainer>
+}
+
+@code {
+    private ToastService? ConcreteModalService => ToastService as ToastService;
+
+    protected override void OnInitialized()
+    {
+        if (ConcreteModalService is null)
+        {
+            return;
+        }
+
+        ConcreteModalService.OnToastAdded += _ => StateHasChanged();
+        ConcreteModalService.OnToastRemoved += _ => StateHasChanged();
+    }
+
+    [Parameter] public bool? Animation { get; set; }
+
+    [Parameter] public bool? AutoHide { get; set; }
+
+    [Parameter] public int? Delay { get; set; }
+
+    [Parameter] public BsToastColor? Color { get; set; }
+    
+    [Parameter] public BsToastPlacement? Placement { get; set; }
+    
+    [Parameter] public BsToastPosition? Position { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (string.IsNullOrEmpty(Class) && Placement is null)
+        {
+            Placement = BsToastPlacement.TopRight;
+        }
+        
+        if (string.IsNullOrEmpty(Class) && Position is null)
+        {
+            Position = BsToastPosition.Fixed;
+        }
+    }
+
+}

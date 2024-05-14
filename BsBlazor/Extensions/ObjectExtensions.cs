@@ -1,6 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
-namespace BsBlazor.Extensions;
+﻿namespace BsBlazor.Extensions;
 
 internal static class ObjectExtensions
 {

@@ -472,7 +472,7 @@ public static class Examples
 		{
 			"ToastColorSchemesExample",
 """
-<BsToastContainer Position="BsToastPosition.Relative">
+<BsToastContainer Class="@Bs.Css.PositionRelative">
     <BsToast Class="@Bs.Default("fade show").TextBgPrimary" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
@@ -575,7 +575,7 @@ public static class Examples
     Show live toast
 </BsButton>
 
-<BsToastContainer Placement="BsToastPlacement.BottomRight">
+<BsToastContainer Class="@Bs.Css.PositionFixed.BottomRight">
     <BsToast @ref="_toast"
              OnShow="@(() => _sb1.AppendLine("Show"))"
              OnShown="@(() => _sb1.AppendLine("Shown"))"
@@ -666,9 +666,58 @@ public static class Examples
 """
 		},
 		{
+			"ToastServiceStandaloneExample",
+"""
+@inject  IToastService ToastService
+
+<BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" 
+          OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body"))">
+    Show simple standalone Toast
+</BsButton>
+
+<BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" 
+          OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body", "Hi, I am a toast header"))">
+    Show standalone Toast with title
+</BsButton>
+
+<BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button"
+          OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body", "Hi, I am a toast header", _options))">
+    Show standalone Toast with title and options
+</BsButton>
+
+<BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" OnClick="ShowToastAsync">
+    Show simple standalone toast + ToastReference
+</BsButton>
+
+@code 
+{
+    private ToastOptions _options = new ()
+    {
+        Class = Bs.Css.TextBgPrimary,
+        Delay = 4000
+    };
+    
+    private async Task ShowToastAsync()
+    {
+        var options = new ToastOptions
+        {
+            Color = BsToastColor.Secondary,
+            AutoHide = false
+        };
+        
+        var toastRef = await ToastService.ShowAsync("Notification in progress...", options: options);
+        
+        await toastRef.WaitClosedAsync();
+
+        await ToastService.ShowAsync("Notification completed!");
+    }
+}
+"""
+		},
+		{
 			"ToastStackingCodeSampleExample",
 """
-<BsToastContainer>
+<BsToastContainer Position="BsToastPosition.Fixed" Placement="BsToastPlacement.BottomLeft">
     <BsToast>
         <BsToastHeader>
             <MyIcon />
@@ -698,7 +747,7 @@ public static class Examples
 		{
 			"ToastStackingExample",
 """
-<BsToastContainer Placement="BsToastPlacement.BottomLeft" Position="null">
+<BsToastContainer Placement="BsToastPlacement.BottomLeft" Position="BsToastPosition.Relative">
     <BsToast Class="fase show" AutoHide="false">
         <BsToastHeader>
             <MyIcon />

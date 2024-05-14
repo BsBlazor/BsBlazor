@@ -42,8 +42,9 @@
     [Parameter] public bool Animation { get; set; } = true;
     [Parameter] public bool AutoHide { get; set; } = true;
     [Parameter] public int Delay { get; set; } = 2000;
-    
     [Parameter] public BsToastColor? Color { get; set; }
+    
+    [Parameter] public bool ShowWhenRendered { get; set; }
 
     [Parameter] public EventCallback OnHide { get; set; }
 
@@ -58,6 +59,10 @@
         if (firstRender)
         {
             _jsInstance = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Toast.getOrCreateInstance", _elementReference);
+            if (ShowWhenRendered)
+            {
+                await ShowAsync();
+            }
         }
     }
 
