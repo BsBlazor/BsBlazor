@@ -1,0 +1,15 @@
+﻿@inject  IToastService ToastService
+
+<div class="d-flex flex-wrap" style="gap: 10px;">
+    <BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" OnClick="ShowToastAsync">
+        Show toast
+    </BsButton>
+</div>
+
+@code 
+{
+    private async Task ShowToastAsync()
+    {
+        await ToastService.ShowAsync(@<BsToastBody>Hi, I am a toast body</BsToastBody>);
+    }
+}

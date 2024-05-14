@@ -673,28 +673,50 @@ public static class Examples
 """
 		},
 		{
+			"ToastServiceRenderFragmentExample",
+"""
+@inject  IToastService ToastService
+
+<div class="d-flex flex-wrap" style="gap: 10px;">
+    <BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" OnClick="ShowToastAsync">
+        Show toast
+    </BsButton>
+</div>
+
+@code 
+{
+    private async Task ShowToastAsync()
+    {
+        await ToastService.ShowAsync(@<BsToastBody>Hi, I am a toast body</BsToastBody>);
+    }
+}
+"""
+		},
+		{
 			"ToastServiceStandaloneExample",
 """
 @inject  IToastService ToastService
 
-<BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" 
-          OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body"))">
-    Show simple standalone Toast
-</BsButton>
+<div class="d-flex flex-wrap" style="gap: 10px;">
+    <BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button"
+              OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body"))">
+        Show simple standalone Toast
+    </BsButton>
 
-<BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" 
-          OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body", "Hi, I am a toast header"))">
-    Show standalone Toast with title
-</BsButton>
+    <BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button"
+              OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body", "Hi, I am a toast header"))">
+        Show standalone Toast with title
+    </BsButton>
 
-<BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button"
-          OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body", "Hi, I am a toast header", _options))">
-    Show standalone Toast with title and options
-</BsButton>
+    <BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button"
+              OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body", "Hi, I am a toast header", _options))">
+        Show standalone Toast with title and options
+    </BsButton>
 
-<BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" OnClick="ShowToastAsync">
-    Show simple standalone toast + ToastReference
-</BsButton>
+    <BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" OnClick="ShowToastAsync">
+        Show simple standalone toast + ToastReference
+    </BsButton>
+</div>
 
 @code 
 {
@@ -709,7 +731,7 @@ public static class Examples
         var options = new ToastOptions
         {
             Color = BsToastColor.Secondary,
-            AutoHide = false
+            Delay = 30000
         };
         
         var toastRef = await ToastService.ShowAsync("Notification in progress...", options: options);

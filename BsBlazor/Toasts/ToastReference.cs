@@ -53,11 +53,3 @@ internal class ToastReference : IToastReference
         return (TResult)obj;
     }
 }
-
-internal enum ToastReferenceType
-{
-    Standalone,
-    RenderFragment,
-    ContextualRenderFragment,
-    Component
-}
