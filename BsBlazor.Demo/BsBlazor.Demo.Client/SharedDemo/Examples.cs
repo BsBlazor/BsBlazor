@@ -10,6 +10,13 @@ public static class Examples
 """
 		},
 		{
+			"ButtonSizesExample",
+"""
+<BsButton Variant="BsButtonVariant.Primary" Size="BsButtonSize.Large">Large button</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Size="BsButtonSize.Small">Small button</BsButton>
+"""
+		},
+		{
 			"ButtonVariantsExample",
 """
 <BsButton Variant="BsButtonVariant.Primary">Primary</BsButton>

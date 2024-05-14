@@ -1,16 +1,24 @@
 ﻿@namespace BsBlazor
 <button type="@Type.ToString().ToLower()"
-        class="btn btn-@Variant.ToKebabCase()"
+        class="@CssBuilder"
         @onclick="@(() => OnClick.InvokeAsync())"
         @attributes="_additionalAttributes">
     @ChildContent
 </button>
 @code {
+    private CssBuilder CssBuilder => CssBuilder.Default("btn")
+        .AddClass("btn-lg", Size == BsButtonSize.Large)
+        .AddClass("btn-sm", Size == BsButtonSize.Small)
+        .AddClass($"btn-{Variant.ToKebabCase()}", Variant != BsButtonVariant.None);
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
     public BsButtonVariant Variant { get; set; }
+
+    [Parameter]
+    public BsButtonSize Size { get; set; }
 
     [Parameter]
     public BsButtonType Type { get; set; } = BsButtonType.Button;
