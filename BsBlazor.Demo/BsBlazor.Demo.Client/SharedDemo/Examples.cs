@@ -10,6 +10,13 @@ public static class Examples
 """
 		},
 		{
+			"ButtonSizesExample",
+"""
+<BsButton Variant="BsButtonVariant.Primary" Size="BsButtonSize.Large">Large button</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Size="BsButtonSize.Small">Small button</BsButton>
+"""
+		},
+		{
 			"ButtonVariantsExample",
 """
 <BsButton Variant="BsButtonVariant.Primary">Primary</BsButton>
@@ -472,7 +479,7 @@ public static class Examples
 		{
 			"ToastColorSchemesExample",
 """
-<BsToastContainer Position="BsToastPosition.Relative">
+<BsToastContainer Class="@Bs.Css.PositionRelative">
     <BsToast Class="@Bs.Default("fade show").TextBgPrimary" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
@@ -575,7 +582,7 @@ public static class Examples
     Show live toast
 </BsButton>
 
-<BsToastContainer Placement="BsToastPlacement.BottomRight">
+<BsToastContainer Class="@Bs.Css.PositionFixed.BottomRight">
     <BsToast @ref="_toast"
              OnShow="@(() => _sb1.AppendLine("Show"))"
              OnShown="@(() => _sb1.AppendLine("Shown"))"
