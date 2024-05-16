@@ -11,5 +11,5 @@ public partial class BsCssBuilder
     public BsCssBuilder LinkInfo => AddClass("link-info");
     public BsCssBuilder LinkLight => AddClass("link-light");
     public BsCssBuilder LinkDark => AddClass("link-dark");
-    public BsCssBuilder LinkBodyEmphasis => AddClass("link-body-emphasis-muted");
+    public BsCssBuilder LinkBodyEmphasisMuted => AddClass("link-body-emphasis-muted");
 }
