@@ -1,20 +1,26 @@
-﻿<div class="@Bs.Css.DisplayFlex.FlexColumn.Gap2.MarginTop4.MarginBottom4.Border.Rounded3">
+﻿@inject IToastService ToastService
 
-    <div class="@Bs.Css.DisplayFlex.Padding4">
+<div class="@Bs.Css.DisplayFlex.FlexColumn.Gap2.MarginTop4.MarginBottom4.Border.Rounded3">
+
+    <div class="@Bs.Css.DisplayBlock.Padding4">
         @ChildContent
     </div>
-    <div class="@Bs.Css.DisplayFlex.TextBackgroundLight.Padding2.Border.BorderStart0.BorderEnd0">
+    <div class="@Bs.Css.DisplayFlex.TextBackgroundLight.Padding2.Border.BorderStart0.BorderEnd0.AlignItemsCenter">
         <span class="fw-lighter @Bs.Css.MarginEndAuto">@ToolsLabel</span>
-        <span>Tools Here</span>
+       <BsButton OnClick="CopyAsync" Variant="BsButtonVariant.Primary" Size="BsButtonSize.Small" Type="BsButtonType.Button">
+            Copy
+        </BsButton>
     </div>
     <div class="@Bs.Css.Padding4">
-        <CodeSnippet For="@CodeSnippetName"></CodeSnippet>
+        <CodeSnippet @ref="_codeSnippet" For="@CodeSnippetName"></CodeSnippet>
     </div>
 </div>
 
 
 @code 
 {
+    private CodeSnippet? _codeSnippet;
+    
     [Parameter] public string ToolsLabel { get; set; } = string.Empty;
     
     [Parameter]
@@ -24,4 +30,12 @@
     [Parameter]
     [EditorRequired]
     public required string CodeSnippetName { get; set; }
+
+    private async Task CopyAsync()
+    {
+        if(_codeSnippet is null) return;
+        
+        await _codeSnippet.CopyTextToClipboard();
+        await ToastService.ShowAsync("Code copied to clipboard");
+    }
 }

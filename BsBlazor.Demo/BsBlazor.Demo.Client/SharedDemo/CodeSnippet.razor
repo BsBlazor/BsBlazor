@@ -25,4 +25,9 @@
             await JS.InvokeVoidAsync("hljs.highlightAll");
         }
     }
+    
+    public async Task CopyTextToClipboard()
+    {
+        await JS.InvokeVoidAsync("navigator.clipboard.writeText", GetCodeContent());
+    }
 }
