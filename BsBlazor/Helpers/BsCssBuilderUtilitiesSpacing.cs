@@ -35,13 +35,13 @@ public partial class BsCssBuilder
     public BsCssBuilder MarginTop5 => AddClass("mt-5");
     public BsCssBuilder MarginTopAuto => AddClass("mt-auto");
     
-    public BsCssBuilder MarginEnd0 => AddClass("mr-0");
-    public BsCssBuilder MarginEnd1 => AddClass("mr-1");
-    public BsCssBuilder MarginEnd2 => AddClass("mr-2");
-    public BsCssBuilder MarginEnd3 => AddClass("mr-3");
-    public BsCssBuilder MarginEnd4 => AddClass("mr-4");
-    public BsCssBuilder MarginEnd5 => AddClass("mr-5");
-    public BsCssBuilder MarginEndAuto => AddClass("mr-auto");
+    public BsCssBuilder MarginEnd0 => AddClass("me-0");
+    public BsCssBuilder MarginEnd1 => AddClass("me-1");
+    public BsCssBuilder MarginEnd2 => AddClass("me-2");
+    public BsCssBuilder MarginEnd3 => AddClass("me-3");
+    public BsCssBuilder MarginEnd4 => AddClass("me-4");
+    public BsCssBuilder MarginEnd5 => AddClass("me-5");
+    public BsCssBuilder MarginEndAuto => AddClass("me-auto");
     
     public BsCssBuilder MarginBottom0 => AddClass("mb-0");
     public BsCssBuilder MarginBottom1 => AddClass("mb-1");
@@ -51,13 +51,13 @@ public partial class BsCssBuilder
     public BsCssBuilder MarginBottom5 => AddClass("mb-5");
     public BsCssBuilder MarginBottomAuto => AddClass("mb-auto");
     
-    public BsCssBuilder MarginStart0 => AddClass("ml-0");
-    public BsCssBuilder MarginStart1 => AddClass("ml-1");
-    public BsCssBuilder MarginStart2 => AddClass("ml-2");
-    public BsCssBuilder MarginStart3 => AddClass("ml-3");
-    public BsCssBuilder MarginStart4 => AddClass("ml-4");
-    public BsCssBuilder MarginStart5 => AddClass("ml-5");
-    public BsCssBuilder MarginStartAuto => AddClass("ml-auto");
+    public BsCssBuilder MarginStart0 => AddClass("ms-0");
+    public BsCssBuilder MarginStart1 => AddClass("ms-1");
+    public BsCssBuilder MarginStart2 => AddClass("ms-2");
+    public BsCssBuilder MarginStart3 => AddClass("ms-3");
+    public BsCssBuilder MarginStart4 => AddClass("ms-4");
+    public BsCssBuilder MarginStart5 => AddClass("ms-5");
+    public BsCssBuilder MarginStartAuto => AddClass("ms-auto");
     
     public BsCssBuilder Padding0 => AddClass("p-0");
     public BsCssBuilder Padding1 => AddClass("p-1");
@@ -91,13 +91,13 @@ public partial class BsCssBuilder
     public BsCssBuilder PaddingTop5 => AddClass("pt-5");
     public BsCssBuilder PaddingTopAuto => AddClass("pt-auto");
     
-    public BsCssBuilder PaddingEnd0 => AddClass("pr-0");
-    public BsCssBuilder PaddingEnd1 => AddClass("pr-1");
-    public BsCssBuilder PaddingEnd2 => AddClass("pr-2");
-    public BsCssBuilder PaddingEnd3 => AddClass("pr-3");
-    public BsCssBuilder PaddingEnd4 => AddClass("pr-4");
-    public BsCssBuilder PaddingEnd5 => AddClass("pr-5");
-    public BsCssBuilder PaddingEndAuto => AddClass("pr-auto");
+    public BsCssBuilder PaddingEnd0 => AddClass("pe-0");
+    public BsCssBuilder PaddingEnd1 => AddClass("pe-1");
+    public BsCssBuilder PaddingEnd2 => AddClass("pe-2");
+    public BsCssBuilder PaddingEnd3 => AddClass("pe-3");
+    public BsCssBuilder PaddingEnd4 => AddClass("pe-4");
+    public BsCssBuilder PaddingEnd5 => AddClass("pe-5");
+    public BsCssBuilder PaddingEndAuto => AddClass("pe-auto");
     
     public BsCssBuilder PaddingBottom0 => AddClass("pb-0");
     public BsCssBuilder PaddingBottom1 => AddClass("pb-1");
@@ -107,13 +107,13 @@ public partial class BsCssBuilder
     public BsCssBuilder PaddingBottom5 => AddClass("pb-5");
     public BsCssBuilder PaddingBottomAuto => AddClass("pb-auto");
     
-    public BsCssBuilder PaddingStart0 => AddClass("pl-0");
-    public BsCssBuilder PaddingStart1 => AddClass("pl-1");
-    public BsCssBuilder PaddingStart2 => AddClass("pl-2");
-    public BsCssBuilder PaddingStart3 => AddClass("pl-3");
-    public BsCssBuilder PaddingStart4 => AddClass("pl-4");
-    public BsCssBuilder PaddingStart5 => AddClass("pl-5");
-    public BsCssBuilder PaddingStartAuto => AddClass("pl-auto");
+    public BsCssBuilder PaddingStart0 => AddClass("ps-0");
+    public BsCssBuilder PaddingStart1 => AddClass("ps-1");
+    public BsCssBuilder PaddingStart2 => AddClass("ps-2");
+    public BsCssBuilder PaddingStart3 => AddClass("ps-3");
+    public BsCssBuilder PaddingStart4 => AddClass("ps-4");
+    public BsCssBuilder PaddingStart5 => AddClass("ps-5");
+    public BsCssBuilder PaddingStartAuto => AddClass("ps-auto");
     
     // Gap
     public BsCssBuilder Gap0 => AddClass("gap-0");

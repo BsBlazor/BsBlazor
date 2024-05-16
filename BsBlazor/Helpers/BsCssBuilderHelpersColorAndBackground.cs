@@ -3,12 +3,12 @@
 public partial class BsCssBuilder
 {
     // Color and Background
-    public BsCssBuilder TextBgPrimary => AddClass("text-bg-primary");
-    public BsCssBuilder TextBgSecondary => AddClass("text-bg-secondary");
-    public BsCssBuilder TextBgSuccess => AddClass("text-bg-success");
-    public BsCssBuilder TextBgDanger => AddClass("text-bg-danger");
-    public BsCssBuilder TextBgWarning => AddClass("text-bg-warning");
-    public BsCssBuilder TextBgInfo => AddClass("text-bg-info");
-    public BsCssBuilder TextBgLight => AddClass("text-bg-light");
-    public BsCssBuilder TextBgDark => AddClass("text-bg-dark");
+    public BsCssBuilder TextBackgroundPrimary => AddClass("text-bg-primary");
+    public BsCssBuilder TextBackgroundSecondary => AddClass("text-bg-secondary");
+    public BsCssBuilder TextBackgroundSuccess => AddClass("text-bg-success");
+    public BsCssBuilder TextBackgroundDanger => AddClass("text-bg-danger");
+    public BsCssBuilder TextBackgroundWarning => AddClass("text-bg-warning");
+    public BsCssBuilder TextBackgroundInfo => AddClass("text-bg-info");
+    public BsCssBuilder TextBackgroundLight => AddClass("text-bg-light");
+    public BsCssBuilder TextBackgroundDark => AddClass("text-bg-dark");
 }
