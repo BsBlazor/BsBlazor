@@ -68,7 +68,8 @@ internal class ToastService : IToastService
         OnToastAdded?.Invoke(reference);
         reference.OnHidden += async () =>
         {
-            // The BS changes the classes after that toast is hidden
+            // BS manipulates the toast classes even after calling the Hidden event.
+            // If it is removed too quickly it may generate errors in the console
             await Task.Delay(2000);
             ToastReferences.Remove(reference);
             OnToastRemoved?.Invoke(reference);

@@ -41,7 +41,7 @@
 
     [Parameter] public bool Animation { get; set; } = true;
     [Parameter] public bool AutoHide { get; set; } = true;
-    [Parameter] public int Delay { get; set; } = 2000;
+    [Parameter] public int Delay { get; set; } = 5000;
     [Parameter] public BsToastColor? Color { get; set; }
     
     [Parameter] public bool ShowWhenRendered { get; set; }
@@ -78,7 +78,7 @@
     public async Task HideAsync() => await _jsInstance.InvokeVoidAsync("hide");
 
     public async Task<bool> IsShownAsync() => await _jsInstance.InvokeAsync<bool>("isShown");
-
+    
     public async ValueTask DisposeAsync()
     {
         if (_jsInstance.IsNotNull())
