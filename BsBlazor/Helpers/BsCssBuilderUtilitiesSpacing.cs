@@ -114,4 +114,28 @@ public partial class BsCssBuilder
     public BsCssBuilder PaddingStart4 => AddClass("pl-4");
     public BsCssBuilder PaddingStart5 => AddClass("pl-5");
     public BsCssBuilder PaddingStartAuto => AddClass("pl-auto");
+    
+    // Gap
+    public BsCssBuilder Gap0 => AddClass("gap-0");
+    public BsCssBuilder Gap1 => AddClass("gap-1");
+    public BsCssBuilder Gap2 => AddClass("gap-2");
+    public BsCssBuilder Gap3 => AddClass("gap-3");
+    public BsCssBuilder Gap4 => AddClass("gap-4");
+    public BsCssBuilder Gap5 => AddClass("gap-5");
+    
+    // Row Gap
+    public BsCssBuilder RowGap0 => AddClass("row-gap-0");
+    public BsCssBuilder RowGap1 => AddClass("row-gap-1");
+    public BsCssBuilder RowGap2 => AddClass("row-gap-2");
+    public BsCssBuilder RowGap3 => AddClass("row-gap-3");
+    public BsCssBuilder RowGap4 => AddClass("row-gap-4");
+    public BsCssBuilder RowGap5 => AddClass("row-gap-5");
+    
+    // Column Gap
+    public BsCssBuilder ColumnGap0 => AddClass("column-gap-0");
+    public BsCssBuilder ColumnGap1 => AddClass("column-gap-1");
+    public BsCssBuilder ColumnGap2 => AddClass("column-gap-2");
+    public BsCssBuilder ColumnGap3 => AddClass("column-gap-3");
+    public BsCssBuilder ColumnGap4 => AddClass("column-gap-4");
+    public BsCssBuilder ColumnGap5 => AddClass("column-gap-5");
 }
