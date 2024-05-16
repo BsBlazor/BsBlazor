@@ -26,14 +26,14 @@
 
     private string CssClass => CssBuilder
         .Default("toast")
-        .AddBsClass(bs => bs.TextBgPrimary, Color is BsToastColor.Primary)
-        .AddBsClass(bs => bs.TextBgSecondary, Color is BsToastColor.Secondary)
-        .AddBsClass(bs => bs.TextBgSuccess, Color is BsToastColor.Success)
-        .AddBsClass(bs => bs.TextBgDanger, Color is BsToastColor.Danger)
-        .AddBsClass(bs => bs.TextBgWarning, Color is BsToastColor.Warning)
-        .AddBsClass(bs => bs.TextBgInfo, Color is BsToastColor.Info)
-        .AddBsClass(bs => bs.TextBgLight, Color is BsToastColor.Light)
-        .AddBsClass(bs => bs.TextBgDark, Color is BsToastColor.Dark)
+        .AddBsClass(bs => bs.TextBackgroundPrimary, Color is BsToastColor.Primary)
+        .AddBsClass(bs => bs.TextBackgroundSecondary, Color is BsToastColor.Secondary)
+        .AddBsClass(bs => bs.TextBackgroundSuccess, Color is BsToastColor.Success)
+        .AddBsClass(bs => bs.TextBackgroundDanger, Color is BsToastColor.Danger)
+        .AddBsClass(bs => bs.TextBackgroundWarning, Color is BsToastColor.Warning)
+        .AddBsClass(bs => bs.TextBackgroundInfo, Color is BsToastColor.Info)
+        .AddBsClass(bs => bs.TextBackgroundLight, Color is BsToastColor.Light)
+        .AddBsClass(bs => bs.TextBackgroundDark, Color is BsToastColor.Dark)
         .AddClass(Class)
         .Build();
 

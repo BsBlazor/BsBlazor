@@ -15,11 +15,7 @@
     
     private string GetCodeContent()
     {
-        if (Examples.Contents.TryGetValue(For, out var content))
-        {
-            return content;
-        }
-        return "Example not found";
+        return Examples.Contents.GetValueOrDefault(For, "Example not found");
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

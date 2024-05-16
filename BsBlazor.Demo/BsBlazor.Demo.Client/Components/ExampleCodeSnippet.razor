@@ -1,0 +1,27 @@
+﻿<div class="@Bs.Css.DisplayFlex.FlexColumn.Gap2.MarginTop4.MarginBottom4.Border.Rounded3">
+
+    <div class="@Bs.Css.DisplayFlex.Padding4">
+        @ChildContent
+    </div>
+    <div class="@Bs.Css.DisplayFlex.TextBackgroundLight.Padding2.Border.BorderStart0.BorderEnd0">
+        <span class="fw-lighter @Bs.Css.MarginEndAuto">@ToolsLabel</span>
+        <span>Tools Here</span>
+    </div>
+    <div class="@Bs.Css.Padding4">
+        <CodeSnippet For="@CodeSnippetName"></CodeSnippet>
+    </div>
+</div>
+
+
+@code 
+{
+    [Parameter] public string ToolsLabel { get; set; } = string.Empty;
+    
+    [Parameter]
+    [EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public required string CodeSnippetName { get; set; }
+}
