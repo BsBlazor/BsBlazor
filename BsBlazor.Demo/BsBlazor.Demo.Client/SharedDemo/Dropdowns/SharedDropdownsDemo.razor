@@ -5,11 +5,19 @@
     <DropdownsSingleButtonExample />
 </ExampleCodeSnippet>
 
-@* <p> *@
-@* *@
-@*     While <button> is the recommended control for a dropdown toggle, there might be situations where you have to use an <a> element. If you do, we recommend adding a role="button" attribute to appropriately convey control’s purpose to assistive technologies such as screen readers. *@
-@*      *@
-@* </p> *@
+<p>
+    While  <code>"@("<")BsButton Tag="BsButtonTag.Button ...>"</code>  is the recommended control for a dropdown toggle, there might be situations where you have to use an <code>"@("<")BsButton Tag="BsButtonTag.Anchor Href="link-here" ...>"</code> element. If you do, we recommend adding a role="button" attribute to appropriately convey control’s purpose to assistive technologies such as screen readers.
+</p>
+
+<ExampleCodeSnippet CodeSnippetName="@nameof(DropdownsSingleButtonWithAnchorExample)" ToolsLabel="Blazor">
+    <DropdownsSingleButtonWithAnchorExample />
+</ExampleCodeSnippet>
+
+<p>The best part is you can do this with any button variant, too:</p>
+
+<ExampleCodeSnippet CodeSnippetName="@nameof(DropdownsSingleButtonWithColorVariantesExample)" ToolsLabel="Blazor">
+    <DropdownsSingleButtonWithColorVariantesExample />
+</ExampleCodeSnippet>
 
 @code 
 {

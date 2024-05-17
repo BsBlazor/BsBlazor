@@ -32,17 +32,59 @@ public static class Examples
 			"DropdownsSingleButtonExample",
 """
 <BsDropdown>
-    <BsButton Toggle="BsButtonToggle.Dropdown" Variant="BsButtonVariant.Primary">
+    <BsButton Toggle="BsButtonToggle.Dropdown" Variant="BsButtonVariant.Secondary" >
         Dropdown button
     </BsButton>
     <BsDropdownMenu>
-        <BsDropdownItem Href="#">Action</BsDropdownItem>
+        <BsDropdownItem>Action</BsDropdownItem>
         <BsDropdownItem>Another action</BsDropdownItem>
         <BsDropdownItem>Something else here</BsDropdownItem>
-        <BsDropdownDivider/>
-        <BsDropdownItem>Separated link</BsDropdownItem>
     </BsDropdownMenu>
 </BsDropdown>
+"""
+		},
+		{
+			"DropdownsSingleButtonWithAnchorExample",
+"""
+<BsDropdown>
+    <BsButton 
+        Toggle="BsButtonToggle.Dropdown" Variant="BsButtonVariant.Secondary" 
+        Tag="BsButtonTag.Anchor" Href="link-here" role="button">
+        Dropdown button
+    </BsButton>
+    <BsDropdownMenu>
+        <BsDropdownItem>Action</BsDropdownItem>
+        <BsDropdownItem>Another action</BsDropdownItem>
+        <BsDropdownItem>Something else here</BsDropdownItem>
+    </BsDropdownMenu>
+</BsDropdown>
+"""
+		},
+		{
+			"DropdownsSingleButtonWithColorVariantesExample",
+"""
+<div class="@Bs.Css.DisplayFlex.FlexRow.Gap2.FlexWrap">
+
+    @foreach (var variant in _variants)
+    {
+        <BsButtonGroup>
+            <BsButton Toggle="BsButtonToggle.Dropdown" Variant="variant">
+                Dropdown button
+            </BsButton>
+            <BsDropdownMenu>
+                <BsDropdownItem>Action</BsDropdownItem>
+                <BsDropdownItem>Another action</BsDropdownItem>
+                <BsDropdownItem>Something else here</BsDropdownItem>
+            </BsDropdownMenu>
+        </BsButtonGroup>
+    }
+
+</div>
+
+@code
+{
+    private readonly BsButtonVariant[] _variants = Enum.GetValues<BsButtonVariant>();
+}
 """
 		},
 		{

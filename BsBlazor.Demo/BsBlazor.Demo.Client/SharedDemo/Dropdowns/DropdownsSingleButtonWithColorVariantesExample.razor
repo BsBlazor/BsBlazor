@@ -1,0 +1,22 @@
+﻿<div class="@Bs.Css.DisplayFlex.FlexRow.Gap2.FlexWrap">
+
+    @foreach (var variant in _variants)
+    {
+        <BsButtonGroup>
+            <BsButton Toggle="BsButtonToggle.Dropdown" Variant="variant">
+                Dropdown button
+            </BsButton>
+            <BsDropdownMenu>
+                <BsDropdownItem>Action</BsDropdownItem>
+                <BsDropdownItem>Another action</BsDropdownItem>
+                <BsDropdownItem>Something else here</BsDropdownItem>
+            </BsDropdownMenu>
+        </BsButtonGroup>
+    }
+
+</div>
+
+@code
+{
+    private readonly BsButtonVariant[] _variants = Enum.GetValues<BsButtonVariant>();
+}

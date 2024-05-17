@@ -1,0 +1,13 @@
+﻿@namespace BsBlazor
+@inherits BsComponentBase
+
+<div class="btn-group @Class" style="@Style" @attributes="AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code 
+{
+    [Parameter]
+    [EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+}
