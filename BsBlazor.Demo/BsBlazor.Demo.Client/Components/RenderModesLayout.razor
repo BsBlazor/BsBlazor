@@ -1,14 +1,27 @@
-﻿@layout MainLayout
+﻿@using System.Globalization
+@layout MainLayout
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
-<h4>@RenderMode</h4>
+<div>
+    <ul class="nav  nav-pills">
+        @RenderNavLink(null)
+        @RenderNavLink("Wasm")
+        @RenderNavLink("Server")
+    </ul>
+    <h1>@Component - @(string.IsNullOrEmpty(RenderMode) ? "Static" : RenderMode)</h1>
+</div>
 @Body
 @code {
-    public string RenderMode => NavigationManager.Uri switch
+    private string Component => ToTitleCase(NavigationManager.Uri.Split('/')[3] ?? "Component");
+    private string RenderMode => ToTitleCase(NavigationManager.Uri.Split('/')[^1]);
+
+
+    private RenderFragment RenderNavLink(string? renderMode) => @<li class="nav-item">
+        <NavLink class="nav-link" href="@($"{Component.ToLower()}/{renderMode?.ToLower()}")" Match="NavLinkMatch.All">@(renderMode ?? "Static")</NavLink>
+    </li>;
+
+    private string ToTitleCase(string str)
     {
-        var uri when uri.Contains("/static/", StringComparison.OrdinalIgnoreCase) => "Static",
-        var uri when uri.Contains("/wasm/", StringComparison.OrdinalIgnoreCase) => "Wasm",
-        var uri when uri.Contains("/server/", StringComparison.OrdinalIgnoreCase) => "Server",
-        _ => "Unknown"
-    };
+        return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(str);
+    }
 }

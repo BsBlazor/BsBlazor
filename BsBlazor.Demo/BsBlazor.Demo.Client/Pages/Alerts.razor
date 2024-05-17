@@ -1,0 +1,19 @@
+﻿@page "/alerts/{Mode=static}"
+@using BsBlazor.Demo.Client.SharedDemo.Alerts
+@switch (Mode)
+{
+    case "server":
+        <SharedAlertsDemo @rendermode="InteractiveServer"/>
+        break;
+    case "wasm":
+        <SharedAlertsDemo @rendermode="InteractiveWebAssembly"/>
+        break;
+    default:
+        <SharedAlertsDemo @rendermode="null"/>
+        break;
+}
+
+@code {
+    [Parameter]
+    public string? Mode { get; set; }
+}
