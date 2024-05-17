@@ -1,5 +1,5 @@
 ﻿@namespace BsBlazor
-@inherits BsComponentBase
+@inherits BsParentComponentBase
 
 <li>
     <a class="dropdown-item @Class" href="@Href" @attributes="AdditionalAttributes" style="@Style">
@@ -9,6 +9,5 @@
 
 @code 
 {
-    [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
     [Parameter] public string Href { get; set; } = string.Empty;
 }

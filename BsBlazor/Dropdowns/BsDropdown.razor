@@ -1,13 +1,5 @@
 ﻿@namespace BsBlazor
-@inherits BsComponentBase
-
+@inherits BsParentComponentBase
 <div class="dropdown @Class" @attributes="AdditionalAttributes" style="@Style">
     @ChildContent
 </div>
-
-@code
-{
-    [Parameter]
-    [EditorRequired]
-    public required RenderFragment ChildContent { get; set; }
-}
