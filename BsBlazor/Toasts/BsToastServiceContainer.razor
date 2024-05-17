@@ -4,7 +4,7 @@
 
 @if (ConcreteModalService is not null)
 {
-    <BsToastContainer Placement="Placement" Position="Position" Class="@Class" AdditionalAttributes="AdditionalAttributes">
+    <BsToastContainer Placement="Placement" Position="Position" Class="@Class" AdditionalAttributes="AdditionalAttributes" Style="@Style">
         @foreach (var toastReference in ConcreteModalService.ToastReferences)
         {
             BsToast? currentRef = null;

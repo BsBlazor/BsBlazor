@@ -11,6 +11,7 @@
     @onshow.bs.toast="() => OnShow.InvokeAsync()"
     @onshown.bs.toast="() => OnShown.InvokeAsync()"
     class="@CssClass"
+    style="@Style"
     role="alert"
     aria-live="assertive"
     aria-atomic="true"
@@ -68,9 +69,9 @@
 
     protected override void OnParametersSet()
     {
-        AdditionalAttributes["data-bs-autohide"] = AutoHide.ToString().ToLower();
-        AdditionalAttributes["data-bs-delay"] = Delay.ToString();
-        AdditionalAttributes["data-bs-animation"] = Animation.ToString().ToLower();
+        AddAttribute("data-bs-autohide", AutoHide.ToString().ToLower());
+        AddAttribute("data-bs-delay", Delay.ToString());
+        AddAttribute("data-bs-animation", Animation.ToString().ToLower());
     }
 
     public async Task ShowAsync() => await _jsInstance.InvokeVoidAsync("show");

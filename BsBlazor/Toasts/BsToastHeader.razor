@@ -1,13 +1,6 @@
 ﻿@namespace BsBlazor
-@inherits BsComponentBase
+@inherits BsParentComponentBase
 
-<div class="toast-header" @attributes="AdditionalAttributes" >
+<div class="toast-header @Class" @attributes="AdditionalAttributes" style="@Style" >
     @ChildContent
 </div>
-
-@code 
-{
-    [Parameter]
-    [EditorRequired]
-    public required RenderFragment ChildContent { get; set; }
-}
