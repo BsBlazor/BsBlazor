@@ -15,7 +15,7 @@ public partial class BsCssBuilder
 
     internal BsCssBuilder(Action<string?> addCssClassAction) => _addCssClassAction = addCssClassAction;
 
-    private BsCssBuilder AddClass(string value)
+    public BsCssBuilder AddClass(string value)
     {
         
         if (_buffer is not null)

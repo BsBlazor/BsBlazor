@@ -2,5 +2,6 @@
 
 public enum BsButtonToggle
 {
-    Modal = 1
+    Modal = 1,
+    Dropdown = 2,
 }

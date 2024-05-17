@@ -29,14 +29,31 @@ public static class Examples
 """
 		},
 		{
+			"DropdownsSingleButtonExample",
+"""
+<BsDropdown>
+    <BsButton Toggle="BsButtonToggle.Dropdown" Variant="BsButtonVariant.Primary">
+        Dropdown button
+    </BsButton>
+    <BsDropdownMenu>
+        <BsDropdownItem Href="#">Action</BsDropdownItem>
+        <BsDropdownItem>Another action</BsDropdownItem>
+        <BsDropdownItem>Something else here</BsDropdownItem>
+        <BsDropdownDivider/>
+        <BsDropdownItem>Separated link</BsDropdownItem>
+    </BsDropdownMenu>
+</BsDropdown>
+"""
+		},
+		{
 			"ModalFullscreenExample",
 """
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalFullscreen">Full screen</BsButton>
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalFullscreenSm">Full screen below sm</BsButton>
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalFullscreenMd">Full screen below md</BsButton>
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalFullscreenLg">Full screen below lg</BsButton>
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalFullscreenXl">Full screen below xl</BsButton>
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalFullscreenXxl">Full screen below xxl</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#exampleModalFullscreen">Full screen</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#exampleModalFullscreenSm">Full screen below sm</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#exampleModalFullscreenMd">Full screen below md</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#exampleModalFullscreenLg">Full screen below lg</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#exampleModalFullscreenXl">Full screen below xl</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#exampleModalFullscreenXxl">Full screen below xxl</BsButton>
 <BsModalShorthand Id="exampleModalFullscreen"
                   Fullscreen="BsModalFullscreen.Always"
                   Title="Full screen modal">...</BsModalShorthand>
@@ -76,7 +93,7 @@ public static class Examples
 			"ModalLiveDemoExample",
 """
 @using System.Text
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModal">Launch demo modal</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#exampleModal">Launch demo modal</BsButton>
 <BsModal Id="exampleModal"
          aria-labelledby="exampleModalLabel"
          OnShow="@(() => _sb1.AppendLine("Show"))"
@@ -112,9 +129,9 @@ public static class Examples
 		{
 			"ModalOptionalSizesExample",
 """
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#extraLargeModal">Extra large modal</BsButton>
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#largeModal">Large modal</BsButton>
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#smallModal">Small modal</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#extraLargeModal">Extra large modal</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#largeModal">Large modal</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#smallModal">Small modal</BsButton>
 <BsModalShorthand Id="extraLargeModal" Title="Extra large modal" Size="BsModalSize.ExtraLarge">...</BsModalShorthand>
 <BsModalShorthand Id="largeModal" Size="BsModalSize.Large" Title="Large modal">...</BsModalShorthand>
 <BsModalShorthand Id="smallModal" Size="BsModalSize.Small" Title="Small modal">...</BsModalShorthand>
@@ -123,7 +140,7 @@ public static class Examples
 		{
 			"ModalRemoveAnimationExample",
 """
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#noAnimation">No animation</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#noAnimation">No animation</BsButton>
 <BsModalShorthand Id="noAnimation" Centered Fade="false">
         No animation
 </BsModalShorthand>
@@ -132,7 +149,7 @@ public static class Examples
 		{
 			"ModalScrollingLongContentExample",
 """
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#scrollingModal">Launch demo modal</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#scrollingModal">Launch demo modal</BsButton>
 <BsModalShorthand Id="scrollingModal" ShowPrimaryButton PrimaryButtonText="Save changes">
     <p style="min-height: 1500px">This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed.</p>
 </BsModalShorthand>
@@ -141,7 +158,7 @@ public static class Examples
 		{
 			"ModalScrollingLongContentScrollableExample",
 """
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#scrollableModal">Launch demo modal</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#scrollableModal">Launch demo modal</BsButton>
 <BsModalShorthand Id="scrollableModal" Scrollable ShowPrimaryButton PrimaryButtonText="Save changes">
     <p style="min-height: 1500px">This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed.</p>
 </BsModalShorthand>
@@ -264,7 +281,7 @@ public static class Examples
 """
 @using System.Text
 <BsButton Variant="BsButtonVariant.Primary"
-          Toggle="BsButtonTogle.Modal"
+          Toggle="BsButtonToggle.Modal"
           Target="#staticBackdrop">Launch static backdrop modal</BsButton>
 <BsModalShorthand Id="staticBackdrop"
                   Backdrop="BsModalBackdrop.Static"
@@ -331,7 +348,7 @@ public static class Examples
 		{
 			"ModalToggleBetweenModalsExample",
 """
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#exampleModalToggle">Open first modal</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#exampleModalToggle">Open first modal</BsButton>
 <BsModalShorthand Id="exampleModalToggle"
                   Title="Modal 1"
                   Centered>
@@ -341,7 +358,7 @@ public static class Examples
     <CustomFooter>
         <BsButton Variant="BsButtonVariant.Primary" Dismiss="BsButtonDismiss.Modal"
                   Target="#exampleModalToggle2"
-                  Toggle="BsButtonTogle.Modal">Open second modal</BsButton>
+                  Toggle="BsButtonToggle.Modal">Open second modal</BsButton>
     </CustomFooter>
 </BsModalShorthand>
 <BsModalShorthand Id="exampleModalToggle2" 
@@ -353,7 +370,7 @@ public static class Examples
     <CustomFooter>
         <BsButton Variant="BsButtonVariant.Primary" Dismiss="BsButtonDismiss.Modal"
                   Target="#exampleModalToggle"
-                  Toggle="BsButtonTogle.Modal">Back to first</BsButton>
+                  Toggle="BsButtonToggle.Modal">Back to first</BsButton>
     </CustomFooter>
 </BsModalShorthand>
 """
@@ -361,7 +378,7 @@ public static class Examples
 		{
 			"ModalVerticallyCenteredExample",
 """
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#verticallyCentered">Vertically centered modal</BsButton>
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#verticallyCentered">Vertically centered modal</BsButton>
 <BsModalShorthand Id="verticallyCentered" 
                   Title="Modal title" 
                   ShowPrimaryButton
@@ -374,7 +391,7 @@ public static class Examples
 		{
 			"ModalVerticallyCenteredScrollableExample",
 """
-<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonTogle.Modal" Target="#verticallyCenteredScrollable">
+<BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#verticallyCenteredScrollable">
     Vertically centered scrollable modal
 </BsButton>
 <BsModalShorthand Id="verticallyCenteredScrollable"
@@ -409,7 +426,7 @@ public static class Examples
 			"ToastColorSchemesCodeSampleExample",
 """
 <BsToastContainer>
-    <BsToast Class="@Bs.Css.TextBgPrimary">
+    <BsToast Class="@Bs.Css.TextBackgroundPrimary">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -417,7 +434,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Css.TextBgSecondary">
+    <BsToast Class="@Bs.Css.TextBackgroundSecondary">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -425,7 +442,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Css.TextBgSuccess">
+    <BsToast Class="@Bs.Css.TextBackgroundSuccess">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -433,7 +450,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Css.TextBgDanger">
+    <BsToast Class="@Bs.Css.TextBackgroundDanger">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -441,7 +458,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Css.TextBgWarning">
+    <BsToast Class="@Bs.Css.TextBackgroundWarning">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -449,7 +466,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Css.TextBgInfo">
+    <BsToast Class="@Bs.Css.TextBackgroundInfo">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -457,7 +474,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Css.TextBgLight">
+    <BsToast Class="@Bs.Css.TextBackgroundLight">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -465,7 +482,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Css.TextBgDark">
+    <BsToast Class="@Bs.Css.TextBackgroundDark">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -480,7 +497,7 @@ public static class Examples
 			"ToastColorSchemesExample",
 """
 <BsToastContainer Class="@Bs.Css.PositionRelative">
-    <BsToast Class="@Bs.Default("fade show").TextBgPrimary" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBackgroundPrimary" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -488,7 +505,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Default("fade show").TextBgSecondary" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBackgroundSecondary" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -496,7 +513,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Default("fade show").TextBgSuccess" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBackgroundSuccess" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -504,7 +521,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Default("fade show").TextBgDanger" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBackgroundDanger" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -512,7 +529,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Default("fade show").TextBgWarning" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBackgroundWarning" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -520,7 +537,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Default("fade show").TextBgInfo" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBackgroundInfo" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -528,7 +545,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Default("fade show").TextBgLight" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBackgroundLight" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -536,7 +553,7 @@ public static class Examples
             </div>
         </BsToastBody>
     </BsToast>
-    <BsToast Class="@Bs.Default("fade show").TextBgDark" AutoHide="false">
+    <BsToast Class="@Bs.Default("fade show").TextBackgroundDark" AutoHide="false">
         <BsToastBody>
             <div class="d-flex">
                 Hello, world! This is a toast message.
@@ -722,7 +739,7 @@ public static class Examples
 {
     private ToastOptions _options = new ()
     {
-        Class = Bs.Css.TextBgPrimary,
+        Class = Bs.Css.TextBackgroundPrimary,
         Delay = 4000
     };
     
@@ -779,7 +796,7 @@ public static class Examples
 <BsToastContainer Placement="BsToastPlacement.BottomLeft" Position="BsToastPosition.Relative">
     <BsToast Class="fase show" AutoHide="false">
         <BsToastHeader>
-            <MyIcon />
+            <MyIcon/>
             <strong class="me-auto">Bootstrap</strong>
             <small>just now</small>
             <BsToastCloseButton/>
@@ -788,10 +805,10 @@ public static class Examples
             See? Just like this
         </BsToastBody>
     </BsToast>
-    
+
     <BsToast Class="fase show" AutoHide="false">
         <BsToastHeader>
-            <MyIcon />
+            <MyIcon/>
             <strong class="me-auto">Bootstrap</strong>
             <small>2 seconds ago</small>
             <BsToastCloseButton/>

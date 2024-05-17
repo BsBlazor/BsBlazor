@@ -12,4 +12,14 @@ public class BsComponentBase : ComponentBase
 
     [Parameter]
     public string? Style { get; set; }
+    
+    protected void AddAttribute(string key, object value) => AdditionalAttributes[key] = value;
+    protected void AddAttributeWhen(bool condition, string key, object value)
+    {
+        if (condition)
+        {
+            AddAttribute(key, value);
+        }
+    }
+    //protected bool RemoveAttribute(string key) => AdditionalAttributes.Remove(key);
 }

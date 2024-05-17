@@ -1,0 +1,13 @@
+﻿@namespace BsBlazor
+@inherits BsComponentBase
+
+<ul class="dropdown-menu @Class" @attributes="AdditionalAttributes" style="@Style">
+    @ChildContent
+</ul>
+
+@code 
+{
+    [Parameter]
+    [EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+}
