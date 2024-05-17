@@ -2,15 +2,20 @@
 @layout MainLayout
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
-<div>
-    <ul class="nav  nav-pills">
-        @RenderNavLink(null)
-        @RenderNavLink("Wasm")
-        @RenderNavLink("Server")
-    </ul>
-    <h1>@Component - @(string.IsNullOrEmpty(RenderMode) ? "Static" : RenderMode)</h1>
+<div class="@Bs.Css.OverflowHidden" style="height: 100vh; display: flex; flex-flow: column">
+    <div>
+        <h1>@Component</h1>
+        <ul class="nav nav-pills">
+            @RenderNavLink(null)
+            @RenderNavLink("Wasm")
+            @RenderNavLink("Server")
+        </ul>
+        <hr />
+    </div>
+    <div class="@Bs.Css.FlexGrow1.OverflowAuto">
+        @Body
+    </div>
 </div>
-@Body
 @code {
     private string Component => ToTitleCase(NavigationManager.Uri.Split('/')[3] ?? "Component");
     private string RenderMode => ToTitleCase(NavigationManager.Uri.Split('/')[^1]);
