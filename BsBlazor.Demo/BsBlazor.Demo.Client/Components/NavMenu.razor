@@ -1,0 +1,44 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">BsBlazor.Demo</a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                Introduction
+            </NavLink>
+        </div>
+        @foreach(var component in _components)
+        {
+            @foreach(var renderMode in _renderModes)
+            {
+                var href = $"/{renderMode.ToLower()}/{component.ToLower()}";
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="@href">
+                        @component - @renderMode
+                    </NavLink>
+                </div>
+            }
+        }
+    </nav>
+</div>
+@code
+{
+    private readonly string[] _components = [
+        "Alerts",
+        "Buttons",
+        "Modal",
+        "Toasts"
+    ];
+
+    private readonly string[] _renderModes = [
+        "Static",
+        "Wasm",
+        "Server"
+    ];
+}

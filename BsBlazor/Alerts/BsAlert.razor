@@ -1,0 +1,19 @@
+﻿@inherits BsParentComponentBase
+<div class="@CssClass" role="alert">
+    @ChildContent
+</div>
+@code {
+    private string CssClass => CssBuilder.Default("alert")
+       .AddClass("alert-primary", Color is BsThemeColor.Primary)
+       .AddClass("alert-secondary", Color is BsThemeColor.Secondary)
+       .AddClass("alert-success", Color is BsThemeColor.Success)
+       .AddClass("alert-danger", Color is BsThemeColor.Danger)
+       .AddClass("alert-warning", Color is BsThemeColor.Warning)
+       .AddClass("alert-info", Color is BsThemeColor.Info)
+       .AddClass("alert-light", Color is BsThemeColor.Light)
+       .AddClass("alert-dark", Color is BsThemeColor.Dark)
+       .AddClass(Class)
+       .Build();
+    [Parameter]
+    public BsThemeColor? Color { get; set; }
+}

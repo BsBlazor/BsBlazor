@@ -1,0 +1,14 @@
+﻿@layout MainLayout
+@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+<h4>@RenderMode</h4>
+@Body
+@code {
+    public string RenderMode => NavigationManager.Uri switch
+    {
+        var uri when uri.Contains("/static/", StringComparison.OrdinalIgnoreCase) => "Static",
+        var uri when uri.Contains("/wasm/", StringComparison.OrdinalIgnoreCase) => "Wasm",
+        var uri when uri.Contains("/server/", StringComparison.OrdinalIgnoreCase) => "Server",
+        _ => "Unknown"
+    };
+}
