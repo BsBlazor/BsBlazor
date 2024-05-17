@@ -1,6 +1,6 @@
 ﻿namespace BsBlazor;
 
-public enum BsButtonTogle
+public enum BsButtonToggle
 {
     Modal = 1
 }
