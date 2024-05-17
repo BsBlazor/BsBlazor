@@ -1,0 +1,10 @@
+﻿@page "/toasts/{Mode=static}"
+@using BsBlazor.Demo.Client.SharedDemo.Toast
+<PageTitle>Toast - @Mode</PageTitle>
+@switch (Mode)
+{
+    case "server": <SharedToastDemo @rendermode="InteractiveServer"/> break;
+    case "wasm": <SharedToastDemo @rendermode="InteractiveWebAssembly"/> break;
+    default: <SharedToastDemo /> break;
+}
+@code { [Parameter] public string? Mode { get; set; } }

@@ -1,5 +1,6 @@
 ﻿@page "/dropdowns/{Mode=static}"
 @using BsBlazor.Demo.Client.SharedDemo.Dropdowns
+<PageTitle>Dropdowns - @Mode</PageTitle>
 @switch (Mode)
 {
     case "server": <SharedDropdownsDemo @rendermode="InteractiveServer"/> break;
