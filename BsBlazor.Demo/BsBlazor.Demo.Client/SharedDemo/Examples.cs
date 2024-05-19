@@ -54,6 +54,23 @@ public static class Examples
 """
 		},
 		{
+			"DropdownsDarkExample",
+"""
+<BsDropdown>
+    <BsButton Toggle="BsButtonToggle.Dropdown" Variant="BsButtonVariant.Secondary" >
+        Dropdown button
+    </BsButton>
+    <BsDropdownMenu Dark>
+        <BsAnchorDropdownItem Href="#">Here is anchor item</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Another anchor item</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Something else here</BsAnchorDropdownItem>
+        <BsDropdownDivider />
+        <BsAnchorDropdownItem Href="#">Separated link</BsAnchorDropdownItem>
+    </BsDropdownMenu>
+</BsDropdown>
+"""
+		},
+		{
 			"DropdownsSingleButtonExample",
 """
 <BsDropdown>
@@ -61,28 +78,10 @@ public static class Examples
         Dropdown button
     </BsButton>
     <BsDropdownMenu>
-        <BsAnchorDropdownItem Href="#">Action</BsAnchorDropdownItem>
-        <BsAnchorDropdownItem Href="#">Another action</BsAnchorDropdownItem>
-        <BsAnchorDropdownItem Href="#">Something else here</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Here is anchor item</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Another anchor item</BsAnchorDropdownItem>
         <BsDropdownDivider />
-        <BsButtonDropdownItem OnClick="(args) => Console.WriteLine(args.Type)">here is button item</BsButtonDropdownItem>
-    </BsDropdownMenu>
-</BsDropdown>
-"""
-		},
-		{
-			"DropdownsSingleButtonWithAnchorExample",
-"""
-<BsDropdown>
-    <BsButton 
-        Toggle="BsButtonToggle.Dropdown" Variant="BsButtonVariant.Secondary" 
-        Tag="BsButtonTag.Anchor" Href="link-here" role="button">
-        Dropdown button
-    </BsButton>
-    <BsDropdownMenu>
-        <BsAnchorDropdownItem>Action</BsAnchorDropdownItem>
-        <BsAnchorDropdownItem>Another action</BsAnchorDropdownItem>
-        <BsAnchorDropdownItem>Something else here</BsAnchorDropdownItem>
+        <BsButtonDropdownItem OnClick="args => Console.WriteLine(args.Type)">Here is button item</BsButtonDropdownItem>
     </BsDropdownMenu>
 </BsDropdown>
 """
@@ -112,6 +111,65 @@ public static class Examples
 {
     private readonly BsButtonVariant[] _variants = Enum.GetValues<BsButtonVariant>();
 }
+"""
+		},
+		{
+			"DropdownsSizingExample",
+"""
+<BsDropdown>
+    <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Dropdown" Size="BsButtonSize.Small">
+        Small button
+    </BsButton>
+    <BsDropdownMenu>
+        <BsAnchorDropdownItem Href="#">Here is anchor item</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Another anchor item</BsAnchorDropdownItem>
+    </BsDropdownMenu>
+</BsDropdown>
+
+<BsDropdown>
+    <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Dropdown" Size="BsButtonSize.Large">
+        Large button
+    </BsButton>
+    <BsDropdownMenu>
+        <BsAnchorDropdownItem Href="#">Here is anchor item</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Another anchor item</BsAnchorDropdownItem>
+    </BsDropdownMenu>
+</BsDropdown>
+
+<BsButtonGroup>
+    <BsButton Variant="BsButtonVariant.Primary" Size="BsButtonSize.Small">
+        Small split button
+    </BsButton>
+    <BsDropdownToggleSplitButton Variant="BsButtonVariant.Primary" Size="BsButtonSize.Small"/>
+    <BsDropdownMenu>
+        <BsAnchorDropdownItem Href="#">Here is anchor item</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Another anchor item</BsAnchorDropdownItem>
+    </BsDropdownMenu>
+</BsButtonGroup>
+
+<BsButtonGroup>
+    <BsButton Variant="BsButtonVariant.Primary" Size="BsButtonSize.Large">
+        Large split button
+    </BsButton>
+    <BsDropdownToggleSplitButton Variant="BsButtonVariant.Primary" Size="BsButtonSize.Large"/>
+    <BsDropdownMenu>
+        <BsAnchorDropdownItem Href="#">Here is anchor item</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Another anchor item</BsAnchorDropdownItem>
+    </BsDropdownMenu>
+</BsButtonGroup>
+"""
+		},
+		{
+			"DropdownsSplitButtonExample",
+"""
+<BsButtonGroup>
+    <BsButton Variant="BsButtonVariant.Primary">Dropdown button</BsButton>
+    <BsDropdownToggleSplitButton Variant="BsButtonVariant.Primary"/>
+    <BsDropdownMenu>
+        <BsAnchorDropdownItem Href="#">Here is anchor item</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Another anchor item</BsAnchorDropdownItem>
+    </BsDropdownMenu>
+</BsButtonGroup>
 """
 		},
 		{
