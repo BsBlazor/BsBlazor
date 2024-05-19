@@ -1,6 +1,14 @@
 ﻿@namespace BsBlazor
 @inherits BsParentComponentBase
 
-<ul class="dropdown-menu @Class" @attributes="AdditionalAttributes" style="@Style">
+<ul class="@CssBuilder.Default("dropdown-menu").AddClass("dropdown-menu-dark", Dark).AddClass(Class)" 
+    @attributes="AdditionalAttributes" 
+    style="@Style">
     @ChildContent
 </ul>
+
+@code 
+{
+    [Parameter]
+    public bool Dark { get; set; }
+}
