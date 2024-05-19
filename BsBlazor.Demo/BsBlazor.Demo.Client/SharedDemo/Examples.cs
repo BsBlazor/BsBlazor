@@ -32,9 +32,9 @@ public static class Examples
 		{
 			"ButtonTagsExample",
 """
-<BsAnchorButton Variant="BsButtonVariant.Primary" Href="#">Link</BsAnchorButton>
+<BsAnchorButton Variant="BsButtonVariant.Primary">Link</BsAnchorButton>
 <BsButton Variant="BsButtonVariant.Primary">Button</BsButton>
-<BsNavLinkButton Variant="BsButtonVariant.Primary" Href="#">Nav link</BsNavLinkButton>
+<BsNavLinkButton Variant="BsButtonVariant.Primary">Nav link</BsNavLinkButton>
 <BsLabelButton Variant="BsButtonVariant.Primary">Label</BsLabelButton>
 """
 		},
@@ -61,9 +61,11 @@ public static class Examples
         Dropdown button
     </BsButton>
     <BsDropdownMenu>
-        <BsDropdownItem>Action</BsDropdownItem>
-        <BsDropdownItem>Another action</BsDropdownItem>
-        <BsDropdownItem>Something else here</BsDropdownItem>
+        <BsAnchorDropdownItem Href="#">Action</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Another action</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Something else here</BsAnchorDropdownItem>
+        <BsDropdownDivider />
+        <BsButtonDropdownItem OnClick="(args) => Console.WriteLine(args.Type)">here is button item</BsButtonDropdownItem>
     </BsDropdownMenu>
 </BsDropdown>
 """
@@ -78,9 +80,9 @@ public static class Examples
         Dropdown button
     </BsButton>
     <BsDropdownMenu>
-        <BsDropdownItem>Action</BsDropdownItem>
-        <BsDropdownItem>Another action</BsDropdownItem>
-        <BsDropdownItem>Something else here</BsDropdownItem>
+        <BsAnchorDropdownItem>Action</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem>Another action</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem>Something else here</BsAnchorDropdownItem>
     </BsDropdownMenu>
 </BsDropdown>
 """
@@ -97,9 +99,9 @@ public static class Examples
                 Dropdown button
             </BsButton>
             <BsDropdownMenu>
-                <BsDropdownItem>Action</BsDropdownItem>
-                <BsDropdownItem>Another action</BsDropdownItem>
-                <BsDropdownItem>Something else here</BsDropdownItem>
+                <BsAnchorDropdownItem>Action</BsAnchorDropdownItem>
+                <BsAnchorDropdownItem>Another action</BsAnchorDropdownItem>
+                <BsAnchorDropdownItem>Something else here</BsAnchorDropdownItem>
             </BsDropdownMenu>
         </BsButtonGroup>
     }

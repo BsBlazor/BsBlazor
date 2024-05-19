@@ -3,8 +3,9 @@
         Dropdown button
     </BsButton>
     <BsDropdownMenu>
-        <BsDropdownItem>Action</BsDropdownItem>
-        <BsDropdownItem>Another action</BsDropdownItem>
-        <BsDropdownItem>Something else here</BsDropdownItem>
+        <BsAnchorDropdownItem Href="#">Here is anchor item</BsAnchorDropdownItem>
+        <BsAnchorDropdownItem Href="#">Another anchor item</BsAnchorDropdownItem>
+        <BsDropdownDivider />
+        <BsButtonDropdownItem OnClick="args => Console.WriteLine(args.Type)">Here is button item</BsButtonDropdownItem>
     </BsDropdownMenu>
 </BsDropdown>

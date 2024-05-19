@@ -1,0 +1,13 @@
+﻿@namespace BsBlazor
+@inherits BsParentComponentBase
+
+<li>
+    <button class="dropdown-item @Class" @attributes="AdditionalAttributes" style="@Style" @onclick="OnClick">
+        @ChildContent
+    </button>
+</li>
+
+@code 
+{
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+}
