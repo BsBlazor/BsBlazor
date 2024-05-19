@@ -1,0 +1,18 @@
+﻿@namespace BsBlazor
+@inherits BsComponentBase
+
+<BsButton 
+    Class="@Bs.Default("dropdown-toggle-split")" 
+    Toggle="BsButtonToggle.Dropdown" aria-expanded="false"
+    Style="@Style"
+    Size="Size"
+    Type="BsButtonType.Button"
+    Variant="Variant">
+    <span class="visually-hidden">Toggle Dropdown</span>
+</BsButton>
+
+@code 
+{
+    [Parameter] public BsButtonSize Size { get; set; }
+    [Parameter] public BsButtonVariant Variant { get; set; }
+}
