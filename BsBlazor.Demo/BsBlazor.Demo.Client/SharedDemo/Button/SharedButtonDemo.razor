@@ -1,14 +1,35 @@
 ﻿<p class="lead">
     Use Bootstrap’s custom button styles for actions in forms, dialogs, and more with support for multiple sizes, states, and more.
 </p>
-<h2>Base button</h2>
-<ButtonBaseExample/>
-<CodeSnippet For="@nameof(ButtonBaseExample)"/>
-<hr />
+<h3>Base button</h3>
+<ExampleCodeSnippet CodeSnippetName="@nameof(ButtonBaseExample)" ToolsLabel="Blazor">
+    <ButtonBaseExample />
+</ExampleCodeSnippet>
+<p>The 
+   <code>BsButton</code> 
+   component is intended to be used in conjunction with it's 
+   <code>Variant</code> 
+   parameter, or to serve as a basis for your own custom styles.</p>
 <h2>Variants</h2>
-<ButtonVariantsExample/>
-<CodeSnippet For="@nameof(ButtonVariantsExample)"/>
-<hr />
+<ExampleCodeSnippet CodeSnippetName="@nameof(ButtonVariantsExample)" ToolsLabel="Blazor">
+    <ButtonVariantsExample/>
+</ExampleCodeSnippet>
+<h2>Button tags</h2>
+<ul>
+    <li>Use <code>BsButton</code> for <code>&lt;button&gt;</code> elements.</li>
+    <li>Use <code>BsAnchorButton</code> for <code>&lt;a&gt;</code> elements.</li>
+    <li>Use <code>BsNavLinkButton</code> for <code>&lt;a&gt;</code> elements that toggles the <code>active</code> class based on whether its href matches the current URL.</li>
+    <li>Use <code>BsLabelButton</code> for <code>&lt;label&gt;</code> elements. It's used for checkbox and radio button groups.</li>
+    <li>We currently don’t have a component for <code>&lt;input&gt;</code> elements because we don’t see any reason to use it over  <code>&lt;button&gt;</code> elements.</li>
+</ul>
+<ExampleCodeSnippet CodeSnippetName="@nameof(ButtonTagsExample)" ToolsLabel="Blazor">
+    <ButtonTagsExample />
+</ExampleCodeSnippet>
+<h2>Outline buttons</h2>
+<ExampleCodeSnippet CodeSnippetName="@nameof(ButtonOutlineVariantsExample)" ToolsLabel="Blazor">
+    <ButtonOutlineVariantsExample />
+</ExampleCodeSnippet>
 <h2>Sizes</h2>
-<ButtonSizesExample/>
-<CodeSnippet For="@nameof(ButtonSizesExample)"/>
+<ExampleCodeSnippet CodeSnippetName="@nameof(ButtonSizesExample)" ToolsLabel="Blazor">
+    <ButtonSizesExample />
+</ExampleCodeSnippet>

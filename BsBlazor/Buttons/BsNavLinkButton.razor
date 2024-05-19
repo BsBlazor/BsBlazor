@@ -1,0 +1,11 @@
+﻿@namespace BsBlazor
+@using Microsoft.AspNetCore.Components.Routing
+@inherits BsButtonBase
+<NavLink href="@Href" class="@CssBuilder" @attributes="AdditionalAttributes" Match="Match" >
+    @ChildContent
+</NavLink>
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public NavLinkMatch Match { get; set; }
+}

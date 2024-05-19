@@ -1,37 +1,30 @@
 ﻿@namespace BsBlazor
-@inherits BsComponentBase
-
+@inherits BsButtonBase
 <button type="@Type.ToString().ToLower()"
         class="@CssBuilder"
-        style="@Style"
         @onclick="@(() => OnClick.InvokeAsync())"
         @attributes="AdditionalAttributes">
     @ChildContent
 </button>
-
 @code
 {
-    private CssBuilder CssBuilder => CssBuilder
-        .Default("btn")
-        .AddClass(Class)
-        .AddClass("btn-lg", Size is BsButtonSize.Large)
-        .AddClass("btn-sm", Size is BsButtonSize.Small)
-        .AddClass("dropdown-toggle", Toggle is BsButtonToggle.Dropdown)
-        .AddClass($"btn-{Variant.ToKebabCase()}", Variant is not BsButtonVariant.None);
-
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public BsButtonVariant Variant { get; set; }
-    [Parameter] public BsButtonSize Size { get; set; }
+    [Parameter] public string? Value { get; set; }
     [Parameter] public BsButtonType Type { get; set; } = BsButtonType.Button;
     [Parameter] public BsButtonDismiss? Dismiss { get; set; }
-    [Parameter] public BsButtonToggle? Toggle { get; set; }
     [Parameter] public string? Target { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter] public BsButtonToggle? Toggle { get; set; }
+
+    internal override CssBuilder CssBuilder => base.CssBuilder
+                                                   .AddClass("dropdown-toggle", Toggle is BsButtonToggle.Dropdown);
 
     protected override void OnParametersSet()
     {
-        AddAttributeWhen(Dismiss is not null, "data-bs-dismiss", Dismiss.ToStringOrEmpty().ToLower());
+        base.OnParametersSet();
         AddAttributeWhen(Toggle is not null, "data-bs-toggle", Toggle.ToStringOrEmpty().ToLower());
+        AddAttributeWhen(Dismiss is not null, "data-bs-dismiss", Dismiss.ToStringOrEmpty().ToLower());
         AddAttributeWhen(Target is not null, "data-bs-target", Target!);
+        AddAttributeWhen(Value is not null, "value", Value!);
     }
 }

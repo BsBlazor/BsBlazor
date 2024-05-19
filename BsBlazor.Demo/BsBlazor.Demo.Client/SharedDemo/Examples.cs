@@ -5,8 +5,21 @@ public static class Examples
 		{
 			"ButtonBaseExample",
 """
-<BsButton>Base button</BsButton>
+<BsButton>Base component</BsButton>
 
+"""
+		},
+		{
+			"ButtonOutlineVariantsExample",
+"""
+<BsButton Variant="BsButtonVariant.OutlinePrimary">Primary</BsButton>
+<BsButton Variant="BsButtonVariant.OutlineSecondary">Secondary</BsButton>
+<BsButton Variant="BsButtonVariant.OutlineSuccess">Success</BsButton>
+<BsButton Variant="BsButtonVariant.OutlineDanger">Danger</BsButton>
+<BsButton Variant="BsButtonVariant.OutlineWarning">Warning</BsButton>
+<BsButton Variant="BsButtonVariant.OutlineInfo">Info</BsButton>
+<BsButton Variant="BsButtonVariant.OutlineLight">Light</BsButton>
+<BsButton Variant="BsButtonVariant.OutlineDark">Dark</BsButton>
 """
 		},
 		{
@@ -17,15 +30,27 @@ public static class Examples
 """
 		},
 		{
+			"ButtonTagsExample",
+"""
+<BsAnchorButton Variant="BsButtonVariant.Primary" Href="#">Link</BsAnchorButton>
+<BsButton Variant="BsButtonVariant.Primary">Button</BsButton>
+<BsNavLinkButton Variant="BsButtonVariant.Primary" Href="#">Nav link</BsNavLinkButton>
+<BsLabelButton Variant="BsButtonVariant.Primary">Label</BsLabelButton>
+"""
+		},
+		{
 			"ButtonVariantsExample",
 """
 <BsButton Variant="BsButtonVariant.Primary">Primary</BsButton>
 <BsButton Variant="BsButtonVariant.Secondary">Secondary</BsButton>
-<br />
-<h4>Outline</h4>
-<BsButton Variant="BsButtonVariant.OutlinePrimary">Primary</BsButton>
-<BsButton Variant="BsButtonVariant.OutlineSecondary">Secondary</BsButton>
+<BsButton Variant="BsButtonVariant.Success">Success</BsButton>
+<BsButton Variant="BsButtonVariant.Danger">Danger</BsButton>
+<BsButton Variant="BsButtonVariant.Warning">Warning</BsButton>
+<BsButton Variant="BsButtonVariant.Info">Info</BsButton>
+<BsButton Variant="BsButtonVariant.Light">Light</BsButton>
+<BsButton Variant="BsButtonVariant.Dark">Dark</BsButton>
 
+<BsButton Variant="BsButtonVariant.Link">Link</BsButton>
 """
 		},
 		{

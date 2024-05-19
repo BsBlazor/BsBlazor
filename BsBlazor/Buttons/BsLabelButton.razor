@@ -1,0 +1,9 @@
+﻿@namespace BsBlazor
+@inherits BsButtonBase
+<label for="@For" class="@CssBuilder" @attributes="AdditionalAttributes">
+    @ChildContent
+</label>
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? For { get; set; }
+}
