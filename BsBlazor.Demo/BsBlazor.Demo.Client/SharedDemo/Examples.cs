@@ -543,6 +543,18 @@ public static class Examples
 """
 		},
 		{
+			"SpinnerBorderExample",
+"""
+<BsSpinner/>
+"""
+		},
+		{
+			"SpinnerSizeExample",
+"""
+<BsSpinner Size="BsSpinnerSize.Small"/>
+"""
+		},
+		{
 			"ToastBasicExample",
 """
 <BsToast Class="fade show">
