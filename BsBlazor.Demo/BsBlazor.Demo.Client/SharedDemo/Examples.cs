@@ -10,6 +10,15 @@ public static class Examples
 """
 		},
 		{
+			"ButtonDisabledExample",
+"""
+<BsButton Variant="BsButtonVariant.Primary" Disabled>Primary button</BsButton>
+<BsButton Variant="BsButtonVariant.Secondary" Disabled>Button</BsButton>
+<BsButton Variant="BsButtonVariant.OutlinePrimary" Disabled>Primary button</BsButton>
+<BsButton Variant="BsButtonVariant.OutlineSecondary" Disabled>Button</BsButton>
+"""
+		},
+		{
 			"ButtonOutlineVariantsExample",
 """
 <BsButton Variant="BsButtonVariant.OutlinePrimary">Primary</BsButton>

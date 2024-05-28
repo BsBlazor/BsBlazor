@@ -15,6 +15,9 @@
     [Parameter] public string? Target { get; set; }
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public BsButtonToggle? Toggle { get; set; }
+    // TODO: move to BsButtonBase if makes sense for label/a/navlink.
+    // See more: https://getbootstrap.com/docs/5.3/components/buttons/#disabled-state
+    [Parameter] public bool Disabled { get; set; }
 
     internal override CssBuilder CssBuilder => base.CssBuilder
                                                    .AddClass("dropdown-toggle", Toggle is BsButtonToggle.Dropdown);
@@ -22,6 +25,7 @@
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+        AddAttributeWhen(Disabled, "disabled", "");
         AddAttributeWhen(Toggle is not null, "data-bs-toggle", Toggle.ToStringOrEmpty().ToLower());
         AddAttributeWhen(Dismiss is not null, "data-bs-dismiss", Dismiss.ToStringOrEmpty().ToLower());
         AddAttributeWhen(Target is not null, "data-bs-target", Target!);
