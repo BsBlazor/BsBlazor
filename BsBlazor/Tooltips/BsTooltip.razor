@@ -1,0 +1,53 @@
+﻿@namespace BsBlazor
+@inherits BsParentComponentBase
+@inject IJSRuntime JsRuntime
+
+<span @ref="_elementReference"  id="@_id" class="@CssClass" style="@Style" @attributes="AdditionalAttributes" onload="bootstrap.Tooltip.getOrCreateInstance(#@_id)">
+    @ChildContent
+</span>
+
+@code 
+{
+    private ElementReference _elementReference;
+    private IJSObjectReference _jsInstance = default!;
+    
+    private readonly string _id = Guid.NewGuid().ToString("N");
+    
+    private string CssClass => CssBuilder
+        .Empty()
+        .AddClass(Class)
+        .Build();
+
+    [Parameter] public BsTooltipPlacement Placement { get; set; } = BsTooltipPlacement.Bottom;
+    [Parameter, EditorRequired] public required string Text { get; set; }
+    [Parameter] public bool UseHtmlText { get; set; }
+
+    protected override void OnInitialized()
+    {
+        AddAttribute("data-bs-placement", Placement.ToString().ToLower());
+        AddAttribute("data-bs-toggle", "tooltip");
+        AddAttribute("data-bs-title", Text);
+        AddAttribute("data-bs-html", UseHtmlText.ToString().ToLower());
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _jsInstance = await JsRuntime.InvokeAsync<IJSObjectReference>("bootstrap.Tooltip.getOrCreateInstance", _elementReference);
+        }
+    }
+    
+    public async Task ShowAsync() => await _jsInstance.InvokeVoidAsync("show");
+    public async Task HideAsync() => await _jsInstance.InvokeVoidAsync("hide");
+    public async Task<bool> IsShownAsync() => await _jsInstance.InvokeAsync<bool>("isShown");
+    
+    public async ValueTask DisposeAsync()
+    {
+        if (_jsInstance.IsNotNull())
+        {
+            await _jsInstance.InvokeVoidAsync("dispose");
+            await _jsInstance.DisposeAsync();
+        }
+    }
+}

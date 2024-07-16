@@ -968,5 +968,17 @@ public static class Examples
 </BsToastContainer>
 """
 		},
+		{
+			"TooltipBasicExample",
+"""
+<BsTooltip Text="Default tooltip" Placement="BsTooltipPlacement.Bottom">
+    <a href="!#">Basic sample</a>
+</BsTooltip>
+
+@code {
+
+}
+"""
+		},
 	};
 }
