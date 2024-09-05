@@ -1,0 +1,41 @@
+﻿@page "/modal-labs-two"
+@rendermode @(new InteractiveWebAssemblyRenderMode(false))
+@inject IModalService ModalService
+@inject NavigationManager NavigationManager
+
+
+<BsModalServiceContainer/>
+
+<BsButton OnClick="ShowModalAsync" Variant="BsButtonVariant.Primary">Show Modal</BsButton>
+
+@code {
+
+    private async void ShowModalAsync()
+    {
+        var modalReference = await ModalService.ShowDialogAsync(reference =>
+                @<BsModalDialog>
+                    <BsModalContent>
+                        <BsModalHeader>
+                            <BsModalTitle>Teste</BsModalTitle>
+                            <BsModalCloseButton/>
+                        </BsModalHeader>
+                        <BsModalBody>
+                            Se clicar em ok vai quebrar
+                        </BsModalBody>
+                        <BsModalFooter>
+                            <BsButton Variant="BsButtonVariant.Secondary" Dismiss="BsButtonDismiss.Modal">Close</BsButton>
+                            <BsButton Variant="BsButtonVariant.Primary" OnClick="() => reference.CloseAsync(true)">OK</BsButton>
+                        </BsModalFooter>
+                    </BsModalContent>
+                </BsModalDialog>,
+            new ModalOptions { Keyboard = false, Backdrop = BsModalBackdrop.Static }
+        );
+
+        var confirm = await modalReference.WaitClosedAsync<bool>();
+
+        if (!confirm) return;
+
+        NavigationManager.NavigateTo("/modal-labs-one");
+    }
+
+}
