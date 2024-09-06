@@ -3,6 +3,51 @@ public static class Examples
 {
 	public static readonly IReadOnlyDictionary<string, string> Contents = new Dictionary<string, string>(){
 		{
+			"BadgeBackgroundColorsExample",
+"""
+<BsBadge Color="BsThemeColor.Primary">Primary</BsBadge>
+<BsBadge Color="BsThemeColor.Secondary">Secondary</BsBadge>
+<BsBadge Color="BsThemeColor.Success">Success</BsBadge>
+<BsBadge Color="BsThemeColor.Danger">Danger</BsBadge>
+<BsBadge Color="BsThemeColor.Warning">Warning</BsBadge>
+<BsBadge Color="BsThemeColor.Info">Info</BsBadge>
+<BsBadge Color="BsThemeColor.Light">Light</BsBadge>
+<BsBadge Color="BsThemeColor.Dark">Dark</BsBadge>
+"""
+		},
+		{
+			"BadgeButtonsExample",
+"""
+<BsButton Variant="BsButtonVariant.Primary">
+    Notifications <BsBadge Color="BsThemeColor.Secondary">4</BsBadge>
+</BsButton>
+"""
+		},
+		{
+			"BadgeHeadingsExample",
+"""
+<h1>Example heading <BsBadge Color="BsThemeColor.Secondary">New</BsBadge></h1>
+<h2>Example heading <BsBadge Color="BsThemeColor.Secondary">New</BsBadge></h2>
+<h3>Example heading <BsBadge Color="BsThemeColor.Secondary">New</BsBadge></h3>
+<h4>Example heading <BsBadge Color="BsThemeColor.Secondary">New</BsBadge></h4>
+<h5>Example heading <BsBadge Color="BsThemeColor.Secondary">New</BsBadge></h5>
+<h6>Example heading <BsBadge Color="BsThemeColor.Secondary">New</BsBadge></h6>
+"""
+		},
+		{
+			"BadgePillBadgesExample",
+"""
+<BsBadge Pill Color="BsThemeColor.Primary">Primary</BsBadge>
+<BsBadge Pill Color="BsThemeColor.Secondary">Secondary</BsBadge>
+<BsBadge Pill Color="BsThemeColor.Success">Success</BsBadge>
+<BsBadge Pill Color="BsThemeColor.Danger">Danger</BsBadge>
+<BsBadge Pill Color="BsThemeColor.Warning">Warning</BsBadge>
+<BsBadge Pill Color="BsThemeColor.Info">Info</BsBadge>
+<BsBadge Pill Color="BsThemeColor.Light">Light</BsBadge>
+<BsBadge Pill Color="BsThemeColor.Dark">Dark</BsBadge>
+"""
+		},
+		{
 			"ButtonBaseExample",
 """
 <BsButton>Base component</BsButton>
@@ -972,7 +1017,7 @@ public static class Examples
 			"TooltipBasicExample",
 """
 <BsTooltip Text="Default tooltip" Placement="BsTooltipPlacement.Bottom">
-    <a href="!#">Basic sample</a>
+    <a href="#">Basic sample</a>
 </BsTooltip>
 
 @code {

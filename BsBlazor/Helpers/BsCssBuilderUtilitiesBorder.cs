@@ -71,6 +71,9 @@ public partial class BsCssBuilder
     public BsCssBuilder Rounded4 => AddClass("rounded-4");
     public BsCssBuilder Rounded5 => AddClass("rounded-5");
     
+    /// <summary>
+    /// rounded-pill
+    /// </summary>
     public BsCssBuilder RoundedPill => AddClass("rounded-pill");
     public BsCssBuilder RoundedCircle => AddClass("rounded-circle");
     

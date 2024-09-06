@@ -1,0 +1,23 @@
+﻿@namespace BsBlazor
+@inherits BsParentComponentBase
+<div class="@CssClass">
+    @ChildContent
+</div>
+@code {
+    private string CssClass => CssBuilder.Default("badge")
+       .AddClass(Bs.Css.TextBackgroundPrimary, Color is BsThemeColor.Primary)
+       .AddClass(Bs.Css.TextBackgroundSecondary, Color is BsThemeColor.Secondary)
+       .AddClass(Bs.Css.TextBackgroundSuccess, Color is BsThemeColor.Success)
+       .AddClass(Bs.Css.TextBackgroundDanger, Color is BsThemeColor.Danger)
+       .AddClass(Bs.Css.TextBackgroundWarning, Color is BsThemeColor.Warning)
+       .AddClass(Bs.Css.TextBackgroundInfo, Color is BsThemeColor.Info)
+       .AddClass(Bs.Css.TextBackgroundLight, Color is BsThemeColor.Light)
+       .AddClass(Bs.Css.TextBackgroundDark, Color is BsThemeColor.Dark)
+       .AddClass(Bs.Css.RoundedPill, Pill)
+       .AddClass(Class)
+       .Build();
+    [Parameter]
+    public BsThemeColor? Color { get; set; }
+    [Parameter]
+    public bool Pill { get; set; }
+}
