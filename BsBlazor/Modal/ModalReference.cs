@@ -5,6 +5,7 @@ namespace BsBlazor;
 internal class ModalReference : IModalReference
 {
     private readonly TaskCompletionSource<object?> _resultCompletion = new();
+    private readonly TaskCompletionSource _hiddenResultCompletion = new();
     private BsModal? _modal;
     internal event Action? OnHidden;
     internal Type? DialogType { get; set; }
@@ -13,10 +14,11 @@ internal class ModalReference : IModalReference
     internal RenderFragment<IModalReference>? ContextualRenderFragment { get; set; }
     internal required ModalOptions ModalOptions { get; init; } = new();
     internal virtual Type ResultType => typeof(object);
-    internal void InvokHidden()
+    internal void InvokeHidden()
     {
         OnHidden?.Invoke();
         _resultCompletion.TrySetResult(default);
+        _hiddenResultCompletion.TrySetResult();
     }
     internal void Initialize(BsModal modalRoot)
     {
@@ -25,25 +27,34 @@ internal class ModalReference : IModalReference
     }
     public async Task CloseAsync()
     {
-        _resultCompletion.TrySetResult(null);
         await _modal!.HideAsync();
+        _resultCompletion.TrySetResult(null);
+        await HideCompletionAsync();
     }
     public async Task CloseAsync<TResult>(TResult result)
     {
-        _resultCompletion.TrySetResult(result);
         await _modal!.HideAsync();
+        _resultCompletion.TrySetResult(result);
+        await HideCompletionAsync();
     }
     public async Task WaitClosedAsync()
     {
         await _resultCompletion.Task;
+        await HideCompletionAsync();
     }
     public async Task<TResult> WaitClosedAsync<TResult>()
     {
         var obj = await _resultCompletion.Task;
-        if(obj is null)
+        await HideCompletionAsync();
+        if (obj is null)
         {
             return default!;
         }
         return (TResult)obj!;
+    }
+    // wait for bootstrap hiding modal completely
+    private async Task HideCompletionAsync()
+    {
+        await _hiddenResultCompletion.Task;
     }
 }

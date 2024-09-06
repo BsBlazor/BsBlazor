@@ -11,7 +11,7 @@
                  Fade="modalReference.ModalOptions.Fade"
                  Keyboard="modalReference.ModalOptions.Keyboard"
                  Backdrop="modalReference.ModalOptions.Backdrop"
-                 OnHidden="modalReference.InvokHidden">
+                 OnHidden="modalReference.InvokeHidden">
             @{ modalReference.Initialize(currentRef!); }
             <CascadingValue TValue="IModalReference" IsFixed Value="modalReference">
                 @if (modalReference.DialogType != null)
