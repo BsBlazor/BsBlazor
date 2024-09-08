@@ -2,6 +2,7 @@
 @inherits BsButtonBase
 <button type="@Type.ToString().ToLower()"
         class="@CssBuilder"
+        style="@Style"
         @onclick="@(() => OnClick.InvokeAsync())"
         @attributes="AdditionalAttributes">
     @ChildContent

@@ -1,7 +1,7 @@
 ﻿@namespace BsBlazor
 @using Microsoft.AspNetCore.Components.Routing
 @inherits BsButtonBase
-<NavLink href="@Href" class="@CssBuilder" @attributes="AdditionalAttributes" Match="Match" >
+<NavLink href="@Href" class="@CssBuilder" style="@Style" @attributes="AdditionalAttributes" Match="Match" >
     @ChildContent
 </NavLink>
 @code {

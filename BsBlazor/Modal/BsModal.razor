@@ -5,6 +5,7 @@
 @inject IJSRuntime JS
 <div @ref="_elementReference" 
     class="@CssClass"
+    style="@Style"
     @onhide.bs.modal="() => OnHide.InvokeAsync()"
     @onhidden.bs.modal="() => OnHidden.InvokeAsync()"
     @onhidePrevented.bs.modal="() => OnHidePrevented.InvokeAsync()"
