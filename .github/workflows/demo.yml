@@ -23,7 +23,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-nuget-
           
-    - run: dotnet publish BsBlazor.Demo/BsBlazor.Demo -c Release -o Package
+    - run: dotnet publish Demo/Server -c Release -o Package
     - uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.APP_NAME }}

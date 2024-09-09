@@ -1,5 +1,5 @@
 using BsBlazor;
-using BsBlazor.Demo.Components;
+using BsBlazor.Demo.Server.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
