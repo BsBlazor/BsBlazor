@@ -1,0 +1,13 @@
+﻿@namespace BsBlazor
+@inherits BsParentComponentBase
+<label for="@For" class="@CssClass" style="@Style" @attributes="AdditionalAttributes">
+    @ChildContent
+</label>
+@code {
+    private string CssClass => CssBuilder.Default(Bs.Css.FormLabel)
+      .AddClass(Class)
+      .Build();
+
+    [Parameter]
+    public string? For { get; set; }
+}
