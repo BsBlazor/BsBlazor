@@ -244,6 +244,17 @@ public static class Examples
 """
 		},
 		{
+			"FormsOverviewExample",
+"""
+<form>
+    <BsFormField>
+        <BsFormLabel For="exampleInputEmail1">Email address</BsFormLabel>
+        <BsFormText>We'll never share your email with anyone else.</BsFormText>
+    </BsFormField>
+</form>
+"""
+		},
+		{
 			"ModalFullscreenExample",
 """
 <BsButton Variant="BsButtonVariant.Primary" Toggle="BsButtonToggle.Modal" Target="#exampleModalFullscreen">Full screen</BsButton>
