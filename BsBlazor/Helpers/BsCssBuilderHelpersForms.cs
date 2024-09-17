@@ -2,6 +2,11 @@
 public partial class BsCssBuilder
 {
     /// <summary>
+    /// form-control
+    /// </summary>
+    public BsCssBuilder FormControl => AddClass("form-control");
+
+    /// <summary>
     /// form-floating
     /// </summary>
     public BsCssBuilder FormFloating => AddClass("form-floating");

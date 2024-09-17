@@ -249,6 +249,7 @@ public static class Examples
 <form>
     <BsFormField>
         <BsFormLabel For="exampleInputEmail1">Email address</BsFormLabel>
+        <input id="exampleInputEmail1" class="@Bs.Css.FormControl" />
         <BsFormText>We'll never share your email with anyone else.</BsFormText>
     </BsFormField>
 </form>
