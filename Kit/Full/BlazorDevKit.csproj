@@ -8,8 +8,8 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<Authors>BsBlazor</Authors>
-		<PackageTags>Bootstrap;Blazor</PackageTags>
-		<PackageDescription>Bootstrap library for Blazor</PackageDescription>
+		<PackageTags>Kit;Blazor</PackageTags>
+		<PackageDescription>Development Kit for Blazor Applications</PackageDescription>
 		<RepositoryUrl>https://github.com/cblx/BsBlazor</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
@@ -27,8 +27,5 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Templates\" />
 	</ItemGroup>
 </Project>

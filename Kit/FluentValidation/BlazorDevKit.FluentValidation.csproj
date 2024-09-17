@@ -4,12 +4,13 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>BlazorDevKit</RootNamespace>
 		<IsTrimmable>true</IsTrimmable>
 	</PropertyGroup>
 	<PropertyGroup>
 		<Authors>BsBlazor</Authors>
-		<PackageTags>Bootstrap;Blazor</PackageTags>
-		<PackageDescription>Bootstrap library for Blazor</PackageDescription>
+		<PackageTags>Kit;Blazor</PackageTags>
+		<PackageDescription>FluentValidator for Blazor Applications</PackageDescription>
 		<RepositoryUrl>https://github.com/cblx/BsBlazor</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
@@ -20,6 +21,7 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="11.10.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 	<ItemGroup>
@@ -27,8 +29,5 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Templates\" />
 	</ItemGroup>
 </Project>
