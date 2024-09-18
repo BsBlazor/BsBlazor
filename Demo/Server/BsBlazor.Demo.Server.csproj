@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Client\BsBlazor.Demo.Client.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
   </ItemGroup>
 
 </Project>
