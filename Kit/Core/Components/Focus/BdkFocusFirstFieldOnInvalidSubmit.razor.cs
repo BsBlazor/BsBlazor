@@ -43,7 +43,7 @@ public partial class BdkFocusFirstFieldOnInvalidSubmit : ComponentBase, IAsyncDi
     private async void ValidationStateChanged(object? sender, ValidationStateChangedEventArgs e)
     {
         if(_jsInstanceReference is null) return;
-        await _jsInstanceReference.InvokeVoidAsync("validationChangedAsync");
+        await _jsInstanceReference.InvokeVoidAsync("validationChangedAsync", Force);
     }
 
     public async ValueTask DisposeAsync()

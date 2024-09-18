@@ -10,7 +10,6 @@ export class BdkFocusFirstFieldOnInvalidSubmit {
         let attempts = 1;
         let maxAttempts = 4;        
         
-        // Wait for the invalid input to be rendered
         while (invalidInput == null && attempts <= maxAttempts) {
             await new Promise(resolve => setTimeout(resolve, 50));
             invalidInput = this.form.querySelector(`.${this.invalidClass}`);
