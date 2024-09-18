@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BsBlazor\BsBlazor.csproj" />
+    <ProjectReference Include="..\..\Plus\BsBlazor.Plus.csproj" />
   </ItemGroup>
 
   <ItemGroup>

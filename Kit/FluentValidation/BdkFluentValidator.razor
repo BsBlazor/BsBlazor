@@ -3,6 +3,7 @@
 @using FluentValidation.Internal;
 @using Microsoft.AspNetCore.Components.Forms;
 @code {
+    internal const string EditContextKey = "BdkFluentValidator";
     [Parameter]
     public IValidator<TRequest>? Validator { get; set; } = default!;
 
@@ -14,7 +15,7 @@
     protected override void OnInitialized()
     {
         if (EditContext is null) { throw new InvalidOperationException("EditContext not found for KitFluentValidator. Make sure you're using inside a EditContext scope like inside an EditForm component."); }
-        EditContext.Properties["BdkFluentValidator"] = this;
+        EditContext.Properties[EditContextKey] = this;
         _validationMessageStore = new ValidationMessageStore(EditContext);
         EditContext.OnValidationRequested += (sender, eventArgs) => ValidateModel();
         EditContext.OnFieldChanged += (sender, eventArgs) => ValidateModel(validateSingleField: eventArgs.FieldIdentifier);
