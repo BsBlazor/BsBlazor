@@ -29,6 +29,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\Core\BlazorDevKit.Core.csproj" />
 	  <ProjectReference Include="..\FluentValidation\BlazorDevKit.FluentValidation.csproj" />
 	</ItemGroup>
 </Project>
