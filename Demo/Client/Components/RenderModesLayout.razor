@@ -2,19 +2,21 @@
 @layout MainLayout
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
-<div class="@Bs.Css.OverflowHidden" style="height: 100vh; display: flex; flex-flow: column">
+<div>
     <div>
         <h1>@Component</h1>
         <ul class="nav nav-pills">
-            @RenderNavLink(null)
             @RenderNavLink("Wasm")
             @RenderNavLink("Server")
+            @RenderNavLink("Static")
         </ul>
         <hr />
     </div>
     <div class="@Bs.Css.FlexGrow1.OverflowAuto">
-        @Body
     </div>
+</div>
+<div class="bd-content ps-lg-2">
+    @Body
 </div>
 @code {
     private string Component => ToTitleCase(NavigationManager.Uri.Split('/')[3] ?? "Component");
@@ -22,8 +24,8 @@
 
 
     private RenderFragment RenderNavLink(string? renderMode) => @<li class="nav-item">
-        <NavLink class="nav-link" href="@($"{Component.ToLower()}/{renderMode?.ToLower()}")" Match="NavLinkMatch.All">@(renderMode ?? "Static")</NavLink>
-    </li>;
+    <NavLink class="nav-link" href="@($"{Component.ToLower()}/{renderMode?.ToLower()}")" Match="NavLinkMatch.All">@(renderMode ?? "Static")</NavLink>
+</li>;
 
     private string ToTitleCase(string str)
     {
