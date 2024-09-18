@@ -1,0 +1,10 @@
+﻿@namespace BsBlazor
+@inherits BsParentComponentBase
+<div class="@CssClass" style="@Style" @attributes="AdditionalAttributes" role="alert">
+    @ChildContent
+</div>
+@code {
+    private string CssClass => CssBuilder.Default("navbar")
+       .AddClass(Class)
+       .Build();
+}
