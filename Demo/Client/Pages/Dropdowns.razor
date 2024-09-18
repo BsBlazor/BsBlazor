@@ -1,10 +1,4 @@
-﻿@page "/dropdowns/{Mode=static}"
-@using BsBlazor.Demo.Client.SharedDemo.Dropdowns
-<PageTitle>Dropdowns - @Mode</PageTitle>
-@switch (Mode)
-{
-    case "server": <SharedDropdownsDemo @rendermode="InteractiveServer"/> break;
-    case "wasm": <SharedDropdownsDemo @rendermode="InteractiveWebAssembly"/> break;
-    default: <SharedDropdownsDemo /> break;
-}
-@code { [Parameter] public string? Mode { get; set; } }
+﻿@using BsBlazor.Demo.Client.SharedDemo.Dropdowns
+@page "/dropdowns/{Mode=wasm}"
+@inherits DynamicRenderModePage
+<SharedDropdownsDemo @rendermode="RenderModeFromRoute" />
