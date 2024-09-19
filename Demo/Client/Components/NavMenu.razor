@@ -56,18 +56,17 @@
                             <svg class="bi me-2" style="color: var(--bs-indigo);" aria-hidden="true"><use xlink:href="#book-half"></use></svg>
                             Basic
                         </strong>
-
                         <ul class="list-unstyled fw-normal pb-2 small">
-
-                            @foreach (var component in _components)
-                            {
-                                var href = $"/{component.Name.ToLower()}/{GetCurrentRenderMode()}";
-                                <li>
-                                    <NavLink class="@_linkClass" href="@href" Match="NavLinkMatch.Prefix">
-                                        @component.ShowingText
-                                    </NavLink>
-                                </li>
-                            }
+                            @CreateItem("Alerts")
+                            @CreateItem("Badges")
+                            @CreateItem("Buttons")
+                            @CreateItem("Cards")
+                            @CreateItem("Dropdowns")
+                            @CreateItem("Forms - Overview", "forms/overview")
+                            @CreateItem("Modal")
+                            @CreateItem("Spinners")
+                            @CreateItem("Toasts")
+                            @CreateItem("Tooltips")
                         </ul>
                     </li>
                     <li class="bd-links-group py-2">
@@ -85,26 +84,11 @@
                             Dev Kit
                         </strong>
                         <ul class="list-unstyled fw-normal pb-2 small">
-                            <li>Soon...</li>
+                            @CreateItem("FluentValidation", "kit/fluent-validation")
+                            @CreateItem("Focus on invalid submit", "kit/focus-on-invalid-submit")
                         </ul>
                     </li>
-                    @*  <li class="bd-links-group py-2">
-                    <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
-                    <svg class="bi me-2" style="color: var(--bs-pink);" aria-hidden="true"><use xlink:href="#palette2"></use></svg>
-                    Customize
-                    </strong>
-
-                    <ul class="list-unstyled fw-normal pb-2 small">
-                    <li><a href="/docs/5.3/customize/overview/" class="bd-links-link d-inline-block rounded">Overview</a></li>
-                    <li><a href="/docs/5.3/customize/sass/" class="bd-links-link d-inline-block rounded">Sass</a></li>
-                    <li><a href="/docs/5.3/customize/options/" class="bd-links-link d-inline-block rounded">Options</a></li>
-                    <li><a href="/docs/5.3/customize/color/" class="bd-links-link d-inline-block rounded">Color</a></li>
-                    <li><a href="/docs/5.3/customize/color-modes/" class="bd-links-link d-inline-block rounded">Color modes</a></li>
-                    <li><a href="/docs/5.3/customize/components/" class="bd-links-link d-inline-block rounded">Components</a></li>
-                    <li><a href="/docs/5.3/customize/css-variables/" class="bd-links-link d-inline-block rounded">CSS variables</a></li>
-                    <li><a href="/docs/5.3/customize/optimize/" class="bd-links-link d-inline-block rounded">Optimize</a></li>
-                    </ul>
-                    </li>
+                    @*  
                     <li class="bd-links-group py-2">
                     <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
                     <svg class="bi me-2" style="color: var(--bs-teal);" aria-hidden="true"><use xlink:href="#grid-fill"></use></svg>
@@ -319,6 +303,16 @@
         new("Toasts"),
         new("Tooltips")
     ];
+    private RenderFragment CreateItem(string name, string? url = null)
+    {
+        url = url ?? name.ToLower();
+        var href = $"/{url}/{GetCurrentRenderMode()}";
+        return @<li>
+            <NavLink class="@_linkClass" href="@href" Match="NavLinkMatch.Prefix">
+                @name
+            </NavLink>
+        </li>;
+    }
     private string GetCurrentRenderMode()
     {
         var uri = NavigationManager.Uri;

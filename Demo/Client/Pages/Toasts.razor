@@ -1,10 +1,5 @@
-﻿@page "/toasts/{Mode=wasm}"
+﻿@inherits DynamicRenderModePage
+@page "/toasts/{Mode=wasm}"
 @using BsBlazor.Demo.Client.SharedDemo.Toast
-<PageTitle>Toast - @Mode</PageTitle>
-@switch (Mode)
-{
-    case "server": <SharedToastDemo @rendermode="InteractiveServer"/> break;
-    case "wasm": <SharedToastDemo @rendermode="InteractiveWebAssembly"/> break;
-    default: <SharedToastDemo /> break;
-}
-@code { [Parameter] public string? Mode { get; set; } }
+<SectionContent SectionName="title">Toasts</SectionContent>
+<SharedToastDemo @rendermode="RenderModeFromRoute"/>

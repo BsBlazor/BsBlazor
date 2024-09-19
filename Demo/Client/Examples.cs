@@ -3,6 +3,53 @@ public static class Examples
 {
 	public static readonly IReadOnlyDictionary<string, string> Contents = new Dictionary<string, string>(){
 		{
+			"FluentValidationExample",
+"""
+@using FluentValidation
+<EditForm Model="_model">
+    <BdkFluentValidator Validator="new ModelValidator()" />
+    <div>
+        <InputText class="@Bs.Css.FormControl" @bind-Value="_model.Name" />
+        <ValidationMessage For="() => _model.Name" class="@Bs.Css.DisplayBlock.AddClass("is-invalid")"/>
+    </div>
+    <button type="submit" class="mt-2 btn btn-primary">Submit</button>
+</EditForm>
+@code {
+    private Model _model = new();
+
+    class Model
+    {
+        public string? Name { get; set; }
+    }
+
+    class ModelValidator : AbstractValidator<Model>
+    {
+        public ModelValidator()
+        {
+            RuleFor(x => x.Name).NotEmpty();
+        }
+    }
+}
+"""
+		},
+		{
+			"FocusFirstFieldOnInvalidSubmitExample",
+"""
+@using BlazorDevKit
+@using System.ComponentModel.DataAnnotations
+<EditForm Model="this">
+    <DataAnnotationsValidator/>
+    <BdkFocusFirstFieldOnInvalidSubmit/>
+    <InputText class="@Bs.Css.FormControl" @bind-Value="Name"/>
+    <BsButton Class="@Bs.Css.MarginTop2" Variant="BsButtonVariant.Primary" Type="BsButtonType.Submit">Submit</BsButton>
+</EditForm>
+@code{
+    [Required]
+    public string? Name { get; set; }
+}
+"""
+		},
+		{
 			"BadgeBackgroundColorsExample",
 """
 <BsBadge Color="BsThemeColor.Primary">Primary</BsBadge>
@@ -247,11 +294,11 @@ public static class Examples
 			"FormsOverviewExample",
 """
 <form>
-    <BsFormField>
+    <div>
         <BsFormLabel For="exampleInputEmail1">Email address</BsFormLabel>
         <input id="exampleInputEmail1" class="@Bs.Css.FormControl" />
         <BsFormText>We'll never share your email with anyone else.</BsFormText>
-    </BsFormField>
+    </div>
 </form>
 """
 		},
@@ -515,7 +562,7 @@ public static class Examples
 		{
 			"ModalStaticExample",
 """
-<BsModal Class="position-static d-block" Fade="false">
+<BsModal Class="position-static d-block h-auto" Fade="false">
     <BsModalDialog>
         <BsModalContent>
             <BsModalHeader>
@@ -538,7 +585,7 @@ public static class Examples
 		{
 			"ModalStaticShorthandDialogExample",
 """
-<BsModal Class="position-static d-block" Fade="false">
+<BsModal Class="position-static d-block h-auto" Fade="false">
     <BsModalDialogShorthand Title="Shorthand modal dialog title">
         Shortand Modal Dialog
     </BsModalDialogShorthand>
@@ -549,7 +596,7 @@ public static class Examples
 		{
 			"ModalStaticShorthandExample",
 """
-<BsModalShorthand Class="position-static d-block" Title="Shortand modal title" Fade="false">
+<BsModalShorthand Class="position-static d-block h-auto" Title="Shortand modal title" Fade="false">
     Shortand Modal
 </BsModalShorthand>
 
