@@ -1,0 +1,12 @@
+﻿@using BlazorDevKit
+@using System.ComponentModel.DataAnnotations
+<EditForm Model="this">
+    <DataAnnotationsValidator/>
+    <BdkFocusFirstFieldOnInvalidSubmit/>
+    <InputText class="@Bs.Css.FormControl" @bind-Value="Name"/>
+    <BsButton Class="@Bs.Css.MarginTop2" Variant="BsButtonVariant.Primary" Type="BsButtonType.Submit">Submit</BsButton>
+</EditForm>
+@code{
+    [Required]
+    public string? Name { get; set; }
+}

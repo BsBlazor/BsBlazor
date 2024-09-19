@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="SharedDemo\Examples.cs">
+    <None Include="Examples.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Examples.tt</DependentUpon>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="SharedDemo\Examples.cs">
+    <Compile Update="Examples.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Examples.tt</DependentUpon>
@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="SharedDemo\Examples.tt">
+    <None Update="Examples.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Examples.cs</LastGenOutput>
     </None>

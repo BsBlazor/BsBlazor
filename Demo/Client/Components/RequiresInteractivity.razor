@@ -1,0 +1,19 @@
+﻿@inject NavigationManager NavigationManager
+<div class="position-relative">
+    @ChildContent
+    @if (IsStatic)
+    {
+        <div class="z-2 position-absolute top-0 bottom-0 end-0 start-0 bg-danger opacity-50"></div>
+        <div class="z-3 position-sticky overflow-visible h-0 mx-4" style="bottom:80px; right: 80px">
+            <div class="h3 text-end">
+                🚫 Requires interactivity
+            </div>
+        </div>
+    }
+</div>
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool IsStatic => NavigationManager.Uri.Contains("/static", StringComparison.OrdinalIgnoreCase);
+}

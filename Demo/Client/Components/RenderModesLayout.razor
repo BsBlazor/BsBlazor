@@ -4,7 +4,9 @@
 @inject NavigationManager NavigationManager
 <div>
     <div>
-        <h1>@Component</h1>
+        <h1>
+            <SectionOutlet SectionName="title" />
+        </h1>
         <ul class="nav nav-pills">
             @RenderNavLink("Wasm")
             @RenderNavLink("Server")
@@ -19,16 +21,11 @@
     @Body
 </div>
 @code {
-    private string Component => ToTitleCase(NavigationManager.Uri.Split('/')[3] ?? "Component");
-    private string RenderMode => ToTitleCase(NavigationManager.Uri.Split('/')[^1]);
-
-
-    private RenderFragment RenderNavLink(string? renderMode) => @<li class="nav-item">
-    <NavLink class="nav-link" href="@($"{Component.ToLower()}/{renderMode?.ToLower()}")" Match="NavLinkMatch.All">@(renderMode ?? "Static")</NavLink>
-</li>;
-
-    private string ToTitleCase(string str)
+    private RenderFragment RenderNavLink(string? renderMode)
     {
-        return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(str);
+        var urlWithoutLastPart = string.Join("/", NavigationManager.Uri.Split('/')[..^1]);
+        return @<li class="nav-item">
+    <NavLink class="nav-link" href="@($"{urlWithoutLastPart}/{renderMode?.ToLower()}")" Match="NavLinkMatch.All">@(renderMode ?? "Static")</NavLink>
+</li>;
     }
 }

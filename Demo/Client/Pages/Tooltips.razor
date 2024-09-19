@@ -1,10 +1,5 @@
-﻿@page "/tooltips/{Mode=wasm}"
+﻿@inherits DynamicRenderModePage
+@page "/tooltips/{Mode=wasm}"
 @using BsBlazor.Demo.Client.SharedDemo.Tooltips
-<PageTitle>Tooltips - @Mode</PageTitle>
-@switch (Mode)
-{
-    case "server": <SharedTooltipDemo @rendermode="InteractiveServer"/> break;
-    case "wasm": <SharedTooltipDemo @rendermode="InteractiveWebAssembly"/> break;
-    default: <SharedTooltipDemo /> break;
-}
-@code { [Parameter] public string? Mode { get; set; } }
+<SectionContent SectionName="title">Tooltips</SectionContent>
+<SharedTooltipDemo @rendermode="RenderModeFromRoute"/>}

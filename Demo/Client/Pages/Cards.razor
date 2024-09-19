@@ -1,4 +1,5 @@
 ﻿@using BsBlazor.Demo.Client.SharedDemo.Cards
 @page "/cards/{Mode=wasm}"
 @inherits DynamicRenderModePage
+<SectionContent SectionName="title">Cards</SectionContent>
 <SharedCardsDemo @rendermode="RenderModeFromRoute"/>
