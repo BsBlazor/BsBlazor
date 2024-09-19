@@ -9,6 +9,7 @@ public static class Examples
 <EditForm Model="_model">
     <BdkFluentValidator Validator="new ModelValidator()" />
     <div>
+        <label class="@Bs.Css.FormLabel">Name</label>
         <InputText class="@Bs.Css.FormControl" @bind-Value="_model.Name" />
         <ValidationMessage For="() => _model.Name" class="@Bs.Css.DisplayBlock.AddClass("is-invalid")"/>
     </div>
@@ -47,6 +48,14 @@ public static class Examples
     [Required]
     public string? Name { get; set; }
 }
+"""
+		},
+		{
+			"IMaskPatternExample",
+"""
+<BdkIMaskPattern Mask="{#}000[aaa]/NIC-`*[**]">
+    <input class="form-control" value="#534/NIC-534" />
+</BdkIMaskPattern>
 """
 		},
 		{
