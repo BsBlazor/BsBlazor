@@ -1,0 +1,22 @@
+<BdkLoader Load="LoadAsync" PreserveState >
+    <ul>
+        @foreach (var result in context)
+        {
+            <li>Item: @result.Id</li>
+        }
+    </ul>
+</BdkLoader>
+
+@code
+{
+    private async Task<LoaderResult[]> LoadAsync()
+    {
+        await Task.Delay(2000);
+        return Enumerable.Range(0, 5).Select(_ => new LoaderResult()).ToArray();
+    }
+
+    private class LoaderResult
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+    }
+}
