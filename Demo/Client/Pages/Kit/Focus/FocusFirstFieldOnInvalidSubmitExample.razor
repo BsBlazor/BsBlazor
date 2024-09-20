@@ -1,12 +1,16 @@
-﻿@using BlazorDevKit
-@using System.ComponentModel.DataAnnotations
+﻿@using System.ComponentModel.DataAnnotations
 <EditForm Model="this">
     <DataAnnotationsValidator/>
     <BdkFocusFirstFieldOnInvalidSubmit/>
     <InputText class="@Bs.Css.FormControl" @bind-Value="Name"/>
+    <br/>
+    <InputText class="@Bs.Css.FormControl" @bind-Value="Email"/>
     <BsButton Class="@Bs.Css.MarginTop2" Variant="BsButtonVariant.Primary" Type="BsButtonType.Submit">Submit</BsButton>
 </EditForm>
 @code{
     [Required]
     public string? Name { get; set; }
+    
+    [EmailAddress, Required]
+    public string? Email { get; set; }
 }
