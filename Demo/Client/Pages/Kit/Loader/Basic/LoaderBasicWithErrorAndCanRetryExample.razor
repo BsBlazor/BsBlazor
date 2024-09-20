@@ -1,0 +1,19 @@
+<BdkLoader Load="LoadAsync" CanRetry CanRetryTitle="Retry">
+    <span>Result ID:</span>
+    @context.Id
+</BdkLoader>
+
+@code
+{
+    private async Task<LoaderResult> LoadAsync()
+    {
+        await Task.Delay(2000);
+        throw new Exception("An error occurred while loading data.");
+        return new LoaderResult();
+    }
+
+    private class LoaderResult
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+    }
+}

@@ -1,0 +1,18 @@
+<BdkLoader Load="LoadAsync" Message="This is a custom message">
+    <span>Result ID:</span>
+    @context.Id
+</BdkLoader>
+
+@code
+{
+    private async Task<LoaderResult> LoadAsync()
+    {
+        await Task.Delay(2000);
+        return new LoaderResult();
+    }
+
+    private class LoaderResult
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+    }
+}
