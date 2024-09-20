@@ -9,9 +9,9 @@ public partial class BdkFocusFirstFieldOnInvalidSubmit : ComponentBase, IAsyncDi
     private ElementReference _elementReference;
     private IJSObjectReference? _jsModuleReference;
     private IJSObjectReference? _jsInstanceReference;
+    private string _id = Guid.NewGuid().ToString("N");
 
     [Inject] public required IJSRuntime JsRuntime { get; set; }
-    [CascadingParameter] public required EditContext EditContext { get; set; }
     
     /// <summary>
     /// By default, the ‘invalid’ class is added to the field that is invalid when the form is submitted and validated by EditContext.
@@ -31,28 +31,30 @@ public partial class BdkFocusFirstFieldOnInvalidSubmit : ComponentBase, IAsyncDi
             _jsModuleReference = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BlazorDevKit.Core/Components/Focus/BdkFocusFirstFieldOnInvalidSubmit.razor.js");
             _jsInstanceReference = await _jsModuleReference
                 .InvokeAsync<IJSObjectReference>(
-                    "BdkFocusFirstFieldOnInvalidSubmit.create", 
+                    "BdkFocusFirstFieldOnInvalidSubmit.create",
+                    _id,
+                    DotNetObjectReference.Create(this),
                     _elementReference,
                     InvalidClass
                 );
             
-            EditContext.OnValidationStateChanged += ValidationStateChanged;
         }
     }
 
-    private async void ValidationStateChanged(object? sender, ValidationStateChangedEventArgs e)
+    [JSInvokable]
+    public async Task NotifySubmitAsync()
     {
         if(_jsInstanceReference is null) return;
         await _jsInstanceReference.InvokeVoidAsync("validationChangedAsync", Force);
     }
-
+    
     public async ValueTask DisposeAsync()
     {
         try
         {
             if (_jsInstanceReference is not null)
             {
-                await _jsInstanceReference.InvokeVoidAsync("dispose");
+                await _jsInstanceReference.InvokeVoidAsync("dispose", _id);
                 await _jsInstanceReference.DisposeAsync();
             }
 
@@ -68,7 +70,5 @@ public partial class BdkFocusFirstFieldOnInvalidSubmit : ComponentBase, IAsyncDi
             // https://github.com/dotnet/aspnetcore/issues/49376
             // https://github.com/dotnet/aspnetcore/issues/30344
         }
-
-        EditContext.OnValidationStateChanged -= ValidationStateChanged;
     }
 }

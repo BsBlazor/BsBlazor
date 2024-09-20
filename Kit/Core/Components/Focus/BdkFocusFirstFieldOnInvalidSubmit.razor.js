@@ -1,7 +1,8 @@
 export class BdkFocusFirstFieldOnInvalidSubmit {
 
-    constructor(elementReference, invalidClass) {
+    constructor(dotNetReference, elementReference, invalidClass) {
         this.invalidClass = invalidClass;
+        this.dotNetReference = dotNetReference;
         this.form = elementReference.closest('form');
     }
 
@@ -27,18 +28,21 @@ export class BdkFocusFirstFieldOnInvalidSubmit {
         } else {
             console.log('The .invalid input is not focusable');
         }
-    }
+    }    
     
     isFocusable(element) {
         return element.tabIndex >= 0;
     }
     
-    dispose() {
+    dispose(identifier) {
         this.form = null;
+        delete window[identifier];
     }
 
-    static create(elementReference, invalidClass) {
-        return new BdkFocusFirstFieldOnInvalidSubmit(elementReference, invalidClass);
+    static create(identifier, dotNetReference, elementReference, invalidClass) {
+        window[identifier] = new BdkFocusFirstFieldOnInvalidSubmit(dotNetReference, elementReference, invalidClass);
+        window[identifier].form.addEventListener('submit', () => window[identifier].dotNetReference.invokeMethodAsync('NotifySubmitAsync'));
+        return window[identifier];        
     }
 }
 
