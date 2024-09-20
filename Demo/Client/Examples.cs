@@ -9,6 +9,7 @@ public static class Examples
 <EditForm Model="_model">
     <BdkFluentValidator Validator="new ModelValidator()" />
     <div>
+        <label class="@Bs.Css.FormLabel">Name</label>
         <InputText class="@Bs.Css.FormControl" @bind-Value="_model.Name" />
         <ValidationMessage For="() => _model.Name" class="@Bs.Css.DisplayBlock.AddClass("is-invalid")"/>
     </div>
@@ -35,17 +36,154 @@ public static class Examples
 		{
 			"FocusFirstFieldOnInvalidSubmitExample",
 """
-@using BlazorDevKit
 @using System.ComponentModel.DataAnnotations
 <EditForm Model="this">
     <DataAnnotationsValidator/>
     <BdkFocusFirstFieldOnInvalidSubmit/>
     <InputText class="@Bs.Css.FormControl" @bind-Value="Name"/>
+    <br/>
+    <InputText class="@Bs.Css.FormControl" @bind-Value="Email"/>
     <BsButton Class="@Bs.Css.MarginTop2" Variant="BsButtonVariant.Primary" Type="BsButtonType.Submit">Submit</BsButton>
 </EditForm>
 @code{
     [Required]
     public string? Name { get; set; }
+    
+    [EmailAddress, Required]
+    public string? Email { get; set; }
+}
+"""
+		},
+		{
+			"ErrorContentExample",
+"""
+<div class="d-flex flex-column align-items-center justify-content-center">
+    <div class="mt-3 text-danger">
+        @ErrorResult.Exception.Message
+    </div>
+
+    @if (ErrorResult.Loader.CanRetry)
+    {
+        <div class="mt-3">
+            <button class="btn btn-primary" @onclick="ErrorResult.Loader.ReloadAsync">Reload</button>
+        </div>
+    }
+</div>
+
+@code
+{
+    [Parameter] public required BdkLoaderErrorResult ErrorResult { get; set; }
+}
+"""
+		},
+		{
+			"LoadingContentExample",
+"""
+<div class="d-flex flex-column align-items-center justify-content-center">
+    <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    
+    <div class="mt-3">@(string.IsNullOrEmpty(Message) ? "Loading..." : Message)</div>
+</div>
+
+@code 
+{
+    [Parameter] public string Message { get; set; } = string.Empty;
+}
+"""
+		},
+		{
+			"LoaderBasicExample",
+"""
+<BdkLoader Load="LoadAsync">
+    <span>Result ID:</span>
+    @context.Id
+</BdkLoader>
+
+@code
+{
+    private async Task<LoaderResult> LoadAsync()
+    {
+        await Task.Delay(2000);
+        return new LoaderResult();
+    }
+
+    private class LoaderResult
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+    }
+}
+"""
+		},
+		{
+			"LoaderBasicWithErrorAndCanRetryExample",
+"""
+<BdkLoader Load="LoadAsync" CanRetry CanRetryTitle="Retry">
+    <span>Result ID:</span>
+    @context.Id
+</BdkLoader>
+
+@code
+{
+    private async Task<LoaderResult> LoadAsync()
+    {
+        await Task.Delay(2000);
+        throw new Exception("An error occurred while loading data.");
+        return new LoaderResult();
+    }
+
+    private class LoaderResult
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+    }
+}
+"""
+		},
+		{
+			"LoaderBasicWithErrorExample",
+"""
+<BdkLoader Load="LoadAsync">
+    <span>Result ID:</span>
+    @context.Id
+</BdkLoader>
+
+@code
+{
+    private async Task<LoaderResult> LoadAsync()
+    {
+        await Task.Delay(2000);
+        throw new Exception("An error occurred while loading data.");
+        return new LoaderResult();
+    }
+
+    private class LoaderResult
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+    }
+}
+"""
+		},
+		{
+			"LoaderBasicWithMessageExample",
+"""
+<BdkLoader Load="LoadAsync" Message="This is a custom message">
+    <span>Result ID:</span>
+    @context.Id
+</BdkLoader>
+
+@code
+{
+    private async Task<LoaderResult> LoadAsync()
+    {
+        await Task.Delay(2000);
+        return new LoaderResult();
+    }
+
+    private class LoaderResult
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+    }
 }
 """
 		},

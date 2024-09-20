@@ -1,0 +1,66 @@
+@using BsBlazor.Demo.Client.Pages.Kit.Loader.Basic
+
+<h3>Quick start</h3>
+<p>
+    You can use the Loader component to show a loading indicator while waiting for data to load and display a message when an error occurs.
+</p>
+
+<h5>Global templates configuration</h5>
+
+<p>
+    You can configure the global templates for the loader component using the <code>BdkLoaderOptions</code> class.
+</p>
+<p>
+    The following example shows how to configure the global templates for the loader component.
+</p>
+
+<ExampleCodeSnippet CodeSnippetName="@nameof(LoadingContentExample)" ToolsLabel="LoadingContentExample.razor">
+    Loading content template example
+    <br/>
+    <code lang="c#">
+        @("BdkLoaderOptions.Loading.ChangeContent<LoadingContent>();")
+    </code>
+</ExampleCodeSnippet>
+
+<p class="mt-4">The component created to be used as LoadingContent needs to have a parameter called Message of type string.</p>
+
+<p>
+    You can register a RenderFragment string or MarkupString in place of the component type, noting that only MarkupString does not support receiving the Message defined in the BdkLoader component.
+</p>
+
+<p>
+    Similarly, the registration of the component type to be used in error cases needs to have a parameter called ErrorResult of type BdkLoaderErrorResult, which can be used to access the exception that occurred and check if the retry button will be displayed. Below is an example of the registration and usage of this component:
+</p>
+
+<ExampleCodeSnippet CodeSnippetName="@nameof(ErrorContentExample)" ToolsLabel="ErrorContentExample.razor">
+    Error content template example
+    <br/>
+    <code lang="c#">
+        @("BdkLoaderOptions.Error.RegisterContent<Exception, ErrorContentExample>();")
+    </code>
+    <p>
+        You can register an ErrorContent for a specific exception type.
+    </p>
+</ExampleCodeSnippet>
+
+<hr/>
+
+<h3>Basic</h3>
+<ExampleCodeSnippet CodeSnippetName="@nameof(LoaderBasicExample)" ToolsLabel="Blazor">
+    <LoaderBasicExample/>
+</ExampleCodeSnippet>
+
+<h3>Basic with custom loading message</h3>
+<ExampleCodeSnippet CodeSnippetName="@nameof(LoaderBasicWithMessageExample)" ToolsLabel="Blazor">
+    <LoaderBasicWithMessageExample/>
+</ExampleCodeSnippet>
+
+<h3>Basic with error</h3>
+<ExampleCodeSnippet CodeSnippetName="@nameof(LoaderBasicWithErrorExample)" ToolsLabel="Blazor">
+    <LoaderBasicWithErrorExample/>
+</ExampleCodeSnippet>
+
+<h3>Basic with error and CanRetry</h3>
+<ExampleCodeSnippet CodeSnippetName="@nameof(LoaderBasicWithErrorAndCanRetryExample)" ToolsLabel="Blazor">
+    <LoaderBasicWithErrorAndCanRetryExample/>
+</ExampleCodeSnippet>

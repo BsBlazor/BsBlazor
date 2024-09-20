@@ -1,7 +1,12 @@
+using BlazorDevKit;
 using BsBlazor;
+using BsBlazor.Demo.Client.Pages.Kit.Loader;
 using BsBlazor.Demo.Server.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+
+BdkLoaderOptions.Loading.ChangeContent<LoadingContentExample>();
+BdkLoaderOptions.Error.RegisterContent<Exception, ErrorContentExample>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
