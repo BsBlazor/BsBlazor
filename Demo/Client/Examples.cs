@@ -55,6 +55,14 @@ public static class Examples
 """
 		},
 		{
+			"IMaskPatternExample",
+"""
+<BdkIMaskPattern Mask="{#}000[aaa]/NIC-`*[**]">
+    <input class="form-control" value="#534/NIC-534" />
+</BdkIMaskPattern>
+"""
+		},
+		{
 			"ErrorContentExample",
 """
 <div class="d-flex flex-column align-items-center justify-content-center">
@@ -65,7 +73,7 @@ public static class Examples
     @if (ErrorResult.Loader.CanRetry)
     {
         <div class="mt-3">
-            <button class="btn btn-primary" @onclick="ErrorResult.Loader.ReloadAsync">Reload</button>
+            <button class="btn btn-primary" @onclick="ErrorResult.Loader.ReloadAsync">@ErrorResult.Loader.CanRetryTitle</button>
         </div>
     }
 </div>
@@ -106,6 +114,45 @@ public static class Examples
     private async Task<LoaderResult> LoadAsync()
     {
         await Task.Delay(2000);
+        return new LoaderResult();
+    }
+
+    private class LoaderResult
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+    }
+}
+"""
+		},
+		{
+			"LoaderBasicWithErrorAndCanRetryAndLocalCustomExample",
+"""
+<BdkLoader Load="LoadAsync" CanRetry CanRetryTitle="Retry">
+    <ErrorContent Context="errorResult">
+
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <div class="mt-3 text-info">
+                @errorResult.Exception.Message
+            </div>
+
+            @if (errorResult.Loader.CanRetry)
+            {
+            <div class="mt-3">
+                <button class="btn btn-danger" @onclick="errorResult.Loader.ReloadAsync">@errorResult.Loader.CanRetryTitle</button>
+            </div>
+            }
+        </div>
+        
+    </ErrorContent>
+    <ChildContent>@context.Id</ChildContent>
+</BdkLoader>
+
+@code
+{
+    private async Task<LoaderResult> LoadAsync()
+    {
+        await Task.Delay(2000);
+        throw new Exception("An error occurred while loading data.");
         return new LoaderResult();
     }
 
@@ -188,11 +235,30 @@ public static class Examples
 """
 		},
 		{
-			"IMaskPatternExample",
+			"LoaderPreserveExample",
 """
-<BdkIMaskPattern Mask="{#}000[aaa]/NIC-`*[**]">
-    <input class="form-control" value="#534/NIC-534" />
-</BdkIMaskPattern>
+<BdkLoader Load="LoadAsync" PreserveState >
+    <ul>
+        @foreach (var result in context)
+        {
+            <li>Item: @result.Id</li>
+        }
+    </ul>
+</BdkLoader>
+
+@code
+{
+    private async Task<LoaderResult[]> LoadAsync()
+    {
+        await Task.Delay(2000);
+        return Enumerable.Range(0, 5).Select(_ => new LoaderResult()).ToArray();
+    }
+
+    private class LoaderResult
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+    }
+}
 """
 		},
 		{
