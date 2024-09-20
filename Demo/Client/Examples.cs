@@ -188,6 +188,14 @@ public static class Examples
 """
 		},
 		{
+			"IMaskPatternExample",
+"""
+<BdkIMaskPattern Mask="{#}000[aaa]/NIC-`*[**]">
+    <input class="form-control" value="#534/NIC-534" />
+</BdkIMaskPattern>
+"""
+		},
+		{
 			"BadgeBackgroundColorsExample",
 """
 <BsBadge Color="BsThemeColor.Primary">Primary</BsBadge>

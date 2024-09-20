@@ -50,15 +50,25 @@ public partial class BdkFocusFirstFieldOnInvalidSubmit : ComponentBase, IAsyncDi
     
     public async ValueTask DisposeAsync()
     {
-        if(_jsInstanceReference is not null)
+        try
         {
-            await _jsInstanceReference.InvokeVoidAsync("dispose", _id);
-            await _jsInstanceReference.DisposeAsync();
-        }
+            if (_jsInstanceReference is not null)
+            {
+                await _jsInstanceReference.InvokeVoidAsync("dispose", _id);
+                await _jsInstanceReference.DisposeAsync();
+            }
 
-        if(_jsModuleReference is not null)
+            if (_jsModuleReference is not null)
+            {
+                await _jsModuleReference.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
         {
-            await _jsModuleReference.DisposeAsync();
+            // Ignore, see:
+            // https://stackoverflow.com/questions/72488563/blazor-server-side-application-throwing-system-invalidoperationexception-javas
+            // https://github.com/dotnet/aspnetcore/issues/49376
+            // https://github.com/dotnet/aspnetcore/issues/30344
         }
     }
 }
