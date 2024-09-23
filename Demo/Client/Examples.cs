@@ -104,29 +104,23 @@ public static class Examples
 		{
 			"LoaderBasicExample",
 """
-<BdkLoader Load="LoadAsync">
-    <span>Result ID:</span>
-    @context.Id
+@inject ISubjectService Service
+
+<BdkLoader Load="Service.ListAsync">
+    <ul>
+        @foreach (var item in context)
+        {
+            <li>@item.Id - @item.CreatedOn</li>
+        }
+    </ul>
 </BdkLoader>
-
-@code
-{
-    private async Task<LoaderResult> LoadAsync()
-    {
-        await Task.Delay(2000);
-        return new LoaderResult();
-    }
-
-    private class LoaderResult
-    {
-        public Guid Id { get; } = Guid.NewGuid();
-    }
-}
 """
 		},
 		{
 			"LoaderBasicWithErrorAndCanRetryAndLocalCustomExample",
 """
+@inject ISubjectService Service
+
 <BdkLoader Load="LoadAsync" CanRetry CanRetryTitle="Retry">
     <ErrorContent Context="errorResult">
 
@@ -137,28 +131,24 @@ public static class Examples
 
             @if (errorResult.Loader.CanRetry)
             {
-            <div class="mt-3">
-                <button class="btn btn-danger" @onclick="errorResult.Loader.ReloadAsync">@errorResult.Loader.CanRetryTitle</button>
-            </div>
+                <div class="mt-3">
+                    <button class="btn btn-danger" @onclick="errorResult.Loader.ReloadAsync">@errorResult.Loader.CanRetryTitle</button>
+                </div>
             }
         </div>
         
     </ErrorContent>
-    <ChildContent>@context.Id</ChildContent>
+    <ChildContent>
+        Content here
+    </ChildContent>
 </BdkLoader>
 
 @code
 {
-    private async Task<LoaderResult> LoadAsync()
+    private async Task<ResponseItem[]> LoadAsync()
     {
-        await Task.Delay(2000);
-        throw new Exception("An error occurred while loading data.");
-        return new LoaderResult();
-    }
-
-    private class LoaderResult
-    {
-        public Guid Id { get; } = Guid.NewGuid();
+        await Service.ProcessAsync(throwErrorAfterProcess: true); // Simulate error
+        return await Service.ListAsync();
     }
 }
 """
@@ -166,23 +156,23 @@ public static class Examples
 		{
 			"LoaderBasicWithErrorAndCanRetryExample",
 """
+@inject ISubjectService Service
+
 <BdkLoader Load="LoadAsync" CanRetry CanRetryTitle="Retry">
-    <span>Result ID:</span>
-    @context.Id
+    <ul>
+        @foreach (var item in context)
+        {
+            <li>@item.Id - @item.CreatedOn</li>
+        }
+    </ul>
 </BdkLoader>
 
 @code
 {
-    private async Task<LoaderResult> LoadAsync()
+    private async Task<ResponseItem[]> LoadAsync()
     {
-        await Task.Delay(2000);
-        throw new Exception("An error occurred while loading data.");
-        return new LoaderResult();
-    }
-
-    private class LoaderResult
-    {
-        public Guid Id { get; } = Guid.NewGuid();
+        await Service.ProcessAsync(throwErrorAfterProcess: true); // Simulate error
+        return await Service.ListAsync();
     }
 }
 """
@@ -190,23 +180,23 @@ public static class Examples
 		{
 			"LoaderBasicWithErrorExample",
 """
+@inject ISubjectService Service
+
 <BdkLoader Load="LoadAsync">
-    <span>Result ID:</span>
-    @context.Id
+    <ul>
+        @foreach (var item in context)
+        {
+            <li>@item.Id - @item.CreatedOn</li>
+        }
+    </ul>
 </BdkLoader>
 
 @code
 {
-    private async Task<LoaderResult> LoadAsync()
+    private async Task<ResponseItem[]> LoadAsync()
     {
-        await Task.Delay(2000);
-        throw new Exception("An error occurred while loading data.");
-        return new LoaderResult();
-    }
-
-    private class LoaderResult
-    {
-        public Guid Id { get; } = Guid.NewGuid();
+        await Service.ProcessAsync(throwErrorAfterProcess: true); // Simulate error
+        return await Service.ListAsync();
     }
 }
 """
@@ -214,22 +204,36 @@ public static class Examples
 		{
 			"LoaderBasicWithMessageExample",
 """
-<BdkLoader Load="LoadAsync" Message="This is a custom message">
-    <span>Result ID:</span>
-    @context.Id
+@inject ISubjectService Service
+
+<BdkLoader Load="Service.ListAsync" Message="This is a custom message">
+    <ul>
+        @foreach (var item in context)
+        {
+            <li>@item.Id - @item.CreatedOn</li>
+        }
+    </ul>
+</BdkLoader>
+
+"""
+		},
+		{
+			"LoaderVoidBasicExample",
+"""
+@inject ISubjectService Service
+
+<BdkLoader T="object?" Load="LoadAsync">
+    <p>
+        Content displayed after loading
+    </p>
 </BdkLoader>
 
 @code
 {
-    private async Task<LoaderResult> LoadAsync()
+    private async Task<object?> LoadAsync()
     {
-        await Task.Delay(2000);
-        return new LoaderResult();
-    }
-
-    private class LoaderResult
-    {
-        public Guid Id { get; } = Guid.NewGuid();
+        await Service.ProcessAsync();
+        return null;
     }
 }
 """
@@ -237,7 +241,9 @@ public static class Examples
 		{
 			"LoaderPreserveExample",
 """
-<BdkLoader Load="LoadAsync" PreserveState >
+@inject ISubjectService Service
+
+<BdkLoader Load="Service.ListAsync" PreserveState >
     <ul>
         @foreach (var result in context)
         {
@@ -245,18 +251,25 @@ public static class Examples
         }
     </ul>
 </BdkLoader>
+"""
+		},
+		{
+			"LoaderPreserveVoidBasicExample",
+"""
+@inject ISubjectService Service
+
+<BdkLoader T="object?" Load="LoadAsync" PreserveState>
+    <p>
+        Content displayed after loading
+    </p>
+</BdkLoader>
 
 @code
 {
-    private async Task<LoaderResult[]> LoadAsync()
+    private async Task<object?> LoadAsync()
     {
-        await Task.Delay(2000);
-        return Enumerable.Range(0, 5).Select(_ => new LoaderResult()).ToArray();
-    }
-
-    private class LoaderResult
-    {
-        public Guid Id { get; } = Guid.NewGuid();
+        await Service.ProcessAsync();
+        return null;
     }
 }
 """

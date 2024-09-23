@@ -26,6 +26,9 @@ public static class BdkLoaderOptions
         
         internal static bool HasRenderFragmentContent(Type exception) => ErrorTemplatesRenderFragments.ContainsKey(exception);
         internal static bool HasComponentTypeContent(Type exception) => ErrorTemplatesTypes.ContainsKey(exception);
+
+        internal static bool HasRenderFragmentGenericContent => ErrorTemplatesRenderFragments.ContainsKey(typeof(Exception));
+        internal static bool HasComponentTypeGenericContent => ErrorTemplatesTypes.ContainsKey(typeof(Exception));
         
         internal static RenderFragment BuildComponentTypeContent(BdkLoaderErrorResult errorResult)
         {
@@ -36,12 +39,29 @@ public static class BdkLoaderOptions
             }
             return BuildRenderFragment(componentType, new Dictionary<string, object> { ["ErrorResult"] = errorResult });
         }
-        
         internal static RenderFragment<BdkLoaderErrorResult> GetRenderFragmentContent(Type exceptionType)
         {
             if (!ErrorTemplatesRenderFragments.TryGetValue(exceptionType, out var renderFragment))
             {
                 throw new InvalidOperationException($"Error content for {exceptionType.FullName} is not set");
+            }
+            return renderFragment;
+        }
+        
+        internal static RenderFragment BuildComponentTypeGenericContent(BdkLoaderErrorResult errorResult)
+        {
+            if (!ErrorTemplatesTypes.TryGetValue(typeof(Exception), out var componentType))
+            {
+                throw new InvalidOperationException("Error content for generic exception is not set");
+            }
+            
+            return BuildRenderFragment(componentType, new Dictionary<string, object> { ["ErrorResult"] = errorResult });
+        }
+        internal static RenderFragment<BdkLoaderErrorResult> GetRenderFragmentGenericContent()
+        {
+            if (!ErrorTemplatesRenderFragments.TryGetValue(typeof(Exception), out var renderFragment))
+            {
+                throw new InvalidOperationException("Error content for generic exception is not set");
             }
             return renderFragment;
         }

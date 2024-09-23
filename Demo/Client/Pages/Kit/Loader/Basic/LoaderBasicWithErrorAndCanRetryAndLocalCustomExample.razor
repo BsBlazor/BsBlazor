@@ -1,3 +1,5 @@
+@inject ISubjectService Service
+
 <BdkLoader Load="LoadAsync" CanRetry CanRetryTitle="Retry">
     <ErrorContent Context="errorResult">
 
@@ -8,27 +10,23 @@
 
             @if (errorResult.Loader.CanRetry)
             {
-            <div class="mt-3">
-                <button class="btn btn-danger" @onclick="errorResult.Loader.ReloadAsync">@errorResult.Loader.CanRetryTitle</button>
-            </div>
+                <div class="mt-3">
+                    <button class="btn btn-danger" @onclick="errorResult.Loader.ReloadAsync">@errorResult.Loader.CanRetryTitle</button>
+                </div>
             }
         </div>
         
     </ErrorContent>
-    <ChildContent>@context.Id</ChildContent>
+    <ChildContent>
+        Content here
+    </ChildContent>
 </BdkLoader>
 
 @code
 {
-    private async Task<LoaderResult> LoadAsync()
+    private async Task<ResponseItem[]> LoadAsync()
     {
-        await Task.Delay(2000);
-        throw new Exception("An error occurred while loading data.");
-        return new LoaderResult();
-    }
-
-    private class LoaderResult
-    {
-        public Guid Id { get; } = Guid.NewGuid();
+        await Service.ProcessAsync(throwErrorAfterProcess: true); // Simulate error
+        return await Service.ListAsync();
     }
 }

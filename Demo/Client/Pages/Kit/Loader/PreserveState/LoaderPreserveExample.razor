@@ -1,4 +1,6 @@
-<BdkLoader Load="LoadAsync" PreserveState >
+@inject ISubjectService Service
+
+<BdkLoader Load="Service.ListAsync" PreserveState >
     <ul>
         @foreach (var result in context)
         {
@@ -6,17 +8,3 @@
         }
     </ul>
 </BdkLoader>
-
-@code
-{
-    private async Task<LoaderResult[]> LoadAsync()
-    {
-        await Task.Delay(2000);
-        return Enumerable.Range(0, 5).Select(_ => new LoaderResult()).ToArray();
-    }
-
-    private class LoaderResult
-    {
-        public Guid Id { get; } = Guid.NewGuid();
-    }
-}

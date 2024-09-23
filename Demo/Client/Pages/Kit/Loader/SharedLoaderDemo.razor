@@ -18,7 +18,7 @@
 <ExampleCodeSnippet CodeSnippetName="@nameof(LoadingContentExample)" ToolsLabel="LoadingContentExample.razor">
     Loading content template example
     <br/>
-    <code lang="c#">
+    <code>
         @("BdkLoaderOptions.Loading.ChangeContent<LoadingContent>();")
     </code>
 </ExampleCodeSnippet>
@@ -36,7 +36,7 @@
 <ExampleCodeSnippet CodeSnippetName="@nameof(ErrorContentExample)" ToolsLabel="ErrorContentExample.razor">
     Error content template example
     <br/>
-    <code lang="c#">
+    <code>
         @("BdkLoaderOptions.Error.RegisterContent<Exception, ErrorContentExample>();")
     </code>
     <p>
@@ -49,6 +49,14 @@
 <h3>Basic</h3>
 <ExampleCodeSnippet CodeSnippetName="@nameof(LoaderBasicExample)" ToolsLabel="Blazor">
     <LoaderBasicExample/>
+</ExampleCodeSnippet>
+
+<h3>Basic: no result</h3>
+<p>
+    Attention: the BdkLoader context will be null, this mode can be used when a return value is not necessary.
+</p>
+<ExampleCodeSnippet CodeSnippetName="@nameof(LoaderVoidBasicExample)" ToolsLabel="Blazor">
+    <LoaderVoidBasicExample/>
 </ExampleCodeSnippet>
 
 <h3>Basic with custom loading message</h3>
@@ -77,4 +85,9 @@
 <p>When the PreserveState mode is enabled, the BdkLoader will attempt to preserve the result of the Load function, avoiding going back to the server and causing an unwanted “Reload.”</p>
 <ExampleCodeSnippet CodeSnippetName="@nameof(LoaderPreserveExample)" ToolsLabel="Blazor">
     <LoaderPreserveExample/>
+</ExampleCodeSnippet>
+
+<h3>Basic with PreserveState and not result</h3>
+<ExampleCodeSnippet CodeSnippetName="@nameof(LoaderPreserveVoidBasicExample)" ToolsLabel="Blazor">
+    <LoaderPreserveVoidBasicExample/>
 </ExampleCodeSnippet>

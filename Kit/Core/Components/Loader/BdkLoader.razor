@@ -1,6 +1,6 @@
 @namespace BlazorDevKit
 
-@typeparam TResult
+@typeparam T
 
 @switch (_state)
 {
@@ -50,6 +50,14 @@
         else if (BdkLoaderOptions.Error.HasRenderFragmentContent(_lastErrorResult.GetExceptionType()))
         {
             @BdkLoaderOptions.Error.GetRenderFragmentContent(_lastErrorResult.GetExceptionType())(_lastErrorResult)
+        }
+        else if (BdkLoaderOptions.Error.HasComponentTypeGenericContent)
+        {
+            @BdkLoaderOptions.Error.BuildComponentTypeGenericContent(_lastErrorResult)
+        }
+        else if (BdkLoaderOptions.Error.HasRenderFragmentGenericContent)
+        {
+            @BdkLoaderOptions.Error.GetRenderFragmentGenericContent()(_lastErrorResult)
         }
         else
         {
