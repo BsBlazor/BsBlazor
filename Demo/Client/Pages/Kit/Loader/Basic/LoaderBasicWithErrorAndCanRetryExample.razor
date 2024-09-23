@@ -1,19 +1,19 @@
+@inject ISubjectService Service
+
 <BdkLoader Load="LoadAsync" CanRetry CanRetryTitle="Retry">
-    <span>Result ID:</span>
-    @context.Id
+    <ul>
+        @foreach (var item in context)
+        {
+            <li>@item.Id - @item.CreatedOn</li>
+        }
+    </ul>
 </BdkLoader>
 
 @code
 {
-    private async Task<LoaderResult> LoadAsync()
+    private async Task<ResponseItem[]> LoadAsync()
     {
-        await Task.Delay(2000);
-        throw new Exception("An error occurred while loading data.");
-        return new LoaderResult();
-    }
-
-    private class LoaderResult
-    {
-        public Guid Id { get; } = Guid.NewGuid();
+        await Service.ProcessAsync(throwErrorAfterProcess: true); // Simulate error
+        return await Service.ListAsync();
     }
 }

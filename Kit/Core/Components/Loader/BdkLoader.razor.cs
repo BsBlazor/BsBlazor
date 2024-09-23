@@ -2,13 +2,14 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorDevKit;
 
-public partial class BdkLoader<TResult> : ComponentBase, IDisposable, IBdkLoader
+public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
 {
-    private readonly string _loaderToken = "BdkLoader" + typeof(TResult).Name;
     private PersistingComponentStateSubscription? _persistingSubscription;
-    private TResult? _value;
+    private T? _value;
     private BdkLoaderState _state = BdkLoaderState.Loading;
     private BdkLoaderErrorResult _lastErrorResult = default!;
+
+    private string LoaderToken => "Loader" + typeof(T).Name + Load.Method.Name;
 
     [Inject] public required PersistentComponentState PersistentComponentState { get; set; }
     
@@ -17,10 +18,10 @@ public partial class BdkLoader<TResult> : ComponentBase, IDisposable, IBdkLoader
     [Parameter] public string Message { get; set; } = string.Empty;
     [Parameter] public string CanRetryTitle { get; set; } = string.Empty;
     
-    [Parameter] [EditorRequired] public required Func<Task<TResult>> Load { get; set; }
-    [Parameter] [EditorRequired] public required RenderFragment<TResult> ChildContent { get; set; }
+    [Parameter] [EditorRequired] public required Func<Task<T>> Load { get; set; }
+    [Parameter] [EditorRequired] public required RenderFragment<T> ChildContent { get; set; }
     
-    [Parameter] public EventCallback<TResult> OnLoaded { get; set; }
+    [Parameter] public EventCallback<T> OnLoaded { get; set; }
     [Parameter] public EventCallback<BdkLoaderErrorResult> OnError { get; set; }
     
     [Parameter] public RenderFragment? LoadingContent { get; set; }
@@ -69,7 +70,12 @@ public partial class BdkLoader<TResult> : ComponentBase, IDisposable, IBdkLoader
     
     private async Task LoadOrRestoreAsync()
     {
-        PersistentComponentState.TryTakeFromJson<TResult>(_loaderToken, out var restored);
+        if (PersistentComponentState.TryTakeFromJson<T>(LoaderToken, out var restored))
+        {
+            _value = restored;
+            return;
+        }
+        
         _value = restored ?? await Load();
     }
     
@@ -77,7 +83,7 @@ public partial class BdkLoader<TResult> : ComponentBase, IDisposable, IBdkLoader
     
     private Task PersistValue()
     {
-        PersistentComponentState.PersistAsJson(_loaderToken, _value);
+        PersistentComponentState.PersistAsJson(LoaderToken, _value);
         return Task.CompletedTask;
     }
     

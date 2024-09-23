@@ -1,0 +1,16 @@
+@inject ISubjectService Service
+
+<BdkLoader T="object?" Load="LoadAsync">
+    <p>
+        Content displayed after loading
+    </p>
+</BdkLoader>
+
+@code
+{
+    private async Task<object?> LoadAsync()
+    {
+        await Service.ProcessAsync();
+        return null;
+    }
+}

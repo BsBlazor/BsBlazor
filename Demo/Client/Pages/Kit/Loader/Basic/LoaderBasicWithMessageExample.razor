@@ -1,18 +1,10 @@
-<BdkLoader Load="LoadAsync" Message="This is a custom message">
-    <span>Result ID:</span>
-    @context.Id
+@inject ISubjectService Service
+
+<BdkLoader Load="Service.ListAsync" Message="This is a custom message">
+    <ul>
+        @foreach (var item in context)
+        {
+            <li>@item.Id - @item.CreatedOn</li>
+        }
+    </ul>
 </BdkLoader>
-
-@code
-{
-    private async Task<LoaderResult> LoadAsync()
-    {
-        await Task.Delay(2000);
-        return new LoaderResult();
-    }
-
-    private class LoaderResult
-    {
-        public Guid Id { get; } = Guid.NewGuid();
-    }
-}
