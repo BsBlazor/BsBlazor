@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("BsBlazor.Plus")]
 namespace BsBlazor;
 public static class ServiceCollectionExtensions
 {

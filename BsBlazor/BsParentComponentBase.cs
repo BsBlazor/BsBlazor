@@ -2,7 +2,7 @@
 
 namespace BsBlazor;
 
-public class BsParentComponentBase : BsComponentBase
+public class BsComponentWithContentBase : BsComponentBase
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
