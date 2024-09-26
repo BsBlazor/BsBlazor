@@ -2,7 +2,6 @@
 @namespace BlazorDevKit
 @using Microsoft.AspNetCore.Components.Forms
 @inherits InputText
-@Element
 @if(Immediate){
     <input @ref="Element" @attributes="@AdditionalAttributes" class="@CssClass" @bind="@CurrentValueAsString" @bind:event="oninput" />
 }
