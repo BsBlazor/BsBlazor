@@ -4,9 +4,7 @@
 @typeparam TValue
 @inherits InputNumber<TValue>
 @if(Immediate){
-<input @attributes="@AdditionalAttributes"
-       class="@CssClass"
-       @bind="@CurrentValueAsString" @bind:event="oninput" />
+<input @ref="Element" @attributes="@AdditionalAttributes" class="@CssClass" @bind="@CurrentValueAsString" @bind:event="oninput" />
 }
 else
 {

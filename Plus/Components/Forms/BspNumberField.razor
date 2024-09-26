@@ -2,13 +2,15 @@
 @using BlazorDevKit
 @using BsBlazor.Helpers
 @using System.Linq.Expressions
+@using BsBlazor.Plus.Components.Forms
 @using Microsoft.AspNetCore.Components.Forms
 @using System.Globalization
 @typeparam TValue
-@inherits BsComponentBase
+@inherits BspInputFieldBase<TValue>
 <div class="@CssClass">
-    <label for="@Id" class="@LabelCss">@Label @(EditContext?.IsRequired(ValueExpression) is true ? "*" : "")</label>
-    <BdkInputNumber Value="@Value"
+    @RenderLabel()
+    <BdkInputNumber @ref="_input"
+                    Value="@Value"
                     ValueChanged="ValueChanged"
                     ValueExpression="ValueExpression!"
                     Immediate="Immediate"
@@ -16,57 +18,20 @@
                     disabled="@Disabled"
                     readonly="@ReadOnly"
                     required="@Required"
+                    autofocus="@AutoFocus"
                     id="@Id" type="number" placeholder="@Placeholder"
                     min="@(Min?.ToString(CultureInfo.InvariantCulture))"
                     max="@(Max?.ToString(CultureInfo.InvariantCulture))"
                     step="@(Step?.ToString(CultureInfo.InvariantCulture))"/>
-    @if (EditContext != null)
-    {
-        <ValidationMessage class="invalid-feedback d-block" For="ValueExpression" />
-    }
+    @RenderValidation()
 </div>
 @code {
-    private static int _instanceCount;
-    private string LabelCss => CssBuilder.Default("form-label")
-       .AddClass("text-danger", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
-       .Build();
+    private BdkInputNumber<TValue> _input = default!;
     private string InputCss => CssBuilder.Default("form-control")
-         .AddClass(CssClass)
          .AddClass("is-invalid", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
          .Build();
-
-    [CascadingParameter] private EditContext? EditContext { get; set; }
-    [Parameter] public bool Immediate { get; set; }
-    [Parameter] public bool Disabled { get; set; }
-    [Parameter] public bool ReadOnly { get; set; }
-    [Parameter] public bool? Required { get; set; }
-    [Parameter] public string Id { get; set; } = $"bsp-text-field-{_instanceCount++}";
-    [Parameter] public string Label { get; set; } = string.Empty;
-    [Parameter] public BsFormControlSize Size { get; set; } = BsFormControlSize.Default;
-    [Parameter] public string Placeholder { get; set; } = string.Empty;
     [Parameter] public decimal? Step { get; set; } = 1;
     [Parameter] public decimal? Min { get; set; }
     [Parameter] public decimal? Max { get; set; }
-
-    /// <summary>
-    /// Gets or sets the value of the input. This should be used with two-way binding.
-    /// </summary>
-    /// <example>
-    /// @bind-Value="model.PropertyName"
-    /// </example>
-    [Parameter, EditorRequired] public TValue? Value { get; set; }
-
-    /// <summary>
-    /// Gets or sets a callback that updates the bound value.
-    /// </summary>
-    [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
-
-    /// <summary>
-    /// Gets or sets an expression that identifies the bound value.
-    /// </summary>
-    [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
-
-    private string CssClass => CssBuilder.Empty()
-       .AddClass(Class)
-       .Build();
+    public override ValueTask FocusAsync() => _input.Element!.Value.FocusAsync();
 }
