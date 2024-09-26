@@ -1,0 +1,12 @@
+﻿@using System.ComponentModel.DataAnnotations
+<EditForm class="@Bs.Css.DisplayFlex.FlexColumn" Model="this">
+    <DataAnnotationsValidator/>
+    <BdkFocusFirstFieldOnInvalidSubmit/>
+    <BspTextField @bind-Value="Name" Label="Name" />
+    <BsButton Type="BsButtonType.Submit" Variant="BsButtonVariant.Primary">Send</BsButton>
+</EditForm>
+@code {
+    [Required(ErrorMessage = "Name is required")]
+    public string? Name { get; set; }
+
+}

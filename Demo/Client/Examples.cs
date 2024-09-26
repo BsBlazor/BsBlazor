@@ -275,6 +275,66 @@ public static class Examples
 """
 		},
 		{
+			"NumberFieldExample",
+"""
+<BspNumberField @bind-Value="_value" Immediate Label="Value" Step=".1M" Min="-1" Max="100" />
+<div>Value: @_value</div>
+@code{
+    private decimal? _value;
+}
+"""
+		},
+		{
+			"TextFieldDataAnnotationsValidationExample",
+"""
+@using System.ComponentModel.DataAnnotations
+<EditForm class="@Bs.Css.DisplayFlex.FlexColumn" Model="this">
+    <DataAnnotationsValidator/>
+    <BdkFocusFirstFieldOnInvalidSubmit/>
+    <BspTextField @bind-Value="Name" Label="Name" />
+    <BsButton Type="BsButtonType.Submit" Variant="BsButtonVariant.Primary">Send</BsButton>
+</EditForm>
+@code {
+    [Required(ErrorMessage = "Name is required")]
+    public string? Name { get; set; }
+
+}
+"""
+		},
+		{
+			"TextFieldExample",
+"""
+<BspTextField @bind-Value="_name" Label="Name"/>
+<div>Value: @_name</div>
+@code{
+    private string? _name;
+}
+"""
+		},
+		{
+			"TextFieldFluentValidationExample",
+"""
+@using System.ComponentModel.DataAnnotations
+@using FluentValidation
+<EditForm class="@Bs.Css.DisplayFlex.FlexColumn" Model="this">
+    <BdkFluentValidator Validator="new Validator()"/>
+    <BdkFocusFirstFieldOnInvalidSubmit/>
+    <BspTextField @bind-Value="Name" Label="Name" />
+    <BsButton Type="BsButtonType.Submit" Variant="BsButtonVariant.Primary">Send</BsButton>
+</EditForm>
+@code {
+    public string? Name { get; set; }
+    class Validator : AbstractValidator<TextFieldFluentValidationExample>
+    {
+        public Validator()
+        {
+            RuleFor(x => x.Name).NotEmpty();
+        }
+    }
+}
+"""
+		},
+		{
 			"BadgeBackgroundColorsExample",
 """
 <BsBadge Color="BsThemeColor.Primary">Primary</BsBadge>

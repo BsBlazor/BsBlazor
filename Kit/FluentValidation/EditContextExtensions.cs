@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Validators;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Linq.Expressions;
 
@@ -16,13 +15,7 @@ public static class EditContextFluentValidationExtensions
     public static bool IsFluentValidationRequired<TValue>(this EditContext editContext, Expression<Func<TValue>>? valueExpression)
     {
         var validator = editContext.GetValidator();
-        var isRequiredFromFluentValidation =
-            valueExpression != null
-            &&
-            validator != null
-            &&
-            Array.Exists(validator.FindRulesFor(valueExpression), v => v is INotEmptyValidator or INotNullValidator);
-        return isRequiredFromFluentValidation;
+        return valueExpression != null && validator?.IsRequired(valueExpression) is true;
     }
 
     private static IValidator? GetValidator(this EditContext? editContext)

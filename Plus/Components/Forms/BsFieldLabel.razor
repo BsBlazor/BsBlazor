@@ -1,0 +1,15 @@
+﻿@* @using BsBlazor.Helpers
+@using Microsoft.AspNetCore.Components.Forms
+@namespace BsBlazor.Plus
+@inherits BsComponentWithContentBase
+<label for="@For" class="@CssClass">@ChildContent</label>
+@code {
+    [Parameter] public string? For { get; set; }
+
+    [CascadingParameter] private EditContext? EditContext { get; set; }
+
+    private string CssClass => CssBuilder.Default("form-label")
+      .AddClass("text-danger", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
+      .Build();
+}
+ *@

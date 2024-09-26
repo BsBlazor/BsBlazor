@@ -1,0 +1,5 @@
+﻿<BspNumberField @bind-Value="_value" Immediate Label="Value" Step=".1M" Min="-1" Max="100" />
+<div>Value: @_value</div>
+@code{
+    private decimal? _value;
+}

@@ -1,0 +1,17 @@
+﻿@* Built just because the native component doesn't have an Immediate option *@
+@namespace BlazorDevKit
+@using Microsoft.AspNetCore.Components.Forms
+@inherits InputText
+@if(Immediate){
+<input @attributes="@AdditionalAttributes"
+       class="@CssClass"
+    @bind="@CurrentValueAsString" @bind:event="oninput" />
+}
+else
+{
+    base.BuildRenderTree(__builder);
+}
+@code{
+    [Parameter]
+    public bool Immediate { get; set; }
+}

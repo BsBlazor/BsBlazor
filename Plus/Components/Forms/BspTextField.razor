@@ -1,0 +1,86 @@
+﻿@namespace BsBlazor.Plus
+@using BlazorDevKit
+@using BsBlazor.Helpers
+@using System.Linq.Expressions
+@using Microsoft.AspNetCore.Components.Forms
+@inherits BsComponentBase
+<div class="@CssClass">
+    <label for="@Id" class="@LabelCss">@Label @(EditContext?.IsRequired(ValueExpression) is true ? "*" : "")</label>
+    <BdkInputText Value="@Value"
+                  ValueChanged="ValueChanged"
+                  ValueExpression="ValueExpression"
+                  Immediate="Immediate"
+                  class="@InputCss"
+                  disabled="@Disabled"
+                  readonly="@ReadOnly"
+                  required="@Required"
+                  id="@Id" type="@InputType" placeholder="@Placeholder"/>
+    @if (EditContext != null)
+    {
+        <ValidationMessage class="invalid-feedback d-block" For="ValueExpression" />
+    }
+</div>
+@code {
+    private static int _instanceCount;
+    private string LabelCss => CssBuilder.Default("form-label")
+       .AddClass("text-danger", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
+       .Build();
+    private string InputCss => CssBuilder.Default("form-control")
+         .AddClass("form-control-color", Type is BsInputType.Color)
+         .AddClass("is-invalid", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
+         .AddClass(CssClass)
+         .Build();
+
+    [CascadingParameter] private EditContext? EditContext { get; set; }
+    [Parameter] public bool Immediate { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool ReadOnly { get; set; }
+    [Parameter] public bool? Required { get; set; }
+    [Parameter] public string Id { get; set; } = $"bsp-text-field-{_instanceCount++}";
+    [Parameter] public string Label { get; set; } = string.Empty;
+    [Parameter] public BsInputType Type { get; set; } = BsInputType.Text;
+    [Parameter] public BsFormControlSize Size { get; set; } = BsFormControlSize.Default;
+    [Parameter] public string Placeholder { get; set; } = string.Empty;
+
+    private bool IsRequired => Required ?? (EditContext?.IsRequired(ValueExpression) ?? false);
+
+    /// <summary>
+    /// Gets or sets the value of the input. This should be used with two-way binding.
+    /// </summary>
+    /// <example>
+    /// @bind-Value="model.PropertyName"
+    /// </example>
+    [Parameter, EditorRequired] public string? Value { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that updates the bound value.
+    /// </summary>
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets an expression that identifies the bound value.
+    /// </summary>
+    [Parameter] public Expression<Func<string>>? ValueExpression { get; set; }
+
+    private string CssClass => CssBuilder.Empty()
+       .AddClass(Class)
+       .Build();
+
+    private string InputType => Type switch
+    {
+        BsInputType.Text => "text",
+        BsInputType.Password => "password",
+        BsInputType.Email => "email",
+        BsInputType.Number => "number",
+        BsInputType.Tel => "tel",
+        BsInputType.Url => "url",
+        BsInputType.Range => "range",
+        BsInputType.Date => "date",
+        BsInputType.Time => "time",
+        BsInputType.DateTimeLocal => "datetime-local",
+        BsInputType.Month => "month",
+        BsInputType.Week => "week",
+        BsInputType.Color => "color",
+        _ => "text"
+    };
+}
