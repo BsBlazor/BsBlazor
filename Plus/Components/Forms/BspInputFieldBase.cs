@@ -19,6 +19,7 @@ public abstract class BspInputFieldBase<TValue> : BsComponentBase
     [Parameter] public string Id { get; set; } = $"bsp-field-{_instanceCount++}";
     [Parameter] public BsFormControlSize Size { get; set; } = BsFormControlSize.Default;
     [Parameter] public string Label { get; set; } = string.Empty;
+    [Parameter] public bool ShowLabel { get; set; } = true;
     [Parameter] public string Placeholder { get; set; } = string.Empty;
     // Navigating through enhanced navigation to a static page with a field is not supported.
     [Parameter] public bool AutoFocus { get; set; }
@@ -46,9 +47,9 @@ public abstract class BspInputFieldBase<TValue> : BsComponentBase
     /// </summary>
     [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
 
-    protected RenderFragment RenderLabel() => BspFormFieldTemplates.Label(Label, ValueExpression, EditContext, Id);
+    protected RenderFragment? RenderLabel() => ShowLabel ? BspFormFieldTemplates.Label(Label, ValueExpression, EditContext, Id) : null;
 
-    protected RenderFragment RenderValidation() => BspFormFieldTemplates.ValidationMessage(ValueExpression, EditContext);
+    protected RenderFragment? RenderValidation() => BspFormFieldTemplates.ValidationMessage(ValueExpression, EditContext);
 
     public virtual ValueTask FocusAsync() => ValueTask.CompletedTask;
 

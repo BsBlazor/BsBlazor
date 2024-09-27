@@ -2,14 +2,13 @@
 @using Microsoft.AspNetCore.Components.Forms
 @using System.Linq.Expressions
 @code {
-    public static RenderFragment Label<TValue>(string text, Expression<Func<TValue>>? valueExpression, EditContext? editContext = null, string? forId = null)
+    internal static RenderFragment Label<TValue>(string text, Expression<Func<TValue>>? valueExpression, EditContext? editContext = null, string? forId = null)
                 =>@<label for="@forId" class="@BuildLabelCss(editContext, valueExpression)">@text @(editContext?.IsRequired(valueExpression) is true ? "*" : "")</label>    ;
 
     private static string BuildLabelCss<TValue>(EditContext? editContext, Expression<Func<TValue>>? valueExpression) => CssBuilder.Default("form-label")
        .AddClass("text-danger", editContext != null && !editContext.IsValid(FieldIdentifier.Create(valueExpression!)))
        .Build();
 
-    public static RenderFragment ValidationMessage<TValue>(Expression<Func<TValue>>? valueExpression, EditContext? editContext = null)
-            => editContext != null ?@<ValidationMessage class="invalid-feedback d-block" For="@valueExpression" /> : 
-               new RenderFragment(tree => {});
+    internal static RenderFragment? ValidationMessage<TValue>(Expression<Func<TValue>>? valueExpression, EditContext? editContext = null)
+            => editContext != null ?@<ValidationMessage class="invalid-feedback d-block" For="@valueExpression" /> : null;
 }
