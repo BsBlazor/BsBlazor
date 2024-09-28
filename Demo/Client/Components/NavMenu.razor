@@ -78,6 +78,9 @@
                             @CreateItem("Form fields", "plus/form-fields")
                         </ul>
                     </li>
+                    <li>
+                        <hr/>
+                    </li>
                     <li class="bd-links-group py-2">
                         <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
                             <svg class="bi me-2" style="color: var(--bs-pink);" aria-hidden="true"><use xlink:href="#palette2"></use></svg>
@@ -86,6 +89,7 @@
                         <ul class="list-unstyled fw-normal pb-2 small">
                             @CreateItem("FluentValidation", "kit/fluent-validation")
                             @CreateItem("Focus on invalid submit", "kit/focus-on-invalid-submit")
+                            @CreateItem("Focus on render", "kit/focus-on-render")
                             @CreateItem("Loader", "kit/loader")
                             @CreateItem("IMask", "kit/imask")
                         </ul>
@@ -260,32 +264,6 @@
         </div>
     </div>
 </aside>
-@* <div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">BsBlazor.Demo</a>
-    </div>
-</div>
-
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                Introduction
-            </NavLink>
-        </div>
-        @foreach(var component in _components)
-        {
-            var href = $"/{component.ToLower()}";
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="@href" Match="NavLinkMatch.Prefix">
-                    @component
-                </NavLink>
-            </div>
-        }
-    </nav>
-</div> *@
 @code
 {
     record MenuItem(string Name, string? Text = null)
@@ -293,18 +271,6 @@
         public string ShowingText => Text ?? Name;
     };
     private string _linkClass = "bd-links-link d-inline-block rounded";
-    private readonly MenuItem[] _components = [
-        new("Alerts"),
-        new("Badges"),
-        new("Buttons"),
-        new("Cards"),
-        new("Dropdowns"),
-        new("FormsOverview", "Forms - Overview"),
-        new("Modal"),
-        new("Spinners"),
-        new("Toasts"),
-        new("Tooltips")
-    ];
     private RenderFragment CreateItem(string name, string? url = null)
     {
         url = url ?? name.ToLower();

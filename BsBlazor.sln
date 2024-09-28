@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDevKit.Core", "Kit\Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A48A8DF5-04A9-488E-97CA-F9E5B2B211FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BsBlazor.Tests", "Tests\BsBlazor.Tests.csproj", "{304965D2-06DC-4D49-9EC2-5C4E8B942109}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BsBlazor.Tests", "Tests\BsBlazor.Tests.csproj", "{304965D2-06DC-4D49-9EC2-5C4E8B942109}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

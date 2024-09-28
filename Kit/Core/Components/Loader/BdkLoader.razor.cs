@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BlazorDevKit;
 
@@ -26,10 +27,11 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     
     [Parameter] public RenderFragment? LoadingContent { get; set; }
     [Parameter] public RenderFragment<BdkLoaderErrorResult>? ErrorContent { get; set; }
-    
-    
+
+    [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "<Pending>")]
     protected override async Task OnInitializedAsync() => await TryLoadAsync();
 
+    [RequiresUnreferencedCode("Calls BlazorDevKit.BdkLoader<T>.RegisterPersistingAction()")]
     private async Task TryLoadAsync()
     {
         try
@@ -58,7 +60,8 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
             StateHasChanged();
         }
     }
-    
+
+    [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "<Pending>")]
     public async Task ReloadAsync()
     {
         _state = BdkLoaderState.Loading;
@@ -67,7 +70,8 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     }
     
     private async Task LoadAsync() => _value = await Load();
-    
+
+    [RequiresUnreferencedCode("Calls Microsoft.AspNetCore.Components.PersistentComponentState.TryTakeFromJson<TValue>(String, out TValue)")]
     private async Task LoadOrRestoreAsync()
     {
         if (PersistentComponentState.TryTakeFromJson<T>(LoaderToken, out var restored))
@@ -78,9 +82,11 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
         
         _value = restored ?? await Load();
     }
-    
+
+    [RequiresUnreferencedCode("Calls BlazorDevKit.BdkLoader<T>.PersistValue()")]
     private void RegisterPersistingAction() => _persistingSubscription = PersistentComponentState.RegisterOnPersisting(PersistValue);
-    
+
+    [RequiresUnreferencedCode("Calls Microsoft.AspNetCore.Components.PersistentComponentState.PersistAsJson<TValue>(String, TValue)")]
     private Task PersistValue()
     {
         PersistentComponentState.PersistAsJson(LoaderToken, _value);
