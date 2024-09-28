@@ -55,6 +55,15 @@ public static class Examples
 """
 		},
 		{
+			"FocusOnRenderExample",
+"""
+<div>
+    <BdkFocusOnRender Selector="input" Delay="500"/>
+    <input class="form-control"/>
+</div>
+"""
+		},
+		{
 			"IMaskPatternExample",
 """
 <BdkIMaskPattern Mask="{#}000[aaa]/NIC-`*[**]">
@@ -304,7 +313,7 @@ public static class Examples
 		{
 			"TextFieldExample",
 """
-<BspTextField @bind-Value="_name" Label="Name"/>
+<BspTextField @bind-Value="_name" Label="Name" AutoFocus/>
 <div>Value: @_name</div>
 @code{
     private string? _name;
