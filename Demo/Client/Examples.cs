@@ -286,6 +286,16 @@ public static class Examples
 """
 		},
 		{
+			"DateFieldExample",
+"""
+<BspDateField @bind-Value="_birthdate" Label="Birthdate" AutoFocus />
+<div>Birthdate: @_birthdate</div>
+@code{
+    private DateTime? _birthdate;
+}
+"""
+		},
+		{
 			"NumberFieldExample",
 """
 <BspNumberField @bind-Value="_value" Immediate Label="Value" Step=".1M" Min="-1" Max="100" />
@@ -298,8 +308,8 @@ public static class Examples
 		{
 			"TextAreaFieldExample",
 """
-<BspTextAreaField @bind-Value="_description" Rows="3" Immediate />
-<div>Description: @_description</div>
+<BspTextAreaField @bind-Value="_description" Label="Description" Rows="3" Immediate />
+<div style="white-space: pre">Description: @_description</div>
 @code{
     private string? _description;
 }

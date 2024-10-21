@@ -9,7 +9,7 @@
 @inherits BspInputFieldBase<TValue>
 <div class="@CssClass">
     @RenderLabel()
-    <BdkInputNumber @ref="_input"
+    <InputDate @ref="_input"
                     Value="@Value"
                     ValueChanged="ValueChanged"
                     ValueExpression="ValueExpression!"
@@ -19,19 +19,14 @@
                     readonly="@ReadOnly"
                     required="@Required"
                     autofocus="@AutoFocus"
-                    id="@Id" placeholder="@Placeholder"
-                    min="@(Min?.ToString(CultureInfo.InvariantCulture))"
-                    max="@(Max?.ToString(CultureInfo.InvariantCulture))"
-                    step="@(Step?.ToString(CultureInfo.InvariantCulture))"/>
+                    max="9999-12-31"
+                    id="@Id" placeholder="@Placeholder"/>
     @RenderValidation()
 </div>
 @code {
-    private BdkInputNumber<TValue?> _input = default!;
+    private InputDate<TValue?> _input = default!;
     private string InputCss => CssBuilder.Default("form-control")
          .AddClass("is-invalid", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
          .Build();
-    [Parameter] public decimal? Step { get; set; } = 1;
-    [Parameter] public decimal? Min { get; set; }
-    [Parameter] public decimal? Max { get; set; }
     public override ValueTask FocusAsync() => _input.Element!.Value.FocusAsync();
 }
