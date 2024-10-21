@@ -1,0 +1,33 @@
+﻿@namespace BsBlazor.Plus
+@using BlazorDevKit
+@using BsBlazor.Helpers
+@using System.Linq.Expressions
+@using BsBlazor.Plus.Components.Forms
+@using Microsoft.AspNetCore.Components.Forms
+@inherits BspInputFieldBase<string>
+<div class="@CssClass">
+    @RenderLabel()
+    <BdkInputTextArea @ref="_textArea"
+                  Value="@Value"
+                  ValueChanged="ValueChanged"
+                  ValueExpression="ValueExpression"
+                  Immediate="Immediate"
+                  class="@InputCss"
+                  disabled="@Disabled"
+                  readonly="@ReadOnly"
+                  required="@Required"
+                  autofocus="@AutoFocus"
+                  rows="@Rows"
+                  id="@Id" placeholder="@Placeholder"/>
+    @RenderValidation()
+</div>
+@code {
+    [Parameter]
+    public int? Rows { get; set; }
+
+    private BdkInputTextArea _textArea = default!;
+    private string InputCss => CssBuilder.Default("form-control")
+         .AddClass("is-invalid", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
+         .Build();
+    public override ValueTask FocusAsync() => _textArea.Element!.Value.FocusAsync();
+}

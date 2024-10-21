@@ -1,0 +1,13 @@
+﻿@* @using Microsoft.JSInterop
+@inject IJSRuntime JS
+@code {
+    [Parameter, EditorRequired] public required string Function { get; set; }
+    [Parameter] public IEnumerable<object> Arguments { get; set; } = [];
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync(Function, Arguments);
+        }
+    }
+} *@
