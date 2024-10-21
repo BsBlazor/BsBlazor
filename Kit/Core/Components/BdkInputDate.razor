@@ -1,0 +1,33 @@
+@* Built just because the native component doesn't have an Immediate option *@
+@* @namespace BlazorDevKit
+@using Microsoft.AspNetCore.Components.Forms
+@typeparam TValue
+@inherits InputDate<TValue>
+@if (Immediate) // Actually, doesn't seem to make a difference for date inputs
+{
+
+    <input @ref="Element" type="@_typeAttributeValue" @attributes="@AdditionalAttributes" class="@CssClass" @bind="@CurrentValueAsString" @bind:event="oninput" />
+}
+else
+{
+    base.BuildRenderTree(__builder);
+}
+@code {
+    private string _typeAttributeValue = default!;
+    [Parameter]
+    public bool Immediate { get; set; }
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        // Copied from original InputDate
+        _typeAttributeValue = Type switch
+        {
+            InputDateType.Date => "date",
+            InputDateType.DateTimeLocal => "datetime-local",
+            InputDateType.Month => "month",
+            InputDateType.Time => "time",
+            _ => throw new InvalidOperationException($"Unsupported {nameof(InputDateType)} '{Type}'.")
+        };
+    }
+}
+ *@

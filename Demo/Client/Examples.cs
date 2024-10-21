@@ -57,10 +57,12 @@ public static class Examples
 		{
 			"FocusOnRenderExample",
 """
+<RequiresInteractivity>
 <div>
     <BdkFocusOnRender Selector="input" Delay="500"/>
     <input class="form-control"/>
 </div>
+</RequiresInteractivity>
 """
 		},
 		{
@@ -284,12 +286,32 @@ public static class Examples
 """
 		},
 		{
+			"DateFieldExample",
+"""
+<BspDateField @bind-Value="_birthdate" Label="Birthdate" AutoFocus />
+<div>Birthdate: @_birthdate</div>
+@code{
+    private DateTime? _birthdate;
+}
+"""
+		},
+		{
 			"NumberFieldExample",
 """
 <BspNumberField @bind-Value="_value" Immediate Label="Value" Step=".1M" Min="-1" Max="100" />
 <div>Value: @_value</div>
 @code{
     private decimal? _value;
+}
+"""
+		},
+		{
+			"TextAreaFieldExample",
+"""
+<BspTextAreaField @bind-Value="_description" Label="Description" Rows="3" Immediate />
+<div style="white-space: pre">Description: @_description</div>
+@code{
+    private string? _description;
 }
 """
 		},

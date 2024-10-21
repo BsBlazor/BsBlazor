@@ -1,10 +1,9 @@
 ﻿@* Built just because the native component doesn't have an Immediate option *@
 @namespace BlazorDevKit
 @using Microsoft.AspNetCore.Components.Forms
-@typeparam TValue
-@inherits InputNumber<TValue>
+@inherits InputTextArea
 @if(Immediate){
-<input @ref="Element" type="number" @attributes="@AdditionalAttributes" class="@CssClass" @bind="@CurrentValueAsString" @bind:event="oninput" />
+    <textarea @ref="Element" @attributes="@AdditionalAttributes" class="@CssClass" @bind="@CurrentValueAsString" @bind:event="oninput" />
 }
 else
 {
