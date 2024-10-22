@@ -1,0 +1,36 @@
+﻿@namespace BsBlazor.Plus
+@using BlazorDevKit
+@using BsBlazor.Helpers
+@using System.Linq.Expressions
+@using BsBlazor.Plus.Components.Forms
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Globalization
+@typeparam TValue
+@inherits BspInputFieldBase<TValue>
+<div class="@CssClass">
+    @RenderLabel()
+    <InputSelect @ref="_select"
+                 Value="@Value"
+                 ValueChanged="ValueChanged"
+                 ValueExpression="ValueExpression!"
+                 Immediate="Immediate"
+                 class="@InputCss"
+                 disabled="@Disabled"
+                 readonly="@ReadOnly"
+                 required="@Required"
+                 autofocus="@AutoFocus"
+                 id="@Id" placeholder="@Placeholder">
+        @ChildContent
+    </InputSelect>
+    @RenderValidation()
+</div>
+@code {
+    private InputSelect<TValue?> _select = default!;
+    private string InputCss => CssBuilder.Default("form-select")
+         .AddClass("is-invalid", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
+         .Build();
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    public override ValueTask FocusAsync() => _select.Element!.Value.FocusAsync();
+}
