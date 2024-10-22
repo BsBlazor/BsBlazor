@@ -306,6 +306,20 @@ public static class Examples
 """
 		},
 		{
+			"SelectFieldExample",
+"""
+<BspSelectField Label="Options" @bind-Value="_option">
+    <option value="">Select an option...</option>
+    <option value="1">Option 1</option>
+</BspSelectField>
+<div>Option: @(_option is null ? "null" : _option.ToString())</div>
+@code {
+    private int? _option = null;
+}
+
+"""
+		},
+		{
 			"TextAreaFieldExample",
 """
 <BspTextAreaField @bind-Value="_description" Label="Description" Rows="3" Immediate />

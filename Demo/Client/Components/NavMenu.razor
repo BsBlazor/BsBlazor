@@ -76,6 +76,11 @@
                         </strong>
                         <ul class="list-unstyled fw-normal pb-2 small">
                             @CreateItem("Form fields", "plus/form-fields")
+                            <li>
+                                <ul>
+                                    @CreateItem("Select field", "plus/form-fields", "select-field")
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -271,10 +276,14 @@
         public string ShowingText => Text ?? Name;
     };
     private string _linkClass = "bd-links-link d-inline-block rounded";
-    private RenderFragment CreateItem(string name, string? url = null)
+    private RenderFragment CreateItem(string name, string? url = null, string? hash = null)
     {
         url = url ?? name.ToLower();
         var href = $"/{url}/{GetCurrentRenderMode()}";
+        if (!string.IsNullOrWhiteSpace(hash))
+        {
+            href += $"#{hash}";
+        }
         return @<li>
             <NavLink class="@_linkClass" href="@href" Match="NavLinkMatch.Prefix">
                 @name
