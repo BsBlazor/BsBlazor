@@ -1,0 +1,31 @@
+﻿@using BsBlazor.Helpers
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Linq.Expressions
+@typeparam TValue
+@inherits BsComponentBase
+<div class="@CssClass">
+    @if (ShowLabel)
+    {
+        <label for="@For" class="@LabelCssClass">@Label @(EditContext?.IsRequired(ValueExpression) is true ? "*" : "")</label>
+    }
+    @ChildContent
+    @if(EditContext != null)
+    {
+        <ValidationMessage class="invalid-feedback d-block" For="@ValueExpression" />
+    }
+</div>
+@code {
+    [Parameter] public string? For { get; set; }
+    [Parameter] public bool ShowLabel { get; set; } = true;
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter, EditorRequired] public required Expression<Func<TValue>> ValueExpression { get; set; }
+    [CascadingParameter] public EditContext? EditContext { get; set; }
+    protected string CssClass => CssBuilder.Empty()
+       .AddClass(Class)
+       .Build();
+
+    private string LabelCssClass => CssBuilder.Default("form-label")
+       .AddClass("text-danger", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression)))
+       .Build();
+}
