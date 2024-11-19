@@ -7,7 +7,7 @@
 <div class="@CssClass">
     @if (ShowLabel)
     {
-        <label for="@For" class="@LabelCssClass">@Label @(EditContext?.IsRequired(ValueExpression) is true ? "*" : "")</label>
+        <label for="@Id" class="@LabelCssClass">@Label @(EditContext?.IsRequired(ValueExpression) is true ? "*" : "")</label>
     }
     @ChildContent?.Invoke(this)
     @if(EditContext != null)
@@ -18,7 +18,6 @@
 @code {
     private static int _instanceCount;
     [Parameter] public string Id { get; set; } = $"bsp-field-{_instanceCount++}";
-    [Parameter] public string? For { get; set; }
     [Parameter] public bool ShowLabel { get; set; } = true;
     [Parameter] public string? Label { get; set; }
     [Parameter] public RenderFragment<BspField<TValue>>? ChildContent { get; set; }
