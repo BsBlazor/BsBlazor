@@ -9,23 +9,34 @@
     {
         <label for="@For" class="@LabelCssClass">@Label @(EditContext?.IsRequired(ValueExpression) is true ? "*" : "")</label>
     }
-    @ChildContent
+    @ChildContent?.Invoke(this)
     @if(EditContext != null)
     {
         <ValidationMessage class="invalid-feedback d-block" For="@ValueExpression" />
     }
 </div>
 @code {
+    private static int _instanceCount;
+    [Parameter] public string Id { get; set; } = $"bsp-field-{_instanceCount++}";
     [Parameter] public string? For { get; set; }
     [Parameter] public bool ShowLabel { get; set; } = true;
     [Parameter] public string? Label { get; set; }
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment<BspField<TValue>>? ChildContent { get; set; }
     [Parameter, EditorRequired] public required Expression<Func<TValue>> ValueExpression { get; set; }
     [CascadingParameter] public EditContext? EditContext { get; set; }
+
+    public string GetValidatableControlClass(string controlClass)
+    {
+        var fieldIdentifier = FieldIdentifier.Create(ValueExpression);
+        var isValid = EditContext?.IsValid(fieldIdentifier) ?? true;
+        return CssBuilder.Default(controlClass)
+            .AddClass("is-invalid", !isValid)
+            .Build();
+    }
+
     protected string CssClass => CssBuilder.Empty()
        .AddClass(Class)
        .Build();
-
     private string LabelCssClass => CssBuilder.Default("form-label")
        .AddClass("text-danger", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression)))
        .Build();
