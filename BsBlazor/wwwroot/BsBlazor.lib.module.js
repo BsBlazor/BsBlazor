@@ -7,6 +7,12 @@ export function afterWebStarted(blazor) {
             }
         });
     }
+
+    // Dropdown events
+    registerSimpleEvent('show.bs.dropdown');
+    registerSimpleEvent('shown.bs.dropdown');
+    registerSimpleEvent('hide.bs.dropdown');
+    registerSimpleEvent('hidden.bs.dropdown');
     
     // Modal events
     registerSimpleEvent('show.bs.modal');
