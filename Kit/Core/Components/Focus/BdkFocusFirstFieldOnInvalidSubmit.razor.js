@@ -1,19 +1,19 @@
 export class BdkFocusFirstFieldOnInvalidSubmit {
 
-    constructor(dotNetReference, elementReference, invalidClass) {
-        this.invalidClass = invalidClass;
+    constructor(dotNetReference, elementReference, invalidSelector) {
+        this.invalidSelector = invalidSelector;
         this.dotNetReference = dotNetReference;
         this.form = elementReference.closest('form');
     }
 
     async validationChangedAsync(forceFocus) {
-        let invalidInput = this.form.querySelector(`.${this.invalidClass}`);
+        let invalidInput = this.form.querySelector(this.invalidSelector);
         let attempts = 1;
         let maxAttempts = 4;        
         
         while (invalidInput == null && attempts <= maxAttempts) {
             await new Promise(resolve => setTimeout(resolve, 50));
-            invalidInput = this.form.querySelector(`.${this.invalidClass}`);
+            invalidInput = this.form.querySelector(this.invalidSelector);
             attempts++;
         }
         
@@ -39,8 +39,8 @@ export class BdkFocusFirstFieldOnInvalidSubmit {
         delete window[identifier];
     }
 
-    static create(identifier, dotNetReference, elementReference, invalidClass) {
-        window[identifier] = new BdkFocusFirstFieldOnInvalidSubmit(dotNetReference, elementReference, invalidClass);
+    static create(identifier, dotNetReference, elementReference, invalidSelector) {
+        window[identifier] = new BdkFocusFirstFieldOnInvalidSubmit(dotNetReference, elementReference, invalidSelector);
         window[identifier].form.addEventListener('submit', () => window[identifier].dotNetReference.invokeMethodAsync('NotifySubmitAsync'));
         return window[identifier];        
     }

@@ -14,10 +14,10 @@ public partial class BdkFocusFirstFieldOnInvalidSubmit : ComponentBase, IAsyncDi
     [Inject] public required IJSRuntime JsRuntime { get; set; }
     
     /// <summary>
-    /// By default, the ‘invalid’ class is added to the field that is invalid when the form is submitted and validated by EditContext.
+    /// By default, the ‘.invalid, .is-invalid’ selector is added to the field that is invalid when the form is submitted and validated by EditContext.
     /// If you want to use a different class, you can set this parameter.
     /// </summary>
-    [Parameter] public required string InvalidClass { get; set; } = "invalid";
+    [Parameter] public required string InvalidSelector { get; set; } = ".invalid, .is-invalid";
 
     /// <summary>
     /// Force the focus to the first invalid field if the element is not focusable.
@@ -35,7 +35,7 @@ public partial class BdkFocusFirstFieldOnInvalidSubmit : ComponentBase, IAsyncDi
                     _id,
                     DotNetObjectReference.Create(this),
                     _elementReference,
-                    InvalidClass
+                    InvalidSelector
                 );
             
         }
