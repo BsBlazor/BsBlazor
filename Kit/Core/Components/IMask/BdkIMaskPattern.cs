@@ -2,11 +2,9 @@
 using Microsoft.JSInterop;
 namespace BlazorDevKit;
 
-public class BdkIMaskPattern : BdkIMaskBase
+public class BdkIMaskPattern : BdkIMaskBase<string>
 {
-    [Parameter]
-    [EditorRequired]
-    public required string Mask { get; set; }
-    [JSInvokable]
-    public string GetMask() => Mask;
+    protected override string IMaskType => "Pattern";
+    [Parameter, EditorRequired] public required string Mask { get; set; }
+    [JSInvokable] public string GetMask() => Mask;
 }
