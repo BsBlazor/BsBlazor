@@ -1,0 +1,9 @@
+﻿<BdkIMaskNumber @bind-Value=DecimalValue 
+                BindTarget="BdkIMaskBindTarget.TypedValue" 
+                ThousandsSeparator=@(' ')>
+    <input class="form-control"/>
+</BdkIMaskNumber>
+@(DecimalValue.HasValue ? DecimalValue.Value : "null")
+@code {
+    public decimal? DecimalValue { get; set; } = 12_345.67m;
+}

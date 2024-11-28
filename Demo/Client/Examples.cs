@@ -66,6 +66,36 @@ public static class Examples
 """
 		},
 		{
+			"IMaskNumberBindingExample",
+"""
+<BdkIMaskNumber @bind-Value=DecimalValue 
+                BindTarget="BdkIMaskBindTarget.TypedValue" 
+                ThousandsSeparator=@(' ')>
+    <input class="form-control"/>
+</BdkIMaskNumber>
+@(DecimalValue.HasValue ? DecimalValue.Value : "null")
+@code {
+    public decimal? DecimalValue { get; set; } = 12_345.67m;
+}
+"""
+		},
+		{
+			"IMaskNumberExample",
+"""
+<BdkIMaskNumber T="decimal?">
+    <input class="form-control" value="1" />
+</BdkIMaskNumber>
+"""
+		},
+		{
+			"IMaskNumberParametersExample",
+"""
+<BdkIMaskNumber T="decimal?" PadFractionalZeros ThousandsSeparator=@('.') Max="10000" Min="0">
+    <input class="form-control" value="10000" />
+</BdkIMaskNumber>
+"""
+		},
+		{
 			"IMaskPatternExample",
 """
 <BdkIMaskPattern Mask="{#}000[aaa]/NIC-`*[**]">
@@ -311,6 +341,7 @@ public static class Examples
 <BspSelectField Label="Options" @bind-Value="_option">
     <option value="">Select an option...</option>
     <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
 </BspSelectField>
 <div>Option: @(_option is null ? "null" : _option.ToString())</div>
 @code {
