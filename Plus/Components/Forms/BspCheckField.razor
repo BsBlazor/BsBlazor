@@ -1,0 +1,38 @@
+﻿@namespace BsBlazor.Plus
+@using BsBlazor.Helpers
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Linq.Expressions
+@inherits BsComponentWithContentBase
+<div class="@CssClass">
+    <InputCheckbox id="@Id"
+                   class="form-check-input" 
+                   disabled="@Disabled"
+                   Value="Value" 
+                   ValueChanged="ValueChanged" 
+                   ValueExpression="ValueExpression"/>
+    <label class="form-check-label" for="@Id">
+        @if (ChildContent != null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            @Label
+        }
+    </label>
+</div>
+
+@code {
+    private static int _instanceCount = 0;
+
+    private string CssClass => CssBuilder.Default("form-check")
+       .AddClass(Class)
+       .Build();
+
+    [Parameter] public string Id { get; set; } = $"bsp-check-field-{_instanceCount++}";
+    [Parameter] public string Label { get; set; } = string.Empty;
+    [Parameter] public bool Value { get; set; }
+    [Parameter] public EventCallback<bool> ValueChanged { get; set; }
+    [Parameter] public Expression<Func<bool>>? ValueExpression { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+}
