@@ -316,6 +316,27 @@ public static class Examples
 """
 		},
 		{
+			"CheckFieldCustomLabelExample",
+"""
+<BspCheckField @bind-Value="_like">
+    I like <a href="https://getbootstrap.com/docs/5.3/forms/checks-radios/#checks" target="_blank">Bootstrap checks</a>
+</BspCheckField>
+@code {
+    bool _like;
+}
+"""
+		},
+		{
+			"CheckFieldExample",
+"""
+<BspCheckField Label="Option" @bind-Value="_option"/>
+<div>Option: @_option</div>
+@code {
+    bool _option;
+}
+"""
+		},
+		{
 			"DateFieldExample",
 """
 <BspDateField @bind-Value="_birthdate" Label="Birthdate" AutoFocus />
