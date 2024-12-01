@@ -3,25 +3,30 @@
 @using Microsoft.AspNetCore.Components.Forms
 @using System.Linq.Expressions
 @inherits BsComponentWithContentBase
-<div class="@CssClass">
-    <InputCheckbox id="@Id"
-                   class="form-check-input" 
-                   disabled="@Disabled"
-                   Value="Value" 
-                   ValueChanged="ValueChanged" 
-                   ValueExpression="ValueExpression"/>
-    <label class="form-check-label" for="@Id">
-        @if (ChildContent != null)
-        {
-            @ChildContent
-        }
-        else
-        {
-            @Label
-        }
-    </label>
+<div>
+    <div class="@CssClass">
+        <InputCheckbox id="@Id"
+                       class="@CheckCss"
+                       disabled="@Disabled"
+                       Value="Value"
+                       ValueChanged="ValueChanged"
+                       ValueExpression="ValueExpression" />
+        <label class="form-check-label" for="@Id">
+            @if (ChildContent != null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                @Label
+            }
+        </label>
+    </div>
+    @if (EditContext != null)
+    {
+        <ValidationMessage class="invalid-feedback d-block" For="@ValueExpression" />
+    }
 </div>
-
 @code {
     private static int _instanceCount = 0;
 
@@ -29,6 +34,11 @@
        .AddClass(Class)
        .Build();
 
+    private string CheckCss => CssBuilder.Default("form-check-input")
+      .AddClass("is-invalid", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
+      .Build();
+
+    [CascadingParameter] private EditContext? EditContext { get; set; }
     [Parameter] public string Id { get; set; } = $"bsp-check-field-{_instanceCount++}";
     [Parameter] public string Label { get; set; } = string.Empty;
     [Parameter] public bool Value { get; set; }

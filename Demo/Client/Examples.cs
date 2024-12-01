@@ -329,10 +329,16 @@ public static class Examples
 		{
 			"CheckFieldExample",
 """
-<BspCheckField Label="Option" @bind-Value="_option"/>
-<div>Option: @_option</div>
+@using System.ComponentModel.DataAnnotations
+<EditForm Model="this">
+    <DataAnnotationsValidator/>
+    <BspCheckField Label="Option" @bind-Value="Option"/>
+    <div>Option: @Option</div>
+    <button type="submit">Submit</button>
+</EditForm>
 @code {
-    bool _option;
+    [Required]
+    public bool Option { get; set; }
 }
 """
 		},
