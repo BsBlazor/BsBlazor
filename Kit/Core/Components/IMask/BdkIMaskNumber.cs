@@ -22,15 +22,15 @@ public class BdkIMaskNumber<T> : BdkIMaskBase<T>
     [Parameter] public bool PadFractionalZeros { get; set; } = false;
 
     [JSInvokable]
-    public object GetData() => new
+    public BdkIMaskNumberData GetData() => new BdkIMaskNumberData
     {
-        radix = Radix,
-        thousandsSeparator = ThousandsSeparator?.ToString() ?? "",
-        mapToRadix = MapToRadix,
-        min = Min,
-        max = Max,
-        scale = Scale,
-        normalizeZeros = NormalizeZeros,
-        padFractionalZeros = PadFractionalZeros
+        Radix = Radix,
+        ThousandsSeparator = ThousandsSeparator?.ToString() ?? "",
+        MapToRadix = MapToRadix.ToArray(),
+        Min = Min,
+        Max = Max,
+        Scale = Scale,
+        NormalizeZeros = NormalizeZeros,
+        PadFractionalZeros = PadFractionalZeros
     };
 }
