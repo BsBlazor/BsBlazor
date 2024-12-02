@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BlazorDevKit;
 public class BdkIMaskNumber<T> : BdkIMaskBase<T>
@@ -21,8 +22,8 @@ public class BdkIMaskNumber<T> : BdkIMaskBase<T>
     /// </summary>
     [Parameter] public bool PadFractionalZeros { get; set; } = false;
 
-    [JSInvokable]
-    public BdkIMaskNumberData GetData() => new BdkIMaskNumberData
+    [JSInvokable, DynamicDependency(DynamicallyAccessedMemberTypes.PublicProperties, typeof(BdkIMaskNumberData))]
+    public BdkIMaskNumberData GetData() => new()
     {
         Radix = Radix,
         ThousandsSeparator = ThousandsSeparator?.ToString() ?? "",
