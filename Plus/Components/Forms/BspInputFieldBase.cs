@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
-using BsBlazor.Plus.Components.Forms;
 using BsBlazor.Helpers;
 
 namespace BsBlazor.Plus;
@@ -11,10 +10,7 @@ public abstract class BspInputFieldBase<TValue> : BsComponentBase
 #pragma warning disable S2743 // Static fields should not be used in generic types
     private static int _instanceCount;
 #pragma warning restore S2743 // Static fields should not be used in generic types
-    protected string CssClass => CssBuilder.Empty()
-       .AddClass(Class)
-       .Build();
-
+    
     [CascadingParameter] protected EditContext? EditContext { get; set; }
     [Parameter] public string Id { get; set; } = $"bsp-field-{_instanceCount++}";
     [Parameter] public BsFormControlSize Size { get; set; } = BsFormControlSize.Default;
@@ -46,10 +42,6 @@ public abstract class BspInputFieldBase<TValue> : BsComponentBase
     /// Gets or sets an expression that identifies the bound value.
     /// </summary>
     [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
-
-    protected RenderFragment? RenderLabel() => ShowLabel ? BspFormFieldTemplates.Label(Label, ValueExpression, EditContext, Id) : null;
-
-    protected RenderFragment? RenderValidation() => BspFormFieldTemplates.ValidationMessage(ValueExpression, EditContext);
 
     public virtual ValueTask FocusAsync() => ValueTask.CompletedTask;
 

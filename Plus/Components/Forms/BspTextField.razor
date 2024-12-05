@@ -2,29 +2,33 @@
 @using BlazorDevKit
 @using BsBlazor.Helpers
 @using System.Linq.Expressions
-@using BsBlazor.Plus.Components.Forms
 @using Microsoft.AspNetCore.Components.Forms
 @inherits BspInputFieldBase<string>
-<div class="@CssClass">
-    @RenderLabel()
+<BspField Context="field" 
+          Id="Id"
+          Label="@Label"
+          Class="@Class" 
+          Style="@Style"
+          AdditionalAttributes="AdditionalAttributes"
+          ShowLabel="ShowLabel" ValueExpression="ValueExpression">
     <BdkInputText @ref="_input"
                   Value="@Value"
                   ValueChanged="ValueChanged"
                   ValueExpression="ValueExpression"
                   Immediate="Immediate"
-                  class="@InputCss"
+                  class="@field.GetValidatableControlClass(InputCss)"
                   disabled="@Disabled"
                   readonly="@ReadOnly"
                   required="@Required"
                   autofocus="@AutoFocus"
                   id="@Id" type="@InputType" placeholder="@Placeholder"/>
-    @RenderValidation()
-</div>
+</BspField>
 @code {
     private BdkInputText _input = default!;
     private string InputCss => CssBuilder.Default("form-control")
          .AddClass("form-control-color", Type is BsInputType.Color)
-         .AddClass("is-invalid", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
+         .AddClass("form-control-sm", Size == BsFormControlSize.Small)
+         .AddClass("form-control-lg", Size == BsFormControlSize.Large)
          .Build();
     [Parameter] public BsInputType Type { get; set; } = BsInputType.Text;
 
