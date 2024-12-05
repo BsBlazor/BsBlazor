@@ -2,32 +2,35 @@
 @using BlazorDevKit
 @using BsBlazor.Helpers
 @using System.Linq.Expressions
-@using BsBlazor.Plus.Components.Forms
 @using Microsoft.AspNetCore.Components.Forms
 @inherits BspInputFieldBase<string>
-<div class="@CssClass">
-    @RenderLabel()
+<BspField Context="field"
+          Id="Id"
+          Label="@Label"
+          Class="@Class"
+          Style="@Style"
+          AdditionalAttributes="AdditionalAttributes"
+          ShowLabel="ShowLabel" ValueExpression="ValueExpression">
     <BdkInputTextArea @ref="_textArea"
-                  Value="@Value"
-                  ValueChanged="ValueChanged"
-                  ValueExpression="ValueExpression"
-                  Immediate="Immediate"
-                  class="@InputCss"
-                  disabled="@Disabled"
-                  readonly="@ReadOnly"
-                  required="@Required"
-                  autofocus="@AutoFocus"
-                  rows="@Rows"
-                  id="@Id" placeholder="@Placeholder"/>
-    @RenderValidation()
-</div>
+                      Value="@Value"
+                      ValueChanged="ValueChanged"
+                      ValueExpression="ValueExpression"
+                      Immediate="Immediate"
+                      class="@field.GetValidatableControlClass(InputCss)"
+                      disabled="@Disabled"
+                      readonly="@ReadOnly"
+                      required="@Required"
+                      autofocus="@AutoFocus"
+                      rows="@Rows"
+                      id="@Id" placeholder="@Placeholder" />
+</BspField>
 @code {
     [Parameter]
     public int? Rows { get; set; }
-
     private BdkInputTextArea _textArea = default!;
     private string InputCss => CssBuilder.Default("form-control")
-         .AddClass("is-invalid", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
+         .AddClass("form-control-sm", Size == BsFormControlSize.Small)
+         .AddClass("form-control-lg", Size == BsFormControlSize.Large)
          .Build();
     public override ValueTask FocusAsync() => _textArea.Element!.Value.FocusAsync();
 }

@@ -4,7 +4,7 @@
 @using System.Linq.Expressions
 @typeparam TValue
 @inherits BsComponentBase
-<div class="@CssClass">
+<div class="@CssClass" style="@Style" @attributes="AdditionalAttributes">
     @if (ShowLabel)
     {
         <label for="@Id" class="@LabelCssClass">@Label @(ShowRequiredMark ? "*" : "")</label>
