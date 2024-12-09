@@ -3,22 +3,26 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace BlazorDevKit;
+
 public partial class BdkFluentValidator<TRequest>
 {
     internal const string EditContextKey = "BdkFluentValidator";
-    [Parameter]
-    [EditorRequired]
-    public required IValidator<TRequest> Validator { get; set; }
-
-    [CascadingParameter]
-    private EditContext? EditContext { get; set; }
+    /// <summary>
+    /// Elements in child content are guaranteed to have all set up for using IsFluentValidationRequired
+    /// </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter, EditorRequired] public required IValidator<TRequest> Validator { get; set; }
+    [CascadingParameter] private EditContext? EditContext { get; set; }
 
     private ValidationMessageStore _validationMessageStore = default!;
-
+    
     protected override void OnInitialized()
     {
         if (EditContext is null) { throw new InvalidOperationException("EditContext not found for KitFluentValidator. Make sure you're using inside a EditContext scope like inside an EditForm component."); }
-        EditContext.Properties[EditContextKey] = Validator;
+        EditContext.Properties[EditContextKey] = new BdkFluentValidatorContext
+        {
+            IsRequired = (fieldIdentifier) => Validator.IsRequired(EditContext.Model as TRequest, fieldIdentifier.Model, fieldIdentifier.FieldName)
+        };
         _validationMessageStore = new ValidationMessageStore(EditContext);
         EditContext.OnValidationRequested += (sender, eventArgs) => ValidateModel();
         EditContext.OnFieldChanged += (sender, eventArgs) => ValidateModel(validateSingleField: eventArgs.FieldIdentifier);

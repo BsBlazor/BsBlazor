@@ -7,19 +7,25 @@ public static class Examples
 """
 @using FluentValidation
 <EditForm Model="_model">
-    <BdkFluentValidator Validator="new ModelValidator()" />
-    <div>
-        <label class="@Bs.Css.FormLabel">Name</label>
-        <InputText class="@Bs.Css.FormControl" @bind-Value="_model.Name" />
-        <ValidationMessage For="() => _model.Name" class="@Bs.Css.DisplayBlock.AddClass("is-invalid")"/>
-    </div>
-    <button type="submit" class="mt-2 btn btn-primary">Submit</button>
+    <BdkFluentValidator Validator="new ModelValidator()">
+        <div class="form-check">
+            <InputCheckbox id="hasName" class="form-check-input" @bind-Value="_model.HasName" />
+            <label for="hasName" class="form-check-name">Has Name?</label>
+        </div>
+        <div>
+            <label class="@Bs.Css.FormLabel">Name @(context.IsFluentValidationRequired(() => _model.Name) ? "*" : "")</label>
+            <InputText class="@Bs.Css.FormControl" @bind-Value="_model.Name" />
+            <ValidationMessage For="() => _model.Name" class="@Bs.Css.DisplayBlock.AddClass("is-invalid")" />
+        </div>
+        <button type="submit" class="mt-2 btn btn-primary">Submit</button>
+    </BdkFluentValidator>
 </EditForm>
 @code {
     private Model _model = new();
 
     class Model
     {
+        public bool HasName { get; set; } = true;
         public string? Name { get; set; }
     }
 
@@ -27,7 +33,7 @@ public static class Examples
     {
         public ModelValidator()
         {
-            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Name).NotEmptyTrackRequired().When(x => x.HasName);
         }
     }
 }
@@ -332,12 +338,13 @@ public static class Examples
 @using System.ComponentModel.DataAnnotations
 <EditForm Model="this">
     <DataAnnotationsValidator/>
+    <BdkFocusFirstFieldOnInvalidSubmit/>
     <BspCheckField Label="Option" @bind-Value="Option"/>
     <div>Option: @Option</div>
     <button type="submit">Submit</button>
 </EditForm>
 @code {
-    [Required]
+    [AllowedValues(true)]
     public bool Option { get; set; }
 }
 """
@@ -431,7 +438,7 @@ public static class Examples
     {
         public Validator()
         {
-            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Name).NotEmptyTrackRequired();
         }
     }
 }
