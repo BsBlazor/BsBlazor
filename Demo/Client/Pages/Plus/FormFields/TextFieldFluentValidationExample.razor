@@ -8,7 +8,7 @@
 </EditForm>
 @code {
     public string? Name { get; set; }
-    class Validator : TrackRequiredValidator<TextFieldFluentValidationExample>
+    class Validator : AbstractValidator<TextFieldFluentValidationExample>
     {
         public Validator()
         {
