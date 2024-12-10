@@ -2,7 +2,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace BsBlazor.Tests.Plus;
+namespace BsBlazor.Tests.Plus.FluentValidation;
 public class BdkFluentValidatorListTests
 {
     [Fact]

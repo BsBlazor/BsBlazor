@@ -3,7 +3,7 @@ using FluentValidation;
 using FluentValidation.TestHelper;
 using System.Linq.Expressions;
 
-namespace BsBlazor.Tests.Plus;
+namespace BsBlazor.Tests.Plus.FluentValidation;
 
 public class FluentValidationExtensionsTests
 {
@@ -59,7 +59,7 @@ public class FluentValidationExtensionsTests
     }
 
     [Fact]
-    public void ComplexChildrenValidatorTest()
+    public void RuleForEach_SetValidator_Validator_Test()
     {
         var validator = new RuleForEach_SetValidator_Validator();
         var model = new Model();
@@ -75,6 +75,24 @@ public class FluentValidationExtensionsTests
             RuleForEach(x => x.Children).SetValidator(m => new ChildByIndexValidator(m));
         }
     }
+
+    //[Fact]
+    //public void RuleForEach_SetValidator_Validator_List_Test()
+    //{
+    //    var validator = new RuleForEach_SetValidator_Validator();
+    //    var model = new Model();
+    //    model.Children.Add(new Child());
+    //    model.Children.Add(new Child());
+    //    validator.IsRequired(model, model.Children[1], "ChildName").Should().BeTrue();
+    //    validator.IsRequired(model, model.Children[0], "ChildName").Should().BeFalse();
+    //}
+    //internal class RuleForEach_SetValidator_Validator : AbstractValidator<Model>
+    //{
+    //    public RuleForEach_SetValidator_Validator()
+    //    {
+    //        RuleForEach(x => x.Children).SetValidator(m => new ChildByIndexValidator(m));
+    //    }
+    //}
 
     [Fact]
     public void InlineComplexTest()
@@ -114,7 +132,7 @@ public class FluentValidationExtensionsTests
     }
 
     public string Name { get; set; } = string.Empty;
-    internal class SelfValidator : AbstractValidator<FluentValidationExtensionsTests> 
+    internal class SelfValidator : AbstractValidator<FluentValidationExtensionsTests>
     {
         public SelfValidator()
         {
@@ -122,7 +140,7 @@ public class FluentValidationExtensionsTests
         }
     }
 
-    internal class ModelValidator : AbstractValidator<Model> 
+    internal class ModelValidator : AbstractValidator<Model>
     {
         public ModelValidator()
         {
