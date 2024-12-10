@@ -8,11 +8,11 @@
 </EditForm>
 @code {
     public string? Name { get; set; }
-    class Validator : AbstractValidator<TextFieldFluentValidationExample>
+    class Validator : TrackRequiredValidator<TextFieldFluentValidationExample>
     {
         public Validator()
         {
-            RuleFor(x => x.Name).NotEmptyTrackRequired();
+            RuleFor(x => x.Name).NotEmpty();
         }
     }
 }

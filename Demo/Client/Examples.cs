@@ -29,11 +29,11 @@ public static class Examples
         public string? Name { get; set; }
     }
 
-    class ModelValidator : AbstractValidator<Model>
+    class ModelValidator : TrackRequiredValidator<Model>
     {
         public ModelValidator()
         {
-            RuleFor(x => x.Name).NotEmptyTrackRequired().When(x => x.HasName);
+            RuleFor(x => x.Name).NotEmpty().When(x => x.HasName);
         }
     }
 }
@@ -434,11 +434,11 @@ public static class Examples
 </EditForm>
 @code {
     public string? Name { get; set; }
-    class Validator : AbstractValidator<TextFieldFluentValidationExample>
+    class Validator : TrackRequiredValidator<TextFieldFluentValidationExample>
     {
         public Validator()
         {
-            RuleFor(x => x.Name).NotEmptyTrackRequired();
+            RuleFor(x => x.Name).NotEmpty();
         }
     }
 }
