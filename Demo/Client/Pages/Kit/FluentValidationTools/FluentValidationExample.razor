@@ -22,11 +22,11 @@
         public string? Name { get; set; }
     }
 
-    class ModelValidator : AbstractValidator<Model>
+    class ModelValidator : TrackRequiredValidator<Model>
     {
         public ModelValidator()
         {
-            RuleFor(x => x.Name).NotEmptyTrackRequired().When(x => x.HasName);
+            RuleFor(x => x.Name).NotEmpty().When(x => x.HasName);
         }
     }
 }

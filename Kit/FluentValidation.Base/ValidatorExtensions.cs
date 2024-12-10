@@ -3,6 +3,16 @@
 namespace FluentValidation;
 public static class ValidatorExtensions
 {
+    /// <summary>
+    /// Check if a field is required by FluentValidation.
+    /// This does not support inline collection fields. Use nested validators instead.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="validator"></param>
+    /// <param name="rootInstance"></param>
+    /// <param name="targetInstance"></param>
+    /// <param name="fieldName"></param>
+    /// <returns></returns>
     public static bool IsRequired<T>(
         this IValidator validator, 
         T rootInstance,
@@ -23,8 +33,10 @@ public static class ValidatorExtensions
         {
             throw new ArgumentException("Expression must be a member expression");
         }
-        var constantExpression = member.Expression as ConstantExpression;
+        var targetModel = Expression.Lambda(member.Expression!).Compile().DynamicInvoke();
+        //var constantExpression = member.Expression as ConstantExpression;
+        //member.Expression.
         var fieldName = member.Member.Name;
-        return validator.IsRequired(rootInstance, constantExpression.Value ?? rootInstance, fieldName);
+        return validator.IsRequired(rootInstance, targetModel ?? rootInstance!, fieldName);
     }
 }
