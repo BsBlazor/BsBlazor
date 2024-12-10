@@ -49,7 +49,8 @@ public static class ValidatorExtensions
                         Activator.CreateInstance(typeof(ValidationContext<>).MakeGenericType(rootInstance.GetType()), rootInstance),
                         item) as IValidator;
                     var childValidatorDescriptor = validator.CreateDescriptor();
-                    var isRequired = IsInlineRequired(childValidatorDescriptor, item, targetInstance, fieldName) || IsChildAdaptorRequired(childValidatorDescriptor, items, targetInstance, fieldName);
+                    var isRequired = IsInlineRequired(childValidatorDescriptor, item, targetInstance, fieldName) 
+                            || IsChildAdaptorRequired(childValidatorDescriptor, item, targetInstance, fieldName);
                     if(isRequired) { return true; }
                 }
             }
