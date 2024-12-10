@@ -7,21 +7,21 @@ public static class Examples
 """
 @using FluentValidation
 <EditForm Model="_model">
-    <BdkFluentValidator Validator="new ModelValidator()">
-        <div class="form-check">
-            <InputCheckbox id="hasName" class="form-check-input" @bind-Value="_model.HasName" />
-            <label for="hasName" class="form-check-name">Has Name?</label>
-        </div>
-        <div>
-            <label class="@Bs.Css.FormLabel">Name @(context.IsFluentValidationRequired(() => _model.Name) ? "*" : "")</label>
-            <InputText class="@Bs.Css.FormControl" @bind-Value="_model.Name" />
-            <ValidationMessage For="() => _model.Name" class="@Bs.Css.DisplayBlock.AddClass("is-invalid")" />
-        </div>
-        <button type="submit" class="mt-2 btn btn-primary">Submit</button>
-    </BdkFluentValidator>
+    <BdkFluentValidator Validator="_validator" />
+    <div class="form-check">
+        <InputCheckbox id="hasName" class="form-check-input" @bind-Value="_model.HasName" />
+        <label for="hasName" class="form-check-name">Has Name?</label>
+    </div>
+    <div>
+        <label class="@Bs.Css.FormLabel">Name @(_validator.IsRequired(rootInstance: _model, () => _model.Name) ? "*" : "")</label>
+        <InputText class="@Bs.Css.FormControl" @bind-Value="_model.Name" />
+        <ValidationMessage For="() => _model.Name" class="@Bs.Css.DisplayBlock.AddClass("is-invalid")" />
+    </div>
+    <button type="submit" class="mt-2 btn btn-primary">Submit</button>
 </EditForm>
 @code {
     private Model _model = new();
+    private ModelValidator _validator = new();
 
     class Model
     {
@@ -29,7 +29,7 @@ public static class Examples
         public string? Name { get; set; }
     }
 
-    class ModelValidator : TrackRequiredValidator<Model>
+    class ModelValidator : AbstractValidator<Model>
     {
         public ModelValidator()
         {
@@ -434,7 +434,7 @@ public static class Examples
 </EditForm>
 @code {
     public string? Name { get; set; }
-    class Validator : TrackRequiredValidator<TextFieldFluentValidationExample>
+    class Validator : AbstractValidator<TextFieldFluentValidationExample>
     {
         public Validator()
         {
