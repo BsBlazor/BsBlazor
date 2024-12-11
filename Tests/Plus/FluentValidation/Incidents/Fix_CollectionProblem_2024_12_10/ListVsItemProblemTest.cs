@@ -10,6 +10,7 @@ public class ListVsItemProblemTest
         var request = new Request();
         request.People.Add(new Person());
         var validator = new RequestValidator();
+        request.People.First().HasPartner = true;
         validator.IsRequired(request, () => request.People[0].Partner.Name).Should().BeTrue();
     }
 

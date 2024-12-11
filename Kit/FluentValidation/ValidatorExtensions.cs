@@ -1,4 +1,5 @@
-﻿using FluentValidation.Validators;
+﻿using FluentValidation.Internal;
+using FluentValidation.Validators;
 using System.Collections;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -37,6 +38,7 @@ public static class ValidatorExtensions
             var childInstance = ruleWithChildAdaptor.Expression.Compile().DynamicInvoke(rootInstance);
             if (childInstance is null) { continue; }
             var adaptorComponent = ruleWithChildAdaptor.Components.FirstOrDefault(c => c.Validator.Name == nameof(ChildValidatorAdaptor<object, object>));
+            if (adaptorComponent.HasCondition && !CheckCondition(adaptorComponent, rootInstance)) { continue; }
             var adaptor = adaptorComponent.Validator as IChildValidatorAdaptor;
             var innerValidator = adaptor.GetType().GetField("_validator", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(adaptor) as IValidator;
             var innerValidatorProvider = adaptor.GetType().GetField("_validatorProvider", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(adaptor) as Delegate;
@@ -49,9 +51,9 @@ public static class ValidatorExtensions
                         Activator.CreateInstance(typeof(ValidationContext<>).MakeGenericType(rootInstance.GetType()), rootInstance),
                         item) as IValidator;
                     var childValidatorDescriptor = validator.CreateDescriptor();
-                    var isRequired = IsInlineRequired(childValidatorDescriptor, item, targetInstance, fieldName) 
+                    var isRequired = IsInlineRequired(childValidatorDescriptor, item, targetInstance, fieldName)
                             || IsChildAdaptorRequired(childValidatorDescriptor, item, targetInstance, fieldName);
-                    if(isRequired) { return true; }
+                    if (isRequired) { return true; }
                 }
             }
             else // RuleFor(x => x.Child).Etc
@@ -82,12 +84,17 @@ public static class ValidatorExtensions
         var requiredComponent = ruleWithRequiredValidator.Components.FirstOrDefault(c => c.Validator is INotEmptyValidator or INotNullValidator);
         if (requiredComponent.HasCondition)
         {
-            var conditionField = requiredComponent.GetType().GetField("_condition", BindingFlags.NonPublic | BindingFlags.Instance);
-            var condition = conditionField?.GetValue(requiredComponent) as Delegate;
-            var context = Activator.CreateInstance(typeof(ValidationContext<>).MakeGenericType(rootInstance.GetType()), rootInstance);
-            if (!((bool)condition.DynamicInvoke(context))) { return false; }
+            return CheckCondition(requiredComponent, rootInstance);
         }
 
         return true;
+    }
+
+    public static bool CheckCondition(IRuleComponent component, object instance)
+    {
+        var conditionField = component.GetType().GetField("_condition", BindingFlags.NonPublic | BindingFlags.Instance);
+        var condition = conditionField?.GetValue(component) as Delegate;
+        var context = Activator.CreateInstance(typeof(ValidationContext<>).MakeGenericType(instance.GetType()), instance);
+        return (bool)condition.DynamicInvoke(context);
     }
 }
