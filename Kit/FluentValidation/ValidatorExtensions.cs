@@ -35,7 +35,8 @@ public static class ValidatorExtensions
         var rulesWithChildAdaptors = descriptor.Rules.Where(r => r.Components.Any(c => c.Validator.Name == nameof(ChildValidatorAdaptor<object, object>))).ToArray();
         foreach (var ruleWithChildAdaptor in rulesWithChildAdaptors)
         {
-            var childInstance = ruleWithChildAdaptor.Expression.Compile().DynamicInvoke(rootInstance);
+            var childInstance = ruleWithChildAdaptor.Expression == null ? rootInstance : // If Expression is null, it means the rule is for the root object itself. This happens when using "ctor() { Include(new ValidatorForThis()); }"
+                                ruleWithChildAdaptor.Expression.Compile().DynamicInvoke(rootInstance);
             if (childInstance is null) { continue; }
             var adaptorComponent = ruleWithChildAdaptor.Components.FirstOrDefault(c => c.Validator.Name == nameof(ChildValidatorAdaptor<object, object>));
             if (adaptorComponent.HasCondition && !CheckCondition(adaptorComponent, rootInstance)) { continue; }
@@ -72,6 +73,7 @@ public static class ValidatorExtensions
     private static bool IsInlineRequired(IValidatorDescriptor descriptor, object rootInstance, object targetInstance, string fieldName)
     {
         var ruleWithRequiredValidator = descriptor.Rules
+                                           .Where(r => r.PropertyName != null) // FluentValidation must adjust the nullability of PropertyName
                                            .Where(r => r.PropertyName.Split('.').Last() == fieldName)
                                            .Where(r => r.Components.Any(c => c.Validator is INotEmptyValidator or INotNullValidator))
                                            .FirstOrDefault(r =>
