@@ -4,9 +4,11 @@ export class BdkFocusFirstFieldOnInvalidSubmit {
         this.invalidSelector = invalidSelector;
         this.dotNetReference = dotNetReference;
         this.form = elementReference.closest('form');
+        this.disposed = false;
     }
 
     async validationChangedAsync(forceFocus) {
+        if (this.disposed) { return; }
         let invalidInput = this.form.querySelector(this.invalidSelector);
         let attempts = 1;
         let maxAttempts = 4;        
@@ -35,6 +37,7 @@ export class BdkFocusFirstFieldOnInvalidSubmit {
     }
     
     dispose(identifier) {
+        this.disposed = true;
         this.form = null;
         delete window[identifier];
     }

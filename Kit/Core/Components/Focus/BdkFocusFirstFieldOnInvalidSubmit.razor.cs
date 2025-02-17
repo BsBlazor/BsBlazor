@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 
 namespace BlazorDevKit;
@@ -9,7 +8,7 @@ public partial class BdkFocusFirstFieldOnInvalidSubmit : ComponentBase, IAsyncDi
     private ElementReference _elementReference;
     private IJSObjectReference? _jsModuleReference;
     private IJSObjectReference? _jsInstanceReference;
-    private string _id = Guid.NewGuid().ToString("N");
+    private readonly string _id = Guid.NewGuid().ToString("N");
 
     [Inject] public required IJSRuntime JsRuntime { get; set; }
     
