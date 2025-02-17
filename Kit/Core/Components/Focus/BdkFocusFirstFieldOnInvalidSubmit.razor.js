@@ -14,8 +14,8 @@ export class BdkFocusFirstFieldOnInvalidSubmit {
         let maxAttempts = 4;        
         
         while (invalidInput == null && attempts <= maxAttempts) {
-            if (this.disposed) { return; }
             await new Promise(resolve => setTimeout(resolve, 50));
+            if (this.disposed) { return; }
             invalidInput = this.form.querySelector(this.invalidSelector);
             attempts++;
         }
