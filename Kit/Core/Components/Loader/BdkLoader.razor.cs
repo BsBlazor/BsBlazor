@@ -10,10 +10,10 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     private BdkLoaderState _state = BdkLoaderState.Loading;
     private BdkLoaderErrorResult _lastErrorResult = default!;
 
-    private string LoaderToken => "Loader" + typeof(T).Name + Load.Method.Name;
+    private string LoaderToken => Key == null ? "BdkL" + typeof(T).Name + Load.Method.Name : "BdkL" + Key;
 
     [Inject] public required PersistentComponentState PersistentComponentState { get; set; }
-    
+    [Parameter] public string? Key { get; set; }
     [Parameter] public bool PreserveState { get; set; }
     [Parameter] public bool CanRetry { get; set; }
     [Parameter] public string Message { get; set; } = string.Empty;
