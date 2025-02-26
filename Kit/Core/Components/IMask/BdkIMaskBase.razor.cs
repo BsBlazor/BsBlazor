@@ -31,6 +31,7 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
             {
                 await _jsInstanceReference.InvokeVoidAsync("setValue", Value, BindTargetAsString);
             }
+            StateHasChanged();
         }
     }
 

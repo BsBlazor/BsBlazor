@@ -1,3 +1,7 @@
 ﻿@namespace BlazorDevKit
 @typeparam T
-<div @ref="_elementReference">@ChildContent</div>
+@if (_jsInstanceReference == null)
+{
+    <div style="display: none" @ref="_elementReference"></div>
+}
+@ChildContent

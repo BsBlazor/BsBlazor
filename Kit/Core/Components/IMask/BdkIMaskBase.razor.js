@@ -1,7 +1,12 @@
 ﻿export class BdkIMask {
-    constructor(dotNetReference, wrapperElement) {
+    constructor(dotNetReference, refElement) {
         this.dotNetReference = dotNetReference;
-        this.input = wrapperElement.querySelector('input');
+        const nextElement = refElement.nextElementSibling;
+        if (nextElement.tagName.toLowerCase() === 'input') {
+            this.input = nextElement;
+        } else {
+            this.input = nextElement.querySelector('input');
+        }
     }
     async initAsync() {
         const type = await this.dotNetReference.invokeMethodAsync('GetIMaskType');
