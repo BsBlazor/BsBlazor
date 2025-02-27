@@ -1,0 +1,26 @@
+﻿@* Used to automatically prefix bspfields ids.
+    Ex:
+    <BspFieldGroup IdPrefix="Husband">
+        <BspTextField @bind-Value="() => model.Husband.Name" />
+        <BspNumberField @bind-Value="() => model.Husband.Age" />
+    </BspFieldGroup>
+    <BspFieldGroup IdPrefix="Wife">
+        <BspTextField @bind-Value="() => model.Wife.Name" />
+        <BspNumberField @bind-Value="() => model.Wife.Age" />
+    </BspFieldGroup>
+    The html input ids will be:
+    Husband_Name
+    Husband_Age
+    Wife_Name
+    Wife_Age
+*@
+@namespace BsBlazor.Plus
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter, EditorRequired] public required string IdPrefix { get; set; }
+    internal string GetId(string id) => $"{IdPrefix}_{id}";
+
+}

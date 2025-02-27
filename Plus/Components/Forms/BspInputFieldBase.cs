@@ -12,7 +12,7 @@ public abstract class BspInputFieldBase<TValue> : BsComponentBase
 #pragma warning restore S2743 // Static fields should not be used in generic types
     
     [CascadingParameter] protected EditContext? EditContext { get; set; }
-    [Parameter] public string Id { get; set; } = $"bsp-field-{_instanceCount++}";
+    [Parameter] public string? Id { get; set; }
     [Parameter] public BsFormControlSize Size { get; set; } = BsFormControlSize.Default;
     [Parameter] public string Label { get; set; } = string.Empty;
     [Parameter] public bool ShowLabel { get; set; } = true;
