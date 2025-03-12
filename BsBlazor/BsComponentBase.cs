@@ -20,6 +20,10 @@ public class BsComponentBase : ComponentBase
         {
             AddAttribute(key, value);
         }
+        else
+        {
+            AdditionalAttributes.Remove(key);
+        }
     }
     //protected bool RemoveAttribute(string key) => AdditionalAttributes.Remove(key);
 }
