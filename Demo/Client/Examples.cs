@@ -499,10 +499,16 @@ public static class Examples
 		{
 			"ButtonDisabledExample",
 """
-<BsButton Variant="BsButtonVariant.Primary" Disabled>Primary button</BsButton>
-<BsButton Variant="BsButtonVariant.Secondary" Disabled>Button</BsButton>
-<BsButton Variant="BsButtonVariant.OutlinePrimary" Disabled>Primary button</BsButton>
-<BsButton Variant="BsButtonVariant.OutlineSecondary" Disabled>Button</BsButton>
+<div>
+    <InputCheckbox @bind-Value="_disabled"/> Disabled
+</div>
+<BsButton Variant="BsButtonVariant.Primary" Disabled="_disabled">Primary button</BsButton>
+<BsButton Variant="BsButtonVariant.Secondary" Disabled="_disabled">Button</BsButton>
+<BsButton Variant="BsButtonVariant.OutlinePrimary" Disabled="_disabled">Primary button</BsButton>
+<BsButton Variant="BsButtonVariant.OutlineSecondary" Disabled="_disabled">Button</BsButton>
+@code{
+    private bool _disabled = true;
+}
 """
 		},
 		{
