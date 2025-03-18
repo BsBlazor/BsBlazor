@@ -1,0 +1,5 @@
+@inherits DynamicRenderModePage
+@page "/carousels/{Mode=wasm}"
+@using BsBlazor.Demo.Client.SharedDemo.Carousels
+<SectionContent SectionName="title">Carousel</SectionContent>
+<SharedCarouselsDemo @rendermode="RenderModeFromRoute"/>

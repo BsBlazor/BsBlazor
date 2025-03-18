@@ -1,0 +1,41 @@
+@namespace BsBlazor
+@inherits BsComponentBase
+
+<CascadingValue Value="this" IsFixed>
+    <div @ref="_elementReference" id="@Id" class="@CssClass" style="@Style" @attributes="AdditionalAttributes">
+        @if (WithIndicators)
+        {
+            <div class="carousel-indicators">
+                @{
+                    var index = 0;
+                    foreach (var item in _carouselItems)
+                    {
+                        <button type="button"
+                                data-bs-target="#@Id"
+                                data-bs-slide-to="@index"
+                                class="@(item.Value.Active ? "active" : "")"
+                                aria-current="@item.Value.Active.ToString().ToLower()"
+                                aria-label="Slide @(index + 1)">
+
+                        </button>
+                        index++;
+                    }
+                }
+            </div>
+        }
+        <div class="carousel-inner">
+            @ChildContent
+        </div>
+        @if (WithArrows)
+        {
+            <button class="carousel-control-prev" type="button" data-bs-target="#@Id" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#@Id" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        }
+    </div>
+</CascadingValue>
