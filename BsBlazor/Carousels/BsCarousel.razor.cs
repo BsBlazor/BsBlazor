@@ -13,6 +13,7 @@ public partial class BsCarousel : BsComponentBase
     private string CssClass => CssBuilder
         .Default("carousel slide")
         .AddClass("carousel-fade", Fade)
+        .AddClass(Class)
         .Build();
     
     [Inject] public required IJSRuntime Js { get; set; }

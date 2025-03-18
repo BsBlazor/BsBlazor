@@ -8,6 +8,7 @@ public partial class BsCarouselItem : BsComponentBase
     private string CssClass => CssBuilder
         .Default("carousel-item")
         .AddClass("active", Active)
+        .AddClass(Class)
         .Build();
 
     [Parameter] public string Id { get; set; } = $"bs-carousel-item-{Guid.NewGuid().ToString("N")[..10]}";
