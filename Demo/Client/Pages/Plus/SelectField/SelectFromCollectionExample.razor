@@ -1,0 +1,7 @@
+﻿<BspSelectField Label="Options" 
+                Options="@([(1, "Option 1"), (2, "Option 2")])"
+                @bind-Value="_option"/>
+<div>Option: @(_option is null ? "null" : _option.ToString())</div>
+@code {
+    private int? _option = null;
+}

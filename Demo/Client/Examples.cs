@@ -370,21 +370,6 @@ public static class Examples
 """
 		},
 		{
-			"SelectFieldExample",
-"""
-<BspSelectField Label="Options" @bind-Value="_option">
-    <option value="">Select an option...</option>
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-</BspSelectField>
-<div>Option: @(_option is null ? "null" : _option.ToString())</div>
-@code {
-    private int? _option = null;
-}
-
-"""
-		},
-		{
 			"TextAreaFieldExample",
 """
 <BspTextAreaField @bind-Value="_description" Label="Description" Rows="3" Immediate />
@@ -442,6 +427,56 @@ public static class Examples
         }
     }
 }
+"""
+		},
+		{
+			"SelectFieldExample",
+"""
+<BspSelectField Label="Options" @bind-Value="_option">
+    <option value="">Select an option...</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+</BspSelectField>
+<div>Option: @(_option is null ? "null" : _option.ToString())</div>
+@code {
+    private int? _option = null;
+}
+
+"""
+		},
+		{
+			"SelectFromCollectionExample",
+"""
+<BspSelectField Label="Options" 
+                Options="@([(1, "Option 1"), (2, "Option 2")])"
+                @bind-Value="_option"/>
+<div>Option: @(_option is null ? "null" : _option.ToString())</div>
+@code {
+    private int? _option = null;
+}
+
+"""
+		},
+		{
+			"SelectLoadingOptionsExample",
+"""
+<BspSelectField Label="Load Options"
+                LoadOptions="LoadOptionsAsync"
+                @bind-Value="_option" />
+<div>Option: @(_option is null ? "null" : _option.ToString())</div>
+@code {
+    private int? _option = null;
+
+    private async Task<IEnumerable<(int? value, string name)>> LoadOptionsAsync()
+    {
+        if (RendererInfo.IsInteractive)
+        {
+            await Task.Delay(5000);
+        }
+        return [(1, "Option 1"), (2, "Option 2")];
+    }
+}
+
 """
 		},
 		{
@@ -570,6 +605,60 @@ public static class Examples
         <BsAnchorButton Href="#" Variant="BsButtonVariant.Primary">Go somewhere</BsAnchorButton>
     </BsCardBody>
 </BsCard>
+"""
+		},
+		{
+			"CarouselAutoExample",
+"""
+
+<BsCarousel Auto>
+    <BsCarouselItem Active>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">First slide</text></svg>
+    </BsCarouselItem>
+    <BsCarouselItem>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#666"></rect><text x="50%" y="50%" fill="#444" dy=".3em">Second slide</text></svg>
+    </BsCarouselItem>
+    <BsCarouselItem>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Third slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#555"></rect><text x="50%" y="50%" fill="#333" dy=".3em">Third slide</text></svg>
+    </BsCarouselItem>
+</BsCarousel>
+
+"""
+		},
+		{
+			"CarouselBaseExample",
+"""
+
+<BsCarousel>
+    <BsCarouselItem Active>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">First slide</text></svg>
+    </BsCarouselItem>
+    <BsCarouselItem>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#666"></rect><text x="50%" y="50%" fill="#444" dy=".3em">Second slide</text></svg>
+    </BsCarouselItem>
+    <BsCarouselItem>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Third slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#555"></rect><text x="50%" y="50%" fill="#333" dy=".3em">Third slide</text></svg>
+    </BsCarouselItem>
+</BsCarousel>
+
+"""
+		},
+		{
+			"CarouselWithIndicatorsExample",
+"""
+
+<BsCarousel WithIndicators>
+    <BsCarouselItem Active>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">First slide</text></svg>
+    </BsCarouselItem>
+    <BsCarouselItem>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#666"></rect><text x="50%" y="50%" fill="#444" dy=".3em">Second slide</text></svg>
+    </BsCarouselItem>
+    <BsCarouselItem>
+        <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Third slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#555"></rect><text x="50%" y="50%" fill="#333" dy=".3em">Third slide</text></svg>
+    </BsCarouselItem>
+</BsCarousel>
+
 """
 		},
 		{
