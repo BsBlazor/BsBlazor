@@ -1,0 +1,16 @@
+﻿<BspSelectField Label="Load Options"
+                LoadOptions="LoadOptionsAsync"
+                @bind-Value="_option" />
+<div>Option: @(_option is null ? "null" : _option.ToString())</div>
+@code {
+    private int? _option = null;
+
+    private async Task<IEnumerable<(int? value, string name)>> LoadOptionsAsync()
+    {
+        if (RendererInfo.IsInteractive)
+        {
+            await Task.Delay(5000);
+        }
+        return [(1, "Option 1"), (2, "Option 2")];
+    }
+}

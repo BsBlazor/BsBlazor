@@ -7,10 +7,6 @@ namespace BsBlazor.Plus;
 
 public abstract class BspInputFieldBase<TValue> : BsComponentBase
 {
-#pragma warning disable S2743 // Static fields should not be used in generic types
-    private static int _instanceCount;
-#pragma warning restore S2743 // Static fields should not be used in generic types
-    
     [CascadingParameter] protected EditContext? EditContext { get; set; }
     [Parameter] public string? Id { get; set; }
     [Parameter] public BsFormControlSize Size { get; set; } = BsFormControlSize.Default;

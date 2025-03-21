@@ -1,40 +1,77 @@
 ﻿@namespace BsBlazor.Plus
-@using BlazorDevKit
-@using BsBlazor.Helpers
-@using System.Linq.Expressions
-@using Microsoft.AspNetCore.Components.Forms
-@using System.Globalization
 @typeparam TValue
 @inherits BspInputFieldBase<TValue>
-<BspField Context="field"
-          Id="@Id"
-          Label="@Label"
-          Class="@Class"
-          Style="@Style"
-          AdditionalAttributes="AdditionalAttributes"
-          ShowLabel="ShowLabel" ValueExpression="ValueExpression">
-    <InputSelect @ref="_select"
-                 Value="@Value"
-                 ValueChanged="ValueChanged"
-                 ValueExpression="ValueExpression!"
-                 Immediate="Immediate"
-                 class="@field.GetValidatableControlClass(InputCss)"
-                 disabled="@Disabled"
-                 readonly="@ReadOnly"
-                 required="@Required"
-                 autofocus="@AutoFocus"
-                 id="@field.Id" placeholder="@Placeholder">
-        @ChildContent
-    </InputSelect>
-</BspField>
-@code {
-    private InputSelect<TValue?> _select = default!;
-    private string InputCss => CssBuilder.Default("form-select")
-         .AddClass("form-select-sm", Size == BsFormControlSize.Small)
-         .AddClass("form-select-lg", Size == BsFormControlSize.Large)
-         .Build();
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    public override ValueTask FocusAsync() => _select.Element!.Value.FocusAsync();
+@if (LoadOptions != null)
+{
+    <BdkLoader Key="@PeristentStateKey" Load="LoadOptions" Context="options" PreserveState="@(PeristentStateKey != null)">
+        <LoadingContent>
+            <BspTextField ShowLabel="ShowLabel" 
+                          Id="@Id"
+                          Label="@Label" 
+                          Disabled 
+                          Class="@Class"
+                          Style="@Style"
+                          AdditionalAttributes="AdditionalAttributes"
+                          @bind-Value="_fakeLoading"/>
+        </LoadingContent>
+        <ChildContent>
+            <BspSelectField Id="@Id" 
+                            Label="@Label" 
+                            Class="@Class" 
+                            Style="@Style" 
+                            AdditionalAttributes="@AdditionalAttributes"
+                            Disabled="@Disabled"
+                            ReadOnly="@ReadOnly"
+                            Required="@Required"
+                            AutoFocus="@AutoFocus"
+                            Placeholder="@Placeholder"
+                            ShowLabel="@ShowLabel"
+                            ShowEmptyOption="@ShowEmptyOption"
+                            EmptyOptionText="@EmptyOptionText"
+                            Options="options"
+                            Value="Value"
+                            ValueChanged="ValueChanged"
+                            ValueExpression="ValueExpression" />
+        </ChildContent>
+    </BdkLoader>
+}
+else
+{
+    <BspField Context="field"
+    Id="@Id"
+    Label="@Label"
+    Class="@Class"
+    Style="@Style"
+    TValue="TValue"
+    AdditionalAttributes="AdditionalAttributes"
+    ShowLabel="ShowLabel" ValueExpression="ValueExpression">
+        <InputSelect @ref="_select"
+        Value="@Value"
+        TValue="TValue"
+        ValueChanged="ValueChanged"
+        ValueExpression="ValueExpression!"
+        class="@field.GetValidatableControlClass(InputCss)"
+        disabled="@Disabled"
+        readonly="@ReadOnly"
+        required="@Required"
+        autofocus="@AutoFocus"
+        id="@field.Id" placeholder="@Placeholder">
+            @* @PrependOptions *@
+            @if (ShowEmptyOption && Options != null)
+            {
+                <option value="">@EmptyOptionText</option>
+            }
+            @if (Options != null)
+            {
+                @foreach (var option in Options)
+                {
+                    <option value="@option.value">@option.text</option>
+                }
+            }
+            else
+            {
+                @ChildContent
+            }
+        </InputSelect>
+    </BspField>
 }

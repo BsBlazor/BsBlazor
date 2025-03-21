@@ -1,5 +1,6 @@
 using BlazorDevKit;
 using BsBlazor;
+using BsBlazor.Plus;
 using BsBlazor.Demo.Client.Pages.Kit.Loader;
 using BsBlazor.Demo.Server.Components;
 using BsBlazor.Services;
@@ -14,7 +15,13 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddBsBlazorServices();
+builder.Services.AddBsBlazorPlusOptions(options =>
+{
+    options.SelectField.DefaultEmptyOptionText = "Select an option...";
+    options.SelectField.DefaultLoadingText = "Loading...";
+});
 builder.Services.AddScoped<ISubjectService, SubjectServiceServer>();
+
 
 var app = builder.Build();
 
