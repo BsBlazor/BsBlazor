@@ -11,11 +11,11 @@ jobs:
       name: NUGET
       url: https://www.nuget.org/packages/BsBlazor
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 9
       - run: git fetch --tags
       - run: echo "VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)" >> "$GITHUB_ENV"
       - run: echo "VERSION=${VERSION#v}" >> "$GITHUB_ENV"
