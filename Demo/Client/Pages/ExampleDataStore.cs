@@ -46,6 +46,12 @@ public static class ExampleDataStore
         return Items.FirstOrDefault(x => x.Id == id);
     }
 
+    public async static Task<ExampleDataItem[]> ListItemsAsync(int[] ids)
+    {
+        await Task.Delay(300);
+        return Items.Where(x => ids.Contains(x.Id)).ToArray();
+    }
+
     public static List<ExampleDataItem> GetItems()
     {
         return Items;
