@@ -7,7 +7,9 @@
     <div class="dropdown" @onshow.bs.dropdown="OnShow">
         <div @ref="_bsDropdownToggleElement" data-bs-toggle="dropdown" data-bs-auto-close="outside">
             <button @onkeydown="OnControlKeyDown"
-                    class="@field.GetValidatableControlClass("form-select") text-start d-flex flex-wrap gap-2 align-items-center">
+                    disabled="@Disabled"
+                    id="@field.Id"
+                    class="@field.GetValidatableControlClass("form-select") text-start">
                 <wbr /> @* zero width char, to fix the height *@
                 @if (Value == null || Value.Length == 0)
                 {
@@ -18,10 +20,12 @@
                 }
                 else
                 {
+                    <div class="d-inline-flex gap-2 flex-wrap align-items-center">
                     @foreach (var item in GetCurrentItems())
                     {
                         <span class="badge text-bg-secondary me-1 mw-100 text-truncate">@item.Label</span>
                     }
+                    </div>
                 }
 
             </button>

@@ -8,6 +8,7 @@
             <button @ref="_formSelectDivElement"
                     @onkeydown="OnControlKeyDown"
                     disabled="@Disabled"
+                    id="@field.Id"
                     class="@field.GetValidatableControlClass("form-select") text-start d-flex align-items-center">
                 <div class="flex-grow-1 text-truncate">
                     <wbr /> @* zero width char, to fix the height *@
@@ -129,8 +130,8 @@
         if (firstRender)
         {
             _bsDropdownJs = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Dropdown.getOrCreateInstance", _bsDropdownToggleElement);
-            _inputJs = await JS.GetJsReference(_inputReference);
-            _formSelectJs = await JS.GetJsReference(_formSelectDivElement);
+            _inputJs = await JS.GetJsReferenceAsync(_inputReference);
+            _formSelectJs = await JS.GetJsReferenceAsync(_formSelectDivElement);
         }
     }
 
@@ -195,7 +196,7 @@
         if (e.Code == "ArrowDown")
         {
             _lastKeyWasArrowDown = true;
-            var firstItemJs = await JS.GetJsReference(_firstItem);
+            var firstItemJs = await JS.GetJsReferenceAsync(_firstItem);
             await firstItemJs.InvokeVoidAsync("focus");
         }
     }
