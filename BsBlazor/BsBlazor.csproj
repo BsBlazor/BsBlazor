@@ -20,12 +20,6 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="Templates\**" />
-	  <Content Remove="Templates\**" />
-	  <EmbeddedResource Remove="Templates\**" />
-	  <None Remove="Templates\**" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 	<ItemGroup>

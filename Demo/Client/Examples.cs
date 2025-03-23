@@ -480,6 +480,22 @@ public static class Examples
 """
 		},
 		{
+			"SelectSearchFieldExample",
+"""
+<BspSelectSearchField @bind-Value="_selectedValue"
+                      Label="Fruit"
+                      Search="term => ExampleDataStore.SearchItemsAsync(term)"
+                      Recover="id => ExampleDataStore.GetItemAsync(id!.Value)!"
+                      ValueAccessor="item => item.Id"
+                      TextAccessor="item => item.Name" />
+
+@code {
+    private int? _selectedValue = null;
+}
+
+"""
+		},
+		{
 			"BadgeBackgroundColorsExample",
 """
 <BsBadge Color="BsThemeColor.Primary">Primary</BsBadge>

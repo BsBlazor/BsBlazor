@@ -1,0 +1,277 @@
+﻿@namespace BsBlazor.Plus
+@inject IJSRuntime JS
+@typeparam TValue
+@typeparam TItem
+<BspField Label="@Label" Class="@Class" ValueExpression="ValueExpression" Context="field">
+    <div class="dropdown" @onshow.bs.dropdown="OnShow">
+        <div @ref="_bsDropdownToggleElement" data-bs-toggle="dropdown">
+            <button @ref="_formSelectDivElement"
+                    @onkeydown="OnControlKeyDown"
+                    disabled="@Disabled"
+                    class="@field.GetValidatableControlClass("form-select") text-start d-flex align-items-center">
+                <div class="flex-grow-1 text-truncate">
+                    <wbr /> @* zero width char, to fix the height *@
+                    @if (Value is null)
+                    {
+                        <span class="text-muted">
+                            @Placeholder
+                        </span>
+                    }
+                    else
+                    {
+                        if (_currentItem is null)
+                        {
+                            @if (_failedLoadingCurrent)
+                            {
+                                <span>@Value</span>
+                            }
+                            else
+                            {
+                                <span>Carregando...</span>
+                            }
+                        }
+                        else
+                        {
+                            <span>
+                                @TextAccessor(_currentItem)
+                            </span>
+                        }
+                    }
+                </div>
+
+                @if (Value is not null)
+                {
+                    <button type="button"
+                            @onclick="Clear"
+                            @onclick:preventDefault="true"
+                            @onclick:stopPropagation="true" class="btn-close"></button>
+                }
+            </button>
+        </div>
+        <div class="dropdown-menu w-100">
+            <div class="d-flex flex-column" style="max-height: @MaxHeight">
+                <div>
+                    <div class="dropdown-item bg-body" tabindex="0" @onfocus="@(() => _inputJs.InvokeVoidAsync("focus"))">
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 24px">
+                                <path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"></path>
+                            </svg>
+                            <input class="form-control form-control-sm border-0"
+                                   @ref="_inputReference"
+                                   @onkeydown="OnInputKeyDown"
+                                   @onkeydown:preventDefault="_lastKeyWasArrowDown"
+                                   @onkeydown:stopPropagation="true"
+                                   @bind="_searchTerm"
+                                   @bind:event="oninput"
+                                   @bind:after="() => Debounce(SearchAsync, 300)" />
+                        </div>
+                        <hr class="dropdown-divider">
+                    </div>
+                </div>
+                <div class="overflow-y-auto d-flex flex-column p-2">
+                    @for (int i = 0; i < _items.Length; i++)
+                    {
+                        var item = _items[i];
+                        @if (i == 0)
+                        {
+                            <button type="button" tabindex="0" @ref="_firstItem"
+                                    class="dropdown-item"
+                                    @onclick="() => SelectAsync(item)">
+                                @TextAccessor(item)
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" tabindex="0" class="dropdown-item"
+                                    @onclick="() => SelectAsync(item)">
+                                @TextAccessor(item)
+                            </button>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</BspField>
+@code {
+    private ElementReference _bsDropdownToggleElement;
+    private ElementReference _formSelectDivElement;
+    private IJSObjectReference _formSelectJs = default!;
+    private IJSObjectReference _bsDropdownJs = default!;
+
+    private ElementReference _firstItem;
+    private ElementReference _inputReference;
+    private IJSObjectReference _inputJs = default!;
+    private System.Timers.Timer? _timer;
+    private string _searchTerm = "";
+    private readonly List<Guid> _searchCalls = [];
+    private TItem[] _items = new TItem[0];
+    private TItem? _currentItem = default;
+    private bool _firstShow = true;
+    private bool _failedLoadingCurrent = false;
+    [Parameter] public string? Class { get; set; }
+    [Parameter] public string Placeholder { get; set; } = "";
+    [Parameter] public string Label { get; set; } = "";
+    [Parameter] public TValue? Value { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
+    [Parameter] public required Expression<Func<TValue?>> ValueExpression { get; set; }
+    [Parameter] public Func<string, Task<TItem[]>> Search { get; set; } = term => Task.FromResult(new TItem[0]);
+    [Parameter] public Func<TValue, Task<TItem>> Recover { get; set; } = value => Task.FromResult<TItem>(default!);
+    [Parameter] public Func<TItem, string> TextAccessor { get; set; } = item => "";
+    [Parameter] public Func<TItem, TValue?> ValueAccessor { get; set; } = item => default!;
+    [Parameter] public string MaxHeight { get; set; } = "300px";
+    [CascadingParameter] private EditContext? EditContext { get; set; }
+    private FieldIdentifier Field => FieldIdentifier.Create(ValueExpression);
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _bsDropdownJs = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Dropdown.getOrCreateInstance", _bsDropdownToggleElement);
+            _inputJs = await JS.GetJsReference(_inputReference);
+            _formSelectJs = await JS.GetJsReference(_formSelectDivElement);
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _failedLoadingCurrent = false;
+        if (Value is not null && (_currentItem is null || !Value.Equals(ValueAccessor(_currentItem))))
+        {
+            try
+            {
+                _currentItem = await Recover(Value);
+            }
+            catch
+            {
+                _failedLoadingCurrent = true;
+                throw;
+            }
+        }
+    }
+
+    private async Task OnControlKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Code == "Delete")
+        {
+            Value = default;
+            _currentItem = default;
+            await ValueChanged.InvokeAsync(Value);
+            EditContext?.NotifyFieldChanged(Field);
+            return;
+        }
+
+        // Don't open if it does not represent a character
+        if (e.Code is "Tab"
+                  or "Escape"
+                  or "ShiftLeft"
+                  or "ShiftRight"
+                  or "ArrowUp"
+                  or "ArrowDown"
+                  or "ArrowLeft"
+                  or "ArrowRight"
+                  or "PageUp"
+                  or "PageDown"
+                  or "Home"
+                  or "End"
+                  or "Insert"
+                  or "Delete"
+                  or "NumLock"
+                  or "ScrollLock"
+                  or "CapsLock"
+                  or "Enter")
+        {
+            return;
+        }
+        await _bsDropdownJs.InvokeVoidAsync("show");
+        await _inputJs.InvokeVoidAsync("focus");
+    }
+
+    private bool _lastKeyWasArrowDown = false;
+    private async Task OnInputKeyDown(KeyboardEventArgs e)
+    {
+        _lastKeyWasArrowDown = false;
+        if (e.Code == "ArrowDown")
+        {
+            _lastKeyWasArrowDown = true;
+            var firstItemJs = await JS.GetJsReference(_firstItem);
+            await firstItemJs.InvokeVoidAsync("focus");
+        }
+    }
+
+    private async Task Clear(MouseEventArgs? args)
+    {
+        Value = default;
+        _currentItem = default;
+        await ValueChanged.InvokeAsync(Value);
+        EditContext?.NotifyFieldChanged(Field);
+        // Acho que o bubbling do evento acaba abrindo o dropdown e ficando em um estado inconsistente na captura dos cliques.
+        // Então forço para não abrir quando o botão de lim
+        await _bsDropdownJs.InvokeVoidAsync("toggle");
+        await _formSelectJs.InvokeVoidAsync("focus");
+    }
+
+    private async Task SelectAsync(TItem item)
+    {
+        Value = ValueAccessor(item);
+        _currentItem = item;
+        await ValueChanged.InvokeAsync(Value);
+        await _formSelectJs.InvokeVoidAsync("focus");
+        EditContext?.NotifyFieldChanged(Field);
+    }
+
+    private async Task SearchAsync()
+    {
+        var callId = Guid.NewGuid();
+        try
+        {
+            _searchCalls.Add(callId);
+            _items = await Search(_searchTerm);
+            StateHasChanged();
+        }
+        finally
+        {
+            _searchCalls.Remove(callId);
+        }
+    }
+
+    private async Task OnShow()
+    {
+        if (!_firstShow)
+        {
+            return;
+        }
+        _firstShow = false;
+        await SearchAsync();
+    }
+
+    private void Debounce(Func<Task> action, int milliseconds)
+    {
+        _timer?.Stop();
+        _timer = null;
+
+        _timer = new System.Timers.Timer() { Interval = milliseconds, Enabled = false, AutoReset = false };
+        _timer.Elapsed += (s, e) =>
+        {
+            if (_timer == null)
+            {
+                return;
+            }
+
+            _timer?.Stop();
+            _timer = null;
+
+            try
+            {
+                Task.Run(action);
+            }
+            catch (TaskCanceledException)
+            {
+                // Ignore
+            }
+        };
+
+        _timer.Start();
+    }
+}
