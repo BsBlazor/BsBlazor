@@ -15,6 +15,9 @@
                           @bind-Value="_fakeLoading"/>
         </LoadingContent>
         <ChildContent>
+            @{
+                CurrentLoadedOptions = options.ToArray();
+            }
             <BspSelectField Id="@Id" 
                             Label="@Label" 
                             Class="@Class" 
@@ -63,6 +66,7 @@ else
             }
             @if (Options != null)
             {
+                CurrentLoadedOptions = Options.ToArray();
                 @foreach (var option in Options)
                 {
                     <option value="@option.value">@option.text</option>
