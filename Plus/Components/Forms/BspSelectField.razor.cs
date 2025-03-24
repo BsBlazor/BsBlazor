@@ -33,4 +33,10 @@ public partial class BspSelectField<[DynamicallyAccessedMembers(DynamicallyAcces
 #endif
         base.OnInitialized();
     }
+
+    /// <summary>
+    /// Get options loaded with Options or LoadOptions
+    /// </summary>
+    /// <returns></returns>
+    public (TValue? value, string? text)[] CurrentLoadedOptions { get; private set; } = [];
 }
