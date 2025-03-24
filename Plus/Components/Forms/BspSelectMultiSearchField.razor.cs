@@ -15,6 +15,7 @@ public partial class BspSelectMultiSearchField<TValue, TItem> where TValue : not
     private bool _firstShow = true;
     [Parameter] public string Placeholder { get; set; } = "";
     [Parameter] public string Label { get; set; } = "";
+    [Parameter] public bool Disabled { get; set; }
     [Parameter] public TValue[] Value { get; set; } = [];
     [Parameter] public EventCallback<TValue[]> ValueChanged { get; set; }
     [Parameter] public required Expression<Func<TValue[]>> ValueExpression { get; set; }
@@ -43,7 +44,7 @@ public partial class BspSelectMultiSearchField<TValue, TItem> where TValue : not
         if (firstRender)
         {
             _bsDropdownJs = await JS.InvokeAsync<IJSObjectReference>("bootstrap.Dropdown.getOrCreateInstance", _bsDropdownToggleElement);
-            _inputJs = await JS.InvokeAsync<IJSObjectReference>("getJsReference", _inputReference);
+            _inputJs = await JS.GetJsReferenceAsync(_inputReference);
         }
     }
 
@@ -96,7 +97,7 @@ public partial class BspSelectMultiSearchField<TValue, TItem> where TValue : not
         if (e.Code == "ArrowDown")
         {
             _lastKeyWasArrowDown = true;
-            var firstItemJs = await JS.InvokeAsync<IJSObjectReference>("getJsReference", _firstItem);
+            var firstItemJs = await JS.GetJsReferenceAsync(_firstItem);
             await firstItemJs.InvokeVoidAsync("focus");
         }
     }
