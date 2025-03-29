@@ -62,7 +62,6 @@ internal class ModalService : IModalService
         OnModalAdded?.Invoke(modalReference);
         modalReference.OnHidden += () =>
         {
-            Console.WriteLine("Called hidden");
             if (Container.Remove(modalReference))
             {
                 OnModalRemoved?.Invoke(modalReference);
