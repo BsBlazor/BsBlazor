@@ -8,6 +8,7 @@ internal class ModalReference : IModalReference
     private readonly TaskCompletionSource _hiddenResultCompletion = new();
     private BsModal? _modal;
     internal event Action? OnHidden;
+    //internal event Action? OnDispose;
     internal Type? DialogType { get; set; }
     internal Dictionary<string, object?>? Parameters { get; set; }
     internal RenderFragment? RenderFragment { get; set; }
@@ -16,6 +17,7 @@ internal class ModalReference : IModalReference
     internal virtual Type ResultType => typeof(object);
     internal void InvokeHidden()
     {
+        Console.WriteLine("Invoking hidden");
         OnHidden?.Invoke();
         _resultCompletion.TrySetResult(default);
         _hiddenResultCompletion.TrySetResult();

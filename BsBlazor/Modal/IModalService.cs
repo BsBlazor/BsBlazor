@@ -3,6 +3,7 @@
 namespace BsBlazor;
 public interface IModalService
 {
+    Task CloseAllAsync();
     Task<IModalReference> ShowDialogAsync<TDialogComponent>(
         ModalOptions? modalOptions = null,
         Action<DialogComponentParameters<TDialogComponent>>? parameters = null
