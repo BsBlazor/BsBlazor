@@ -17,7 +17,7 @@ aria-hidden="true"
     @ChildContent
 </div>
 @code {
-    //private bool _disposing = false;
+    private bool _disposing = false;
     private Dictionary<string, object> _additionalAttributes = [];
     private ElementReference _elementReference;
     private IJSObjectReference _jsInstance = default!;
@@ -85,36 +85,43 @@ aria-hidden="true"
 
     public async Task ShowAsync()
     {
+        if (_disposing)
+        {
+            return;
+        }
         await _jsInstance.InvokeVoidAsync("show");
     }
 
     public async Task HideAsync()
     {
-        // Console.WriteLine("HideAsync"); 
-        // if (_disposing)
-        // {
-        //     return;
-        // }
+        if (_disposing)
+        {
+            return;
+        }
         await _jsInstance.InvokeVoidAsync("hide");
     }
 
     public async Task ToggleAsync()
     {
-        // if (_disposing)
-        // {
-        //     return;
-        // }
+        if (_disposing)
+        {
+            return;
+        }
         await _jsInstance.InvokeVoidAsync("toggle");
     }
 
     public async Task HandleUpdateAsync()
     {
+        if (_disposing)
+        {
+            return;
+        }
         await _jsInstance.InvokeVoidAsync("handleUpdate");
     }
 
     public async ValueTask DisposeAsync()
     {
-        //_disposing = true;
+        _disposing = true;
         if (_jsInstance.IsNotNull())
         {
             await _jsInstance.InvokeVoidAsync("dispose");
