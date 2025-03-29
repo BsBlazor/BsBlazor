@@ -4,19 +4,20 @@
 @implements IBsModalParameters
 @inject IJSRuntime JS
 <div @ref="_elementReference" 
-    class="@CssClass"
-    style="@Style"
-    @onhide.bs.modal="() => OnHide.InvokeAsync()"
-    @onhidden.bs.modal="() => OnHidden.InvokeAsync()"
-    @onhidePrevented.bs.modal="() => OnHidePrevented.InvokeAsync()"
-    @onshow.bs.modal="() => OnShow.InvokeAsync()"
-    @onshown.bs.modal="() => OnShown.InvokeAsync()"
-    tabindex="-1" 
-    aria-hidden="true"
-    @attributes="_additionalAttributes">
+class="@CssClass"
+style="@Style"
+@onhide.bs.modal="() => OnHide.InvokeAsync()"
+@onhidden.bs.modal="() => OnHidden.InvokeAsync()"
+@onhidePrevented.bs.modal="() => OnHidePrevented.InvokeAsync()"
+@onshow.bs.modal="() => OnShow.InvokeAsync()"
+@onshown.bs.modal="() => OnShown.InvokeAsync()"
+tabindex="-1" 
+aria-hidden="true"
+@attributes="_additionalAttributes">
     @ChildContent
 </div>
 @code {
+    //private bool _disposing = false;
     private Dictionary<string, object> _additionalAttributes = [];
     private ElementReference _elementReference;
     private IJSObjectReference _jsInstance = default!;
@@ -28,7 +29,7 @@
 
     [Parameter]
     public string? Id { get; set; }
-    
+
     [Parameter]
     public bool Fade { get; set; } = true;
 
@@ -55,6 +56,9 @@
 
     [Parameter]
     public EventCallback OnShown { get; set; }
+
+    // [Parameter]
+    // public EventCallback OnDispose { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -86,11 +90,20 @@
 
     public async Task HideAsync()
     {
+        // Console.WriteLine("HideAsync"); 
+        // if (_disposing)
+        // {
+        //     return;
+        // }
         await _jsInstance.InvokeVoidAsync("hide");
     }
 
     public async Task ToggleAsync()
     {
+        // if (_disposing)
+        // {
+        //     return;
+        // }
         await _jsInstance.InvokeVoidAsync("toggle");
     }
 
@@ -101,9 +114,11 @@
 
     public async ValueTask DisposeAsync()
     {
+        //_disposing = true;
         if (_jsInstance.IsNotNull())
         {
             await _jsInstance.InvokeVoidAsync("dispose");
+            //await OnDispose.InvokeAsync();
             await _jsInstance.DisposeAsync();
         }
     }

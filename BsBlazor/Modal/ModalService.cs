@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Components;
-
 namespace BsBlazor;
-
-internal class ModalService: IModalService
+// TODO: review/refactor this service together with the container (BsModalServiceContainer)
+internal class ModalService : IModalService
 {
+    internal BsModalServiceContainer? CurrentContainer { get; set; }
+    private BsModalServiceContainer Container => CurrentContainer is not null and not { Disposed: true } ?
+                                                 CurrentContainer : throw new InvalidOperationException("<BsModalServiceContainer> not found in the current strcuture.");
+
+
     public event Action<ModalReference>? OnModalAdded;
     public event Action<ModalReference>? OnModalRemoved;
-    public List<ModalReference> ModalReferences { get; private set; } = [];
 
     public async Task<IModalReference> ShowDialogAsync(RenderFragment renderFragment, ModalOptions? modalOptions = null)
     {
@@ -18,6 +21,14 @@ internal class ModalService: IModalService
         return await ShowDialogAsync(modalReference);
     }
 
+    public async Task CloseAllAsync()
+    {
+        foreach (var modalReference in Container.GetModalReferences())
+        {
+            await modalReference.CloseAsync();
+        }
+        Container.Clear();
+    }
 
     public async Task<IModalReference> ShowDialogAsync(RenderFragment<IModalReference> contextualRenderFragment, ModalOptions? modalOptions = null)
     {
@@ -47,12 +58,15 @@ internal class ModalService: IModalService
 
     private async Task<IModalReference> ShowDialogAsync(ModalReference modalReference)
     {
-        ModalReferences.Add(modalReference);
+        Container.Add(modalReference);
         OnModalAdded?.Invoke(modalReference);
         modalReference.OnHidden += () =>
         {
-            ModalReferences.Remove(modalReference);
-            OnModalRemoved?.Invoke(modalReference);
+            Console.WriteLine("Called hidden");
+            if (Container.Remove(modalReference))
+            {
+                OnModalRemoved?.Invoke(modalReference);
+            }
         };
         // The API would be ready for some async call
         await Task.CompletedTask;

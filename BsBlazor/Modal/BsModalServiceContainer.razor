@@ -1,8 +1,8 @@
 ﻿@namespace BsBlazor
-@inject IModalService ModalService
-@if (ConcreteModalService != null)
+@if (_modalService != null)
 {
-    foreach (var modalReference in ConcreteModalService.ModalReferences)
+    _modalService.CurrentContainer = this;
+    foreach (var modalReference in _modalReferences)
     {
         BsModal? currentRef = null;
         <BsModal @key="modalReference"
@@ -30,12 +30,4 @@
         </BsModal>
     }
 }
-@code {
-    private ModalService? ConcreteModalService => ModalService as ModalService;
-    protected override void OnInitialized()
-    {
-        if (ConcreteModalService == null) { return; }
-        ConcreteModalService.OnModalAdded += (modalReference) => StateHasChanged();
-        ConcreteModalService.OnModalRemoved += (modalReference) => StateHasChanged();
-    }
-}
+
