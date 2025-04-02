@@ -10,17 +10,22 @@
                     disabled="@Disabled"
                     id="@field.Id"
                     class="@field.GetValidatableControlClass("form-select") text-start">
-                <wbr /> @* zero width char, to fix the height *@
                 @if (Value == null || Value.Length == 0)
                 {
-
-                    <span class="text-muted">
-                        @Placeholder
-                    </span>
+                    if (string.IsNullOrWhiteSpace(Placeholder))
+                    {
+                        <span>&nbsp;</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">
+                            @Placeholder
+                        </span>
+                    }
                 }
                 else
                 {
-                    <div class="d-inline-flex gap-2 flex-wrap align-items-center">
+                    <div class="d-flex gap-2 flex-wrap align-items-center">
                     @foreach (var item in GetCurrentItems())
                     {
                         <span class="badge text-bg-secondary me-1 mw-100 text-truncate">@item.Label</span>
