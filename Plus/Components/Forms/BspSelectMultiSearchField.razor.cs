@@ -108,22 +108,25 @@ public partial class BspSelectMultiSearchField<TValue, TItem> where TValue : not
         return Value.Contains(itemValue);
     }
 
-    private async Task SelectAsync(TItem item)
+    private async Task ToggleAsync(TItem item)
     {
         var itemValue = ValueAccessor(item);
-        if (Value.Contains(itemValue))
+        await ToggleAsync(itemValue);
+    }
+
+    private async Task ToggleAsync(TValue value)
+    {
+        if (Value.Contains(value))
         {
-            Value = Value.Where(v => v?.Equals(itemValue) is false).ToArray();
+            Value = Value.Where(v => v?.Equals(value) is false).ToArray();
         }
         else
         {
-            Value = [.. Value, itemValue];
+            Value = [.. Value, value];
         }
-
         await ValueChanged.InvokeAsync(Value);
         await _bsDropdownJs.InvokeVoidAsync("update");
         EditContext?.NotifyFieldChanged(Field);
-
     }
 
     private async Task SearchAsync()

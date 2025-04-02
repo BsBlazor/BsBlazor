@@ -11,12 +11,18 @@
                     id="@field.Id"
                     class="@field.GetValidatableControlClass("form-select") text-start d-flex align-items-center">
                 <div class="flex-grow-1 text-truncate">
-                    <wbr /> @* zero width char, to fix the height *@
                     @if (Value is null)
                     {
-                        <span class="text-muted">
-                            @Placeholder
-                        </span>
+                        if (string.IsNullOrWhiteSpace(Placeholder))
+                        {
+                            <span>&nbsp;</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">
+                                @Placeholder
+                            </span>
+                        }
                     }
                     else
                     {

@@ -480,6 +480,22 @@ public static class Examples
 """
 		},
 		{
+			"SelectMultiSearchFieldExample",
+"""
+<BspSelectMultiSearchField @bind-Value="_selectedValues"
+                      Label="Fruit"
+                      Search="term => ExampleDataStore.SearchItemsAsync(term)"
+                      Recover="ids => ExampleDataStore.ListItemsAsync(ids)"
+                      ValueAccessor="item => item.Id"
+                      TextAccessor="item => item.Name" />
+
+@code {
+    private int[] _selectedValues = [];
+}
+
+"""
+		},
+		{
 			"SelectSearchFieldExample",
 """
 <BspSelectSearchField @bind-Value="_selectedValue"

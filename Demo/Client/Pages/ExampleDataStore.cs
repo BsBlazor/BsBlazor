@@ -32,6 +32,7 @@ public static class ExampleDataStore
         Items.Add(new ExampleDataItem { Id = 24, Name = "Xylocarp" });
         Items.Add(new ExampleDataItem { Id = 25, Name = "Yuzu" });
         Items.Add(new ExampleDataItem { Id = 26, Name = "Zucchini" });
+        Items.Add(new ExampleDataItem { Id = 27, Name = "Long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long" });
     }
     
     public static async Task<ExampleDataItem[]> SearchItemsAsync(string searchText)
