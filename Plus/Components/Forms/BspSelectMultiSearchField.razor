@@ -26,10 +26,20 @@
                 else
                 {
                     <div class="d-flex gap-2 flex-wrap align-items-center">
-                    @foreach (var item in GetCurrentItems())
-                    {
-                        <span class="badge text-bg-secondary me-1 mw-100 text-truncate">@item.Label</span>
-                    }
+                        @foreach (var item in GetCurrentItems())
+                        {
+                            <span class="badge text-bg-secondary me-1 mw-100 d-flex align-items-center gap-2">
+                                <span class="flex-1 text-truncate" title="@item.Label">
+                                    @item.Label
+                                </span>
+                                <button class="btn-close"
+                                        role="button"
+                                        bsp-select-multi-remove-button
+                                        disabled="@Disabled"
+                                        @oninternalclick.bsp.selectmultisearch="() => ToggleAsync(item.Value!)"
+                                        tabindex="0"></button>
+                            </span>
+                        }
                     </div>
                 }
 
@@ -64,7 +74,7 @@
                         {
                             <button type="button" tabindex="0" @ref="_firstItem"
                                     class="dropdown-item form-check ps-4"
-                                    @onclick="() => SelectAsync(item)">
+                                    @onclick="() => ToggleAsync(item)">
                                 <input checked="@IsSelected(item)" class="form-check-input" style="pointer-events: none" type="checkbox" />
                                 <div class="form-check-label">
                                     @TextAccessor(item)
@@ -74,7 +84,7 @@
                         else
                         {
                             <button type="button" tabindex="0" class="dropdown-item form-check ps-4"
-                                    @onclick="() => SelectAsync(item)">
+                                    @onclick="() => ToggleAsync(item)">
                                 <input checked="@IsSelected(item)" class="form-check-input" style="pointer-events: none" type="checkbox" />
                                 <div class="form-check-label">
                                     @TextAccessor(item)
