@@ -26,7 +26,7 @@ public partial class BdkFocusOnRender : ComponentBase, IAsyncDisposable
                     Selector,
                     Delay
                 );
-
+            StateHasChanged();
         }
     }
 

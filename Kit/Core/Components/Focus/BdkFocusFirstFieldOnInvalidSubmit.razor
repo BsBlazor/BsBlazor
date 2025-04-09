@@ -1,2 +1,5 @@
 @namespace BlazorDevKit
-<div @ref="_elementReference"></div>
+@if (_jsInstanceReference == null)
+{
+    <div style="display: none" @ref="_elementReference"></div>
+}
