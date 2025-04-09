@@ -36,7 +36,7 @@ public partial class BdkFocusFirstFieldOnInvalidSubmit : ComponentBase, IAsyncDi
                     _elementReference,
                     InvalidSelector
                 );
-            
+            StateHasChanged();
         }
     }
 
