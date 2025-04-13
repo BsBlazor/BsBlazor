@@ -47,6 +47,7 @@
         BsInputType.Month => "month",
         BsInputType.Week => "week",
         BsInputType.Color => "color",
+        BsInputType.Search => "search",
         _ => "text"
     };
     public override ValueTask FocusAsync() => _input.Element!.Value.FocusAsync();
