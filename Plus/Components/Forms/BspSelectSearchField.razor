@@ -7,6 +7,7 @@
         <div @ref="_bsDropdownToggleElement" data-bs-toggle="dropdown">
             <button @ref="_formSelectDivElement"
                     @onkeydown="OnControlKeyDown"
+                    type="button"
                     disabled="@Disabled"
                     id="@field.Id"
                     class="@field.GetValidatableControlClass("form-select") text-start d-flex align-items-center">

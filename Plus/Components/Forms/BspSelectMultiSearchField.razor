@@ -8,6 +8,7 @@
         <div @ref="_bsDropdownToggleElement" data-bs-toggle="dropdown" data-bs-auto-close="outside">
             <button @onkeydown="OnControlKeyDown"
                     disabled="@Disabled"
+                    type="button"
                     id="@field.Id"
                     class="@field.GetValidatableControlClass("form-select") text-start">
                 @if (Value == null || Value.Length == 0)
