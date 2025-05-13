@@ -11,7 +11,7 @@
                     disabled="@Disabled"
                     id="@field.Id"
                     class="@field.GetValidatableControlClass("form-select") text-start d-flex align-items-center">
-                <div class="flex-grow-1 text-truncate">
+                <div class="flex-grow-1 text-truncate" style="width: 0">
                     @if (Value is null)
                     {
                         if (string.IsNullOrWhiteSpace(Placeholder))
