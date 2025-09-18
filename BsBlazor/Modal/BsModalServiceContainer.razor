@@ -1,7 +1,7 @@
 ﻿@namespace BsBlazor
-@if (_modalService != null)
+@if (ModalService.IsNotNull())
 {
-    _modalService.CurrentContainer = this;
+    ModalServiceImpl.CurrentContainer = this;
     foreach (var modalReference in _modalReferences)
     {
         BsModal? currentRef = null;
