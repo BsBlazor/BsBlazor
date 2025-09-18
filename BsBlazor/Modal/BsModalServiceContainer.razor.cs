@@ -2,12 +2,17 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace BsBlazor;
-public partial class BsModalServiceContainer(IModalService modalService, NavigationManager navigationManager) : IDisposable
+
+public partial class BsModalServiceContainer : IDisposable
 {
     private readonly List<ModalReference> _modalReferences = [];
-    private readonly ModalService _modalService = modalService as ModalService ?? throw new InvalidOperationException("ModalService not registered.");
+    
+    private ModalService ModalServiceImpl => ModalService as ModalService ?? throw new InvalidOperationException("ModalService not registered.");
+    
+    [Inject] public required IModalService ModalService {get; init;} 
+    [Inject] public required NavigationManager NavigationManager {get; init;}
+    
     internal bool Disposed { get; private set; }
-
 
     internal void Add(ModalReference modalReference) => _modalReferences.Add(modalReference);
     internal bool Remove(ModalReference modalReference) => _modalReferences.Remove(modalReference);
@@ -18,9 +23,9 @@ public partial class BsModalServiceContainer(IModalService modalService, Navigat
     
     protected override void OnInitialized()
     {
-        navigationManager.LocationChanged += LocationChanged;
-        _modalService.OnModalAdded += (modalReference) => StateHasChanged();
-        _modalService.OnModalRemoved += (modalReference) => StateHasChanged();
+        NavigationManager.LocationChanged += LocationChanged;
+        ModalServiceImpl.OnModalAdded += _ => StateHasChanged();
+        ModalServiceImpl.OnModalRemoved += _ => StateHasChanged();
     }
 
     private void LocationChanged(object? sender, LocationChangedEventArgs args)
@@ -47,7 +52,7 @@ public partial class BsModalServiceContainer(IModalService modalService, Navigat
     public void Dispose()
     {
         Disposed = true;
-        navigationManager.LocationChanged -= LocationChanged;
+        NavigationManager.LocationChanged -= LocationChanged;
         GC.SuppressFinalize(this);
     }
 
