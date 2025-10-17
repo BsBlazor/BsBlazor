@@ -1,71 +1,26 @@
 ﻿@namespace BsBlazor
 @inject IToastService ToastService
+@using BsBlazor.Toasts
 @inherits BsComponentBase
 
 @if (ConcreteModalService is not null)
 {
-    <BsToastContainer Placement="Placement" Position="Position" Class="@Class" AdditionalAttributes="AdditionalAttributes" Style="@Style">
-        @foreach (var toastReference in ConcreteModalService.ToastReferences)
+    <BsToastContainer Placement="Placement" Position="Position" Class="@Class" AdditionalAttributes="AdditionalAttributes" ZIndex="ZIndex" Style="@Style">
+        @foreach (var reference in ConcreteModalService.ToastReferences.Where(tRef => tRef.Options.Placement is null || tRef.Options.Placement == Placement))
         {
-            BsToast? currentRef = null;
-            <BsToast
-                @key="toastReference"
-                @ref="currentRef"
-                ShowWhenRendered
-                OnHidden="toastReference.InvokeHidden"
-                Animation="toastReference.Options.Animation ?? Animation ?? true"
-                Delay="toastReference.Options.Delay ?? Delay ?? 2000"
-                AutoHide="toastReference.Options.AutoHide ?? AutoHide ?? true"
-                Color="toastReference.Options.Color ?? Color"
-                Class="@toastReference.Options.Class">
-                @{ toastReference.Initialize(currentRef!); }
-                <CascadingValue TValue="IToastReference" IsFixed Value="toastReference">
-
-                    @if (toastReference.ReferenceType is ToastReferenceType.Standalone)
-                    {
-                        @if (!string.IsNullOrEmpty(toastReference.Title))
-                        {
-                            <BsToastHeader>
-                                <strong class="me-auto">@toastReference.Title</strong>
-                                @if (toastReference.Options.ShowCloseButtonIcon) { <BsToastCloseButton/> }
-                            </BsToastHeader>
-                        }
-
-                        <BsToastBody>
-
-                            @if (string.IsNullOrEmpty(toastReference.Title) && toastReference.Options.ShowCloseButtonIcon)
-                            {
-                                <div class="d-flex">
-                                    @toastReference.Message
-                                    <BsToastCloseButton Class="me-2 m-auto"/>
-                                </div>
-                            }
-                            else
-                            {
-                                @toastReference.Message
-                            }
-                        </BsToastBody>
-                    }
-
-                    @if (toastReference.ReferenceType is ToastReferenceType.RenderFragment)
-                    {
-                        @toastReference.RenderFragment
-                    }
-
-                    @if (toastReference.ReferenceType is ToastReferenceType.ContextualRenderFragment && toastReference.ContextualRenderFragment is not null)
-                    {
-                        @toastReference.ContextualRenderFragment(toastReference)
-                    }
-
-                    @if (toastReference.ReferenceType is ToastReferenceType.Component && toastReference.ToastContentType is not null)
-                    {
-                        <DynamicComponent Type="toastReference.ToastContentType" Parameters="toastReference.Parameters"/>
-                    }
-
-                </CascadingValue>
-            </BsToast>
+            <BsToastReferenceItem Animation="Animation" AutoHide="AutoHide" Color="Color" Delay="Delay" Reference="reference"/>
         }
     </BsToastContainer>
+
+    @foreach (var placement in Enum.GetValues<BsToastPlacement>().Where(placement => placement != Placement))
+    {
+        <BsToastContainer Placement="placement" Position="Position" Class="@Class" AdditionalAttributes="AdditionalAttributes" ZIndex="ZIndex" Style="@Style">
+            @foreach (var reference in ConcreteModalService.ToastReferences.Where(tRef => tRef.Options.Placement == placement))
+            {
+                <BsToastReferenceItem Animation="Animation" AutoHide="AutoHide" Color="Color" Delay="Delay" Reference="reference"/>
+            }
+        </BsToastContainer>
+    }
 }
 
 @code {
@@ -93,6 +48,7 @@
     [Parameter] public BsToastPlacement? Placement { get; set; }
     
     [Parameter] public BsToastPosition? Position { get; set; }
+    [Parameter] public int ZIndex { get; set; } = 1090;
 
     protected override void OnParametersSet()
     {
