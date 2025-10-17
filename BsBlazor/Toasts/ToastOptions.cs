@@ -9,5 +9,7 @@ public class ToastOptions
     public bool? AutoHide { get; set; }
     public bool? Animation { get; set; }
 
+    public BsToastPlacement? Placement { get; set; }
+
     public bool ShowCloseButtonIcon { get; set; } = true;
 }

@@ -1,7 +1,7 @@
 ﻿@namespace BsBlazor
 @inherits BsComponentBase
 
-<div id="@_id" class="@CssContainerClass" @attributes="AdditionalAttributes" style="z-index: 1000; @Style">
+<div id="@_id" class="@CssContainerClass" @attributes="AdditionalAttributes" style="z-index: @ZIndex; @Style">
     @ChildContent
 </div>
 @code 
@@ -31,6 +31,6 @@
     [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
     
     [Parameter] public BsToastPlacement? Placement { get; set; }
-    
     [Parameter] public BsToastPosition? Position { get; set; }
+    [Parameter] public int ZIndex { get; set; } = 1090;
 }
