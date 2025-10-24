@@ -27,6 +27,8 @@
                                  DismissButtonText="@DismissButtonText"
                                  PrimaryButtonText="@PrimaryButtonText"
                                  OnPrimaryButtonClick="OnPrimaryButtonClick"
+                                 NoHeader="NoHeader"
+                                 NoFooter="NoFooter"
                                  CustomFooter="CustomFooter!">
              @ChildContent
          </BsModalDialogShorthand>
@@ -46,6 +48,11 @@
     public string PrimaryButtonText { get; set; } = "Ok";
     [Parameter]
     public EventCallback OnPrimaryButtonClick { get; set; }
+
+    [Parameter]
+    public bool NoHeader { get; set; }
+    [Parameter]
+    public bool NoFooter { get; set; }
 
     [Parameter]
     public RenderFragment? CustomFooter { get; set; }
