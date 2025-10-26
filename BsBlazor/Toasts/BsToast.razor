@@ -23,6 +23,7 @@
 {
     private string _id = Guid.NewGuid().ToString("N");
     private ElementReference _elementReference;
+    internal ElementReference ElementReference => _elementReference;
     private IJSObjectReference _jsInstance = default!;
 
     private string CssClass => CssBuilder

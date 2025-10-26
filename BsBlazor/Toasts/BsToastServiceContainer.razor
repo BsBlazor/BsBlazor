@@ -2,29 +2,21 @@
 @inject IToastService ToastService
 @using BsBlazor.Toasts
 @inherits BsComponentBase
-
 @if (ConcreteModalService is not null)
 {
-    <BsToastContainer Placement="Placement" Position="Position" Class="@Class" AdditionalAttributes="AdditionalAttributes" ZIndex="ZIndex" Style="@Style">
-        @foreach (var reference in ConcreteModalService.ToastReferences.Where(tRef => tRef.Options.Placement is null || tRef.Options.Placement == Placement))
-        {
-            <BsToastReferenceItem Animation="Animation" AutoHide="AutoHide" Color="Color" Delay="Delay" Reference="reference"/>
-        }
-    </BsToastContainer>
-
-    @foreach (var placement in Enum.GetValues<BsToastPlacement>().Where(placement => placement != Placement))
+    @foreach(var placement in _usedPlacements)
     {
-        <BsToastContainer Placement="placement" Position="Position" Class="@Class" AdditionalAttributes="AdditionalAttributes" ZIndex="ZIndex" Style="@Style">
-            @foreach (var reference in ConcreteModalService.ToastReferences.Where(tRef => tRef.Options.Placement == placement))
+        <BsToastContainer @key="@($"toast_service_{placement}")" Placement="placement" Position="Position" Class="@Class" AdditionalAttributes="AdditionalAttributes" ZIndex="ZIndex" Style="@Style">
+            @foreach (var reference in GetToastsFor(placement))
             {
-                <BsToastReferenceItem Animation="Animation" AutoHide="AutoHide" Color="Color" Delay="Delay" Reference="reference"/>
+                <BsToastReferenceItem @key="reference" Animation="Animation" AutoHide="AutoHide" Color="Color" Delay="Delay" Reference="reference" />
             }
         </BsToastContainer>
     }
 }
-
 @code {
     private ToastService? ConcreteModalService => ToastService as ToastService;
+    private HashSet<BsToastPlacement?> _usedPlacements = [];
 
     protected override void OnInitialized()
     {
@@ -33,8 +25,8 @@
             return;
         }
 
-        ConcreteModalService.OnToastAdded += _ => StateHasChanged();
-        ConcreteModalService.OnToastRemoved += _ => StateHasChanged();
+        ConcreteModalService.OnToastAdded += ToastAdded;
+        ConcreteModalService.OnToastRemoved += ToastRemoved;
     }
 
     [Parameter] public bool? Animation { get; set; }
@@ -44,9 +36,9 @@
     [Parameter] public int? Delay { get; set; }
 
     [Parameter] public BsToastColor? Color { get; set; }
-    
+
     [Parameter] public BsToastPlacement? Placement { get; set; }
-    
+
     [Parameter] public BsToastPosition? Position { get; set; }
     [Parameter] public int ZIndex { get; set; } = 1090;
 
@@ -56,11 +48,30 @@
         {
             Placement = BsToastPlacement.TopRight;
         }
-        
+
         if (string.IsNullOrEmpty(Class) && Position is null)
         {
             Position = BsToastPosition.Fixed;
         }
+    }
+
+    private void ToastAdded(ToastReference toastReference)
+    {
+        _usedPlacements.Add(toastReference.Options.Placement);
+        StateHasChanged();
+    }
+
+    private void ToastRemoved(ToastReference toastReference)
+    {
+        StateHasChanged();
+    }
+
+    private IEnumerable<ToastReference> GetToastsFor(BsToastPlacement? placement)
+    {
+        return ConcreteModalService!.ToastReferences
+                                    .Where(tRef => tRef.Options.Placement == placement
+                                                // default placement
+                                                || tRef.Options.Placement == null && Placement == placement);
     }
 
 }
