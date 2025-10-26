@@ -9,7 +9,7 @@
         <BsToastContainer @key="@($"toast_service_{placement}")" Placement="placement" Position="Position" Class="@Class" AdditionalAttributes="AdditionalAttributes" ZIndex="ZIndex" Style="@Style">
             @foreach (var reference in GetToastsFor(placement))
             {
-                <BsToastReferenceItem @key="reference" Animation="Animation" AutoHide="AutoHide" Color="Color" Delay="Delay" Reference="reference" />
+                <BsToastReferenceItem @key="reference" Animation="Animation" AutoHide="AutoHide" Color="Color" Delay="Delay" Reference="reference" ToastContentTemplate="ToastContentTemplate" />
             }
         </BsToastContainer>
     }
@@ -41,6 +41,7 @@
 
     [Parameter] public BsToastPosition? Position { get; set; }
     [Parameter] public int ZIndex { get; set; } = 1090;
+    [Parameter] public RenderFragment<BsToastReferenceData>? ToastContentTemplate { get; set; }
 
     protected override void OnParametersSet()
     {
