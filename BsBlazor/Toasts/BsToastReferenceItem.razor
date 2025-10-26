@@ -13,34 +13,44 @@
     Class="@ToastReference.Options.Class">
     @{ ToastReference.Initialize(_toast); }
     <CascadingValue TValue="IToastReference" IsFixed Value="ToastReference">
-        @ToastContentTemplate?.Invoke(new (){ Color = ToastReference.Options.Color, Message = ToastReference.Message, Title = ToastReference.Title })
         @if (ToastReference.ReferenceType is ToastReferenceType.Standalone)
         {
-            @if (!string.IsNullOrEmpty(ToastReference.Title))
+            @if (ToastContentTemplate != null)
             {
-                <BsToastHeader>
-                    <strong class="me-auto">@ToastReference.Title</strong>
-                    @if (ToastReference.Options.ShowCloseButtonIcon)
-                    {
-                        <BsToastCloseButton/>
-                    }
-                </BsToastHeader>
+                @ToastContentTemplate(new() {   
+                    Title = ToastReference.Title,
+                    Message = ToastReference.Message,
+                    Options = ToastReference.Options 
+                });
             }
-
-            <BsToastBody>
-
-                @if (string.IsNullOrEmpty(ToastReference.Title) && ToastReference.Options.ShowCloseButtonIcon)
+            else
+            {
+                @if (!string.IsNullOrEmpty(ToastReference.Title))
                 {
-                    <div class="d-flex">
+                    <BsToastHeader>
+                        <strong class="me-auto">@ToastReference.Title</strong>
+                        @if (ToastReference.Options.ShowCloseButtonIcon)
+                        {
+                            <BsToastCloseButton/>
+                        }
+                    </BsToastHeader>
+                }
+
+                <BsToastBody>
+
+                    @if (string.IsNullOrEmpty(ToastReference.Title) && ToastReference.Options.ShowCloseButtonIcon)
+                    {
+                        <div class="d-flex">
+                            @ToastReference.Message
+                            <BsToastCloseButton Class="me-2 m-auto"/>
+                        </div>
+                    }
+                    else
+                    {
                         @ToastReference.Message
-                        <BsToastCloseButton Class="me-2 m-auto"/>
-                    </div>
-                }
-                else
-                {
-                    @ToastReference.Message
-                }
-            </BsToastBody>
+                    }
+                </BsToastBody>
+            }
         }
 
         @if (ToastReference.ReferenceType is ToastReferenceType.RenderFragment)
@@ -57,7 +67,6 @@
         {
             <DynamicComponent Type="ToastReference.ToastContentType" Parameters="ToastReference.Parameters"/>
         }
-
     </CascadingValue>
 </BsToast>
 
@@ -71,6 +80,6 @@
     [Parameter] public bool? AutoHide { get; set; }
     [Parameter] public int? Delay { get; set; }
     [Parameter] public BsToastColor? Color { get; set; }
-    [Parameter] public RenderFragment<BsToastReferenceData>? ToastContentTemplate { get; set; }
+    [Parameter] public RenderFragment<StandaloneToastData>? ToastContentTemplate { get; set; }
 
 }

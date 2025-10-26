@@ -1,8 +1,8 @@
 ﻿namespace BsBlazor;
 
-public class BsToastReferenceData
+public class StandaloneToastData
 {
     public string? Title { get; set; }
     public string? Message { get; set; }
-    public BsToastColor? Color { get; set; }
+    public required ToastOptions Options { get; set; }
 }

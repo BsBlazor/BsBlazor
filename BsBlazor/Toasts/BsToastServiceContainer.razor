@@ -41,7 +41,7 @@
 
     [Parameter] public BsToastPosition? Position { get; set; }
     [Parameter] public int ZIndex { get; set; } = 1090;
-    [Parameter] public RenderFragment<BsToastReferenceData>? ToastContentTemplate { get; set; }
+    [Parameter] public RenderFragment<StandaloneToastData>? ToastContentTemplate { get; set; }
 
     protected override void OnParametersSet()
     {
