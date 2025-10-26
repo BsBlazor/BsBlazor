@@ -13,7 +13,7 @@
     Class="@ToastReference.Options.Class">
     @{ ToastReference.Initialize(_toast); }
     <CascadingValue TValue="IToastReference" IsFixed Value="ToastReference">
-
+        @ToastContentTemplate?.Invoke(new (){ Color = ToastReference.Options.Color, Message = ToastReference.Message, Title = ToastReference.Title })
         @if (ToastReference.ReferenceType is ToastReferenceType.Standalone)
         {
             @if (!string.IsNullOrEmpty(ToastReference.Title))
@@ -71,5 +71,6 @@
     [Parameter] public bool? AutoHide { get; set; }
     [Parameter] public int? Delay { get; set; }
     [Parameter] public BsToastColor? Color { get; set; }
-    
+    [Parameter] public RenderFragment<BsToastReferenceData>? ToastContentTemplate { get; set; }
+
 }
