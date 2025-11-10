@@ -8,7 +8,7 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     private PersistingComponentStateSubscription? _persistingSubscription;
     private T? _value;
     private BdkLoaderState _state = BdkLoaderState.Loading;
-    private BdkLoaderErrorResult _lastErrorResult = default!;
+    private BdkLoaderErrorResult? _lastErrorResult;
 
     private string LoaderToken => Key == null ? "BdkL" + typeof(T).Name + Load.Method.Name : "BdkL" + Key;
 
@@ -89,6 +89,8 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     [RequiresUnreferencedCode("Calls Microsoft.AspNetCore.Components.PersistentComponentState.PersistAsJson<TValue>(String, TValue)")]
     private Task PersistValue()
     {
+        // TODO: think about... should errors be preserved? or should exists an option for it?
+        if(_lastErrorResult != null) { return Task.CompletedTask; }
         PersistentComponentState.PersistAsJson(LoaderToken, _value);
         return Task.CompletedTask;
     }

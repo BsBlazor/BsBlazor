@@ -322,6 +322,29 @@ public static class Examples
 """
 		},
 		{
+			"LoaderPreserveWithErrorExample",
+"""
+@inject ISubjectService Service
+
+<BdkLoader Load="LoadAsync" PreserveState >
+    <ul>
+        @foreach (var result in context)
+        {
+            <li>Item: @result.Id</li>
+        }
+    </ul>
+</BdkLoader>
+@code
+{
+    private async Task<ResponseItem[]> LoadAsync()
+    {
+        await Service.ProcessAsync(throwErrorAfterProcess: true); // Simulate error
+        return await Service.ListAsync();
+    }
+}
+"""
+		},
+		{
 			"CheckFieldCustomLabelExample",
 """
 <BspCheckField @bind-Value="_like">
@@ -1452,8 +1475,21 @@ public static class Examples
 		{
 			"ToastPlacementExample",
 """
+@inject IToastService ToastService
+
+<div class="d-flex flex-row flex-wrap gap-2">
+    @foreach (var placement in Enum.GetValues<BsToastPlacement>())
+    {
+        <BsButton OnClick="@(async () => await ShowToastAsync(placement))" Variant="BsButtonVariant.Primary">
+            @placement
+        </BsButton>
+    }
+</div>
+
+<hr/>
+
 <InputSelect @bind-Value="_placement" class="form-select my-3">
-    @foreach(var placement in Enum.GetValues(typeof(BsToastPlacement)).Cast<BsToastPlacement>())
+    @foreach (var placement in Enum.GetValues(typeof(BsToastPlacement)).Cast<BsToastPlacement>())
     {
         <option value="@placement">@placement</option>
     }
@@ -1463,7 +1499,7 @@ public static class Examples
     <BsToastContainer Class="position-absolute" Position="null" Placement="_placement">
         <BsToast Class="fade show" AutoHide="false">
             <BsToastHeader>
-                <MyIcon />
+                <MyIcon/>
                 <strong class="me-auto">Bootstrap</strong>
                 <small>11 mins ago</small>
                 <BsToastCloseButton/>
@@ -1477,6 +1513,15 @@ public static class Examples
 
 @code {
     private BsToastPlacement _placement = BsToastPlacement.TopLeft;
+
+    private async Task ShowToastAsync(BsToastPlacement placement)
+    {
+        await ToastService.ShowAsync("Hello, world! This is a toast message.", "Bootstrap", new ToastOptions
+        {
+            Placement = placement
+        });
+    }
+
 }
 """
 		},
