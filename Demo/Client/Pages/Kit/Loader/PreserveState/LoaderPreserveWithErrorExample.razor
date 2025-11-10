@@ -1,0 +1,18 @@
+@inject ISubjectService Service
+
+<BdkLoader Load="LoadAsync" PreserveState >
+    <ul>
+        @foreach (var result in context)
+        {
+            <li>Item: @result.Id</li>
+        }
+    </ul>
+</BdkLoader>
+@code
+{
+    private async Task<ResponseItem[]> LoadAsync()
+    {
+        await Service.ProcessAsync(throwErrorAfterProcess: true); // Simulate error
+        return await Service.ListAsync();
+    }
+}
