@@ -18,13 +18,13 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     [Parameter] public bool CanRetry { get; set; }
     [Parameter] public string Message { get; set; } = string.Empty;
     [Parameter] public string CanRetryTitle { get; set; } = string.Empty;
-    
-    [Parameter] [EditorRequired] public required Func<Task<T>> Load { get; set; }
-    [Parameter] [EditorRequired] public required RenderFragment<T> ChildContent { get; set; }
-    
+
+    [Parameter][EditorRequired] public required Func<Task<T>> Load { get; set; }
+    [Parameter][EditorRequired] public required RenderFragment<T> ChildContent { get; set; }
+
     [Parameter] public EventCallback<T> OnLoaded { get; set; }
     [Parameter] public EventCallback<BdkLoaderErrorResult> OnError { get; set; }
-    
+
     [Parameter] public RenderFragment? LoadingContent { get; set; }
     [Parameter] public RenderFragment<BdkLoaderErrorResult>? ErrorContent { get; set; }
 
@@ -68,7 +68,7 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
         StateHasChanged();
         await TryLoadAsync();
     }
-    
+
     private async Task LoadAsync() => _value = await Load();
 
     [RequiresUnreferencedCode("Calls Microsoft.AspNetCore.Components.PersistentComponentState.TryTakeFromJson<TValue>(String, out TValue)")]
@@ -79,7 +79,7 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
             _value = restored;
             return;
         }
-        
+
         _value = restored ?? await Load();
     }
 
@@ -90,11 +90,20 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     private Task PersistValue()
     {
         // TODO: think about... should errors be preserved? or should exists an option for it?
-        if(_lastErrorResult != null) { return Task.CompletedTask; }
-        PersistentComponentState.PersistAsJson(LoaderToken, _value);
+        if (_lastErrorResult != null) { return Task.CompletedTask; }
+
+        // In .NET10, it seems to break presistance mechanism, so others persistances won't work.
+        try
+        {
+            PersistentComponentState.PersistAsJson(LoaderToken, _value);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         return Task.CompletedTask;
     }
-    
+
     public void Dispose()
     {
         _persistingSubscription?.Dispose();
