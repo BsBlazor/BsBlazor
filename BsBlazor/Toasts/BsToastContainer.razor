@@ -30,7 +30,10 @@
     
     [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
     
+
+    [Obsolete("This parameter will be removed in a future version. Components should not rely on Bootstrap utility classes.")]
     [Parameter] public BsToastPlacement? Placement { get; set; }
+    [Obsolete("This parameter will be removed in a future version. Components should not rely on Bootstrap utility classes.")]
     [Parameter] public BsToastPosition? Position { get; set; }
     [Parameter] public int ZIndex { get; set; } = 1090;
 }
