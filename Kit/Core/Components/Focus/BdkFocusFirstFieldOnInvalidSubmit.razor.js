@@ -45,7 +45,11 @@ export class BdkFocusFirstFieldOnInvalidSubmit {
 
     static create(identifier, dotNetReference, elementReference, invalidSelector) {
         window[identifier] = new BdkFocusFirstFieldOnInvalidSubmit(dotNetReference, elementReference, invalidSelector);
-        window[identifier].form.addEventListener('submit', () => window[identifier].dotNetReference.invokeMethodAsync('NotifySubmitAsync'));
+        window[identifier].form.addEventListener('submit', () => {
+            // Sometimes it may happen that the component is already disposed when the submit event is fired
+            if (!window[identifier]) { return; }
+            window[identifier].dotNetReference.invokeMethodAsync('NotifySubmitAsync');
+        });
         return window[identifier];        
     }
 }
