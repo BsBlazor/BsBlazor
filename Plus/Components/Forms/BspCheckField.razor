@@ -29,10 +29,10 @@
 </div>
 @code {
     private string _computedId = string.Empty;
-    private string CssClass => CssBuilder.Default("form-check")
+    private string CssClass => InternalCssBuilder.Default("form-check")
        .AddClass(Class)
        .Build();
-    private string CheckCss => CssBuilder.Default("form-check-input")
+    private string CheckCss => InternalCssBuilder.Default("form-check-input")
       .AddClass("is-invalid", EditContext != null && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression!)))
       .Build();
     [CascadingParameter] private EditContext? EditContext { get; set; }

@@ -10,7 +10,7 @@ public abstract class BsButtonBase : BsComponentBase
     // For example, the button has a btn-link variant that don't have a theme color.
     [Parameter] public BsButtonVariant Variant { get; set; }
     
-    internal virtual CssBuilder CssBuilder => CssBuilder
+    internal virtual InternalCssBuilder CssBuilder => InternalCssBuilder
         .Default("btn")
         .AddClass("btn-lg", Size is BsButtonSize.Large)
         .AddClass("btn-sm", Size is BsButtonSize.Small)

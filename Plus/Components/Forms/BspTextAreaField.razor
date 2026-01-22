@@ -28,7 +28,7 @@
     [Parameter]
     public int? Rows { get; set; }
     private BdkInputTextArea _textArea = default!;
-    private string InputCss => CssBuilder.Default("form-control")
+    private string InputCss => InternalCssBuilder.Default("form-control")
          .AddClass("form-control-sm", Size == BsFormControlSize.Small)
          .AddClass("form-control-lg", Size == BsFormControlSize.Large)
          .Build();

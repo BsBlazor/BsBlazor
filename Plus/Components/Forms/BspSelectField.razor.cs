@@ -9,7 +9,7 @@ public partial class BspSelectField<[DynamicallyAccessedMembers(DynamicallyAcces
 {
     private string _fakeLoading = "...";
     private InputSelect<TValue?>? _select = default!;
-    private string InputCss => CssBuilder.Default("form-select")
+    private string InputCss => InternalCssBuilder.Default("form-select")
          .AddClass("form-select-sm", Size == BsFormControlSize.Small)
          .AddClass("form-select-lg", Size == BsFormControlSize.Large)
          .Build();

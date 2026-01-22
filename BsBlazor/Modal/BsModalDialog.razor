@@ -7,7 +7,7 @@
 @code {
     private Dictionary<string, object> _additionalAttributes = [];
 
-    private string CssClass => CssBuilder.Default("modal-dialog")
+    private string CssClass => InternalCssBuilder.Default("modal-dialog")
                                         .AddClass("modal-sm", Size == BsModalSize.Small)
                                         .AddClass("modal-lg", Size == BsModalSize.Large)
                                         .AddClass("modal-xl", Size == BsModalSize.ExtraLarge)

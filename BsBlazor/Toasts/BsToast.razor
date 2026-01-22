@@ -26,7 +26,7 @@
     internal ElementReference ElementReference => _elementReference;
     private IJSObjectReference _jsInstance = default!;
 
-    private string CssClass => CssBuilder
+    private string CssClass => InternalCssBuilder
         .Default("toast")
         .AddBsClass(bs => bs.TextBackgroundPrimary, Color is BsToastColor.Primary)
         .AddBsClass(bs => bs.TextBackgroundSecondary, Color is BsToastColor.Secondary)

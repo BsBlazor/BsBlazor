@@ -10,7 +10,7 @@ public partial class BsCarousel : BsComponentBase
     private Dictionary<string, BsCarouselItem> _carouselItems = new();
     private IJSObjectReference _jsInstance = default!;
     
-    private string CssClass => CssBuilder
+    private string CssClass => InternalCssBuilder
         .Default("carousel slide")
         .AddClass("carousel-fade", Fade)
         .AddClass(Class)

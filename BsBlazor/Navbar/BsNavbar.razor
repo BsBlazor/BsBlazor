@@ -4,7 +4,7 @@
     @ChildContent
 </div>
 @code {
-    private string CssClass => CssBuilder.Default("navbar")
+    private string CssClass => InternalCssBuilder.Default("navbar")
        .AddClass(Class)
        .Build();
 }

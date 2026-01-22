@@ -4,7 +4,7 @@
     @ChildContent
 </p>
 @code {
-    private string CssClass => CssBuilder.Default("card-text")
+    private string CssClass => InternalCssBuilder.Default("card-text")
       .AddClass(Class)
       .Build();
 }

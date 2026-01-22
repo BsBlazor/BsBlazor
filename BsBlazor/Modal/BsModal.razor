@@ -22,7 +22,7 @@ aria-hidden="true"
     private ElementReference _elementReference;
     private IJSObjectReference _jsInstance = default!;
 
-    private string CssClass => CssBuilder.Default("modal")
+    private string CssClass => InternalCssBuilder.Default("modal")
                                          .AddClass("fade", Fade)
                                          .AddClass(Class)
                                          .Build();

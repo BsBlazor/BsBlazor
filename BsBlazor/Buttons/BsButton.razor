@@ -20,7 +20,7 @@
     // See more: https://getbootstrap.com/docs/5.3/components/buttons/#disabled-state
     [Parameter] public bool Disabled { get; set; }
 
-    internal override CssBuilder CssBuilder => base.CssBuilder
+    internal override InternalCssBuilder CssBuilder => base.CssBuilder
                                                    .AddClass("dropdown-toggle", Toggle is BsButtonToggle.Dropdown);
 
     protected override void OnParametersSet()

@@ -35,8 +35,8 @@
         _context = new BspFieldContext<TValue>(Id, EditContext, ValueExpression, FieldGroup);
     }
 
-    protected string CssClass => CssBuilder.Empty().AddClass(Class).Build();
-    private string LabelCssClass => CssBuilder.Default("form-label")
+    protected string CssClass => InternalCssBuilder.Empty().AddClass(Class).Build();
+    private string LabelCssClass => InternalCssBuilder.Default("form-label")
        .AddClass("text-danger", EditContext != null 
                                 && ValueExpression != null 
                                 && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression))).Build();

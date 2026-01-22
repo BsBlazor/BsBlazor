@@ -4,7 +4,7 @@
     @ChildContent
 </div>
 @code {
-    private string CssClass => CssBuilder.Default("badge")
+    private string CssClass => InternalCssBuilder.Default("badge")
        .AddClass(Bs.Css.TextBackgroundPrimary, Color is BsThemeColor.Primary)
        .AddClass(Bs.Css.TextBackgroundSecondary, Color is BsThemeColor.Secondary)
        .AddClass(Bs.Css.TextBackgroundSuccess, Color is BsThemeColor.Success)

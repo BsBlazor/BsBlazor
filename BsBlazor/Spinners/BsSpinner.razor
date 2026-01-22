@@ -6,7 +6,7 @@
 @code {
     [Parameter]public string HiddenText { get; set; } = "Loading...";
     [Parameter] public BsSpinnerSize Size { get; set; } = BsSpinnerSize.Default;
-    private string CssClass => CssBuilder
+    private string CssClass => InternalCssBuilder
            .Default("spinner-border")
            .AddClass("spinner-border-sm", Size == BsSpinnerSize.Small)
            .AddClass(Class)
