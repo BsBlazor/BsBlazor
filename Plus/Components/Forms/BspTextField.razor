@@ -25,7 +25,7 @@
 </BspField>
 @code {
     private BdkInputText _input = default!;
-    private string InputCss => CssBuilder.Default("form-control")
+    private string InputCss => InternalCssBuilder.Default("form-control")
          .AddClass("form-control-color", Type is BsInputType.Color)
          .AddClass("form-control-sm", Size == BsFormControlSize.Small)
          .AddClass("form-control-lg", Size == BsFormControlSize.Large)

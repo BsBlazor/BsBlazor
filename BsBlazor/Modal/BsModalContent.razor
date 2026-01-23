@@ -1,6 +1,6 @@
 ﻿@namespace BsBlazor
 @inherits BsComponentWithContentBase
-<div class="@CssBuilder.Default("modal-content").AddClass(Class)" style="@Style" @attributes="AdditionalAttributes">
+<div class="@InternalCssBuilder.Default("modal-content").AddClass(Class)" style="@Style" @attributes="AdditionalAttributes">
     @ChildContent
 </div>
 

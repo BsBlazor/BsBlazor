@@ -4,7 +4,7 @@
     @ChildContent
 </div>
 @code {
-    private string CssClass => CssBuilder.Default(Bs.Css.CardBody)
+    private string CssClass => InternalCssBuilder.Default(Bs.Css.CardBody)
       .AddClass(Class)
       .Build();
 }

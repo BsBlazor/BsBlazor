@@ -14,7 +14,7 @@ public class BspFieldContext<TValue>(string? id, EditContext? editContext, Expre
         }
         var fieldIdentifier = FieldIdentifier.Create(valueExpression);
         var isValid = editContext?.IsValid(fieldIdentifier) ?? true;
-        return CssBuilder.Default(controlClass)
+        return InternalCssBuilder.Default(controlClass)
             .AddClass("is-invalid", !isValid)
             .Build();
     }

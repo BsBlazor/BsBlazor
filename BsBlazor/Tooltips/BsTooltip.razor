@@ -14,7 +14,7 @@
 
     private readonly string _id = Guid.NewGuid().ToString("N");
 
-    private string CssClass => CssBuilder
+    private string CssClass => InternalCssBuilder
         .Empty()
         .AddClass(Class)
         .Build();

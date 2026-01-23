@@ -4,7 +4,7 @@
     @ChildContent
 </h5>
 @code {
-    private string CssClass => CssBuilder.Default(Bs.Css.CardTitle)
+    private string CssClass => InternalCssBuilder.Default(Bs.Css.CardTitle)
       .AddClass(Class)
       .Build();
 }

@@ -4,7 +4,7 @@
     @ChildContent
 </div>
 @code {
-    private string CssClass => CssBuilder.Default(Bs.Css.FormText)
+    private string CssClass => InternalCssBuilder.Default(Bs.Css.FormText)
       .AddClass(Class)
       .Build();
 }

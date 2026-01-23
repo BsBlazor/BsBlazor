@@ -8,7 +8,7 @@
 {
     private string _id = Guid.NewGuid().ToString("N");
 
-    private string CssContainerClass => CssBuilder
+    private string CssContainerClass => InternalCssBuilder
         .Default("toast-container")
         .AddBsClass(bs => bs.Padding3)
         .AddBsClass(bs => bs.PositionAbsolute, Position is BsToastPosition.Absolute)

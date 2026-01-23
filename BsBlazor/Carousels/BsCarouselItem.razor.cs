@@ -5,7 +5,7 @@ namespace BsBlazor;
 
 public partial class BsCarouselItem : BsComponentBase
 {
-    private string CssClass => CssBuilder
+    private string CssClass => InternalCssBuilder
         .Default("carousel-item")
         .AddClass("active", Active)
         .AddClass(Class)
