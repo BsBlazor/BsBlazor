@@ -14,7 +14,9 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
 
     [Inject] public required PersistentComponentState PersistentComponentState { get; set; }
     [Parameter] public string? Key { get; set; }
-    [Parameter] public bool PreserveState { get; set; }
+
+    [Parameter, Obsolete("Use Mode=BdkLoaderMode.Persist")] public bool PreserveState { get; set; }
+    [Parameter] public BdkLoaderMode Mode { get; set; } = BdkLoaderMode.Repeat;
     [Parameter] public bool CanRetry { get; set; }
     [Parameter] public string Message { get; set; } = string.Empty;
     [Parameter] public string CanRetryTitle { get; set; } = string.Empty;
@@ -36,7 +38,12 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     {
         try
         {
-            if (PreserveState)
+            if(Mode == BdkLoaderMode.WebAssemblyOnly && !OperatingSystem.IsBrowser())
+            {
+                return;
+            }
+
+            if (PreserveState || Mode == BdkLoaderMode.Persist)
             {
                 RegisterPersistingAction();
                 await LoadOrRestoreAsync();
