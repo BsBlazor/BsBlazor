@@ -12,7 +12,7 @@
     @ChildContent?.Invoke(_context)
     @if(EditContext != null && ValueExpression != null)
     {
-        <ValidationMessage class="invalid-feedback d-block" For="@ValueExpression" />
+        <ValidationMessage class="invalid-feedback" For="@ValueExpression" />
     }
 </div>
 @code {
@@ -29,10 +29,23 @@
     [CascadingParameter] private EditContext? EditContext { get; set; }
     [CascadingParameter] private BspFieldGroup? FieldGroup { get; set; }
 
-
+    private EditContext? _previousEditContext = null;
     protected override void OnParametersSet()
     {
         _context = new BspFieldContext<TValue>(Id, EditContext, ValueExpression, FieldGroup);
+        if(EditContext != _previousEditContext)
+        {
+            DetachValidationStateChangedListener();
+            _previousEditContext = EditContext;
+            if(EditContext != null)
+            {
+                EditContext.OnValidationStateChanged += ValidationStateChangedHandler; 
+            }
+        }
+    }
+    private void ValidationStateChangedHandler(object? sender, ValidationStateChangedEventArgs e)
+    {
+        StateHasChanged();
     }
 
     protected string CssClass => InternalCssBuilder.Empty().AddClass(Class).Build();
@@ -40,4 +53,12 @@
        .AddClass("text-danger", EditContext != null 
                                 && ValueExpression != null 
                                 && !EditContext.IsValid(FieldIdentifier.Create(ValueExpression))).Build();
+
+    private void DetachValidationStateChangedListener()
+    {
+        if (_previousEditContext != null)
+        {
+            _previousEditContext.OnValidationStateChanged -= ValidationStateChangedHandler;
+        }
+    }
 }

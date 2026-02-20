@@ -4,4 +4,10 @@
 {
     <div style="display: none" @ref="_elementReference"></div>
 }
-@ChildContent
+@if(MaskContext != null)
+{
+    @MaskContext.Invoke(_context)
+}
+else{
+    @ChildContent
+}

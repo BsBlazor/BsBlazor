@@ -1,9 +1,24 @@
-﻿<BdkIMaskNumber @bind-Value=DecimalValue 
-                BindTarget="BdkIMaskBindTarget.TypedValue" 
+﻿@using System.ComponentModel.DataAnnotations
+<h5>Simple input</h5>
+<BdkIMaskNumber @bind-Value=DecimalValue
+                BindTarget="BdkIMaskBindTarget.TypedValue"
                 ThousandsSeparator=@(' ')>
-    <input class="form-control"/>
+    <input class="form-control" />
 </BdkIMaskNumber>
-@(DecimalValue.HasValue ? DecimalValue.Value : "null")
+<hr />
+<EditForm Model="this">
+    <DataAnnotationsValidator/>
+    <BdkIMaskNumber @bind-Value=DecimalValue
+                    BindTarget="BdkIMaskBindTarget.TypedValue"
+                    ThousandsSeparator=@('.')>
+        <BspField Label="Decimal field" ValueExpression="() => DecimalValue" Context="field">
+            <input class="form-control @field.ValidationClass" />
+        </BspField>
+    </BdkIMaskNumber>
+</EditForm>
+<hr />
+Value: @(DecimalValue.HasValue? DecimalValue.Value: "null")
 @code {
+    [Required, Range(100d, 1_000_000d) ]
     public decimal? DecimalValue { get; set; } = 12_345.67m;
 }

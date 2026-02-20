@@ -74,13 +74,28 @@ public static class Examples
 		{
 			"IMaskNumberBindingExample",
 """
-<BdkIMaskNumber @bind-Value=DecimalValue 
-                BindTarget="BdkIMaskBindTarget.TypedValue" 
+@using System.ComponentModel.DataAnnotations
+<h5>Simple input</h5>
+<BdkIMaskNumber @bind-Value=DecimalValue
+                BindTarget="BdkIMaskBindTarget.TypedValue"
                 ThousandsSeparator=@(' ')>
-    <input class="form-control"/>
+    <input class="form-control" />
 </BdkIMaskNumber>
-@(DecimalValue.HasValue ? DecimalValue.Value : "null")
+<hr />
+<EditForm Model="this">
+    <DataAnnotationsValidator/>
+    <BdkIMaskNumber @bind-Value=DecimalValue
+                    BindTarget="BdkIMaskBindTarget.TypedValue"
+                    ThousandsSeparator=@('.')>
+        <BspField Label="Decimal field" ValueExpression="() => DecimalValue" Context="field">
+            <input class="form-control @field.ValidationClass" />
+        </BspField>
+    </BdkIMaskNumber>
+</EditForm>
+<hr />
+Value: @(DecimalValue.HasValue? DecimalValue.Value: "null")
 @code {
+    [Required, Range(100d, 1_000_000d) ]
     public decimal? DecimalValue { get; set; } = 12_345.67m;
 }
 """
@@ -107,6 +122,39 @@ public static class Examples
 <BdkIMaskPattern Mask="{#}000[aaa]/NIC-`*[**]">
     <input class="form-control" value="#534/NIC-534" />
 </BdkIMaskPattern>
+"""
+		},
+		{
+			"IMaskPatternUnmaskedExample",
+"""
+@using System.ComponentModel.DataAnnotations
+<EditForm Model="this">
+    <DataAnnotationsValidator/>
+    <BdkIMaskPattern Mask="000.000.000-00" Context="mask" Value="@Value" BindTarget="BdkIMaskBindTarget.UnmaskedValue">
+        <MaskContext Context="mask">
+            <BspTextField Label="Text field component - OnChange" 
+                          Value="@mask.MaskedValue"
+                          ValueExpression="() => Value"
+                          ValueChanged="async _ => { Value = await mask.GetUnmaskedValueAsync(); }" />
+        </MaskContext>
+    </BdkIMaskPattern>
+    <hr />
+    <BdkIMaskPattern Mask="000.000.000-00" @bind-Value="@Value" @bind-Value:after="StateHasChanged" BindTarget="BdkIMaskBindTarget.UnmaskedValue">
+        <MaskContext Context="mask">
+            <BspTextField Label="Text field component - Immediate" Value="@mask.MaskedValue" ValueExpression="() => Value"/>
+        </MaskContext>
+    </BdkIMaskPattern>
+    <hr />
+    <BspTextField Label="Text field component - Without imask" @bind-Value="Value" Immediate />
+    <hr />
+    <BsButton Type="BsButtonType.Submit" Variant="BsButtonVariant.Primary" >Send</BsButton>
+</EditForm>
+<div>Real value: @Value</div>
+@code {
+    [Required, RegularExpression(@"\d{11}", ErrorMessage = "Invalid pattern")]
+    public string Value { get; set; } = "12345678901";
+}
+
 """
 		},
 		{
