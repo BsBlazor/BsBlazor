@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components;
-using System.Linq.Expressions;
-using BsBlazor.Helpers;
-
-namespace BsBlazor.Plus;
+﻿namespace BsBlazor.Plus;
 
 public abstract class BspInputFieldBase<TValue> : BsComponentBase
 {
@@ -27,7 +22,7 @@ public abstract class BspInputFieldBase<TValue> : BsComponentBase
     /// <example>
     /// @bind-Value="model.PropertyName"
     /// </example>
-    [Parameter, EditorRequired] public TValue? Value { get; set; }
+    [Parameter] public TValue? Value { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that updates the bound value.
@@ -37,7 +32,7 @@ public abstract class BspInputFieldBase<TValue> : BsComponentBase
     /// <summary>
     /// Gets or sets an expression that identifies the bound value.
     /// </summary>
-    [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
+    [Parameter, EditorRequired] public Expression<Func<TValue>>? ValueExpression { get; set; }
 
     public virtual ValueTask FocusAsync() => ValueTask.CompletedTask;
 

@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
+using System.Linq.Expressions;
 namespace BlazorDevKit;
 
 public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
 {
+    private Context _context = null!;
+    [CascadingParameter] private EditContext? EditContext { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment<Context>? MaskContext { get; set; }
 
     [Parameter] public T? Value { get; set; }
     [Parameter] public EventCallback<T?> ValueChanged { get; set; }
+    [Parameter] public Expression<Func<T>>? ValueExpression { get; set; }
     [Parameter] public BdkIMaskBindTarget BindTarget { get; set; } = BdkIMaskBindTarget.None;
     private string BindTargetAsString => BindTarget switch
     {
@@ -21,6 +27,11 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
     private ElementReference _elementReference;
     private IJSObjectReference? _jsModuleReference;
     private IJSObjectReference? _jsInstanceReference;
+    protected override void OnInitialized()
+    {
+        _context = new Context(this);
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -68,8 +79,9 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
     protected abstract string IMaskType { get; }
     [JSInvokable] public string GetIMaskType() => IMaskType;
     [JSInvokable]
-    public void AcceptValue(string? value, string? unmaskedValue, T? typedValue)
+    public async Task AcceptValue(string? value, string? unmaskedValue, T? typedValue)
     {
+        _context.MaskedValue = value;      
         var thisAsString = this as BdkIMaskBase<string>;
         switch(BindTarget)
         {
@@ -81,7 +93,7 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
 #pragma warning disable BL0005 // Component parameter should not be set outside of its component.
                 thisAsString.Value = value;
 #pragma warning restore BL0005 // Component parameter should not be set outside of its component.
-                thisAsString.ValueChanged.InvokeAsync(value);
+                await  thisAsString.ValueChanged.InvokeAsync(value);
                 break;
             case BdkIMaskBindTarget.UnmaskedValue:
                 if (thisAsString is null)
@@ -91,20 +103,34 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
 #pragma warning disable BL0005 // Component parameter should not be set outside of its component.
                 thisAsString.Value = unmaskedValue;
 #pragma warning restore BL0005 // Component parameter should not be set outside of its component.
-                thisAsString.ValueChanged.InvokeAsync(unmaskedValue);
+                await thisAsString.ValueChanged.InvokeAsync(unmaskedValue);
                 break;
             case BdkIMaskBindTarget.TypedValue:
                 Value = typedValue;
-                ValueChanged.InvokeAsync(typedValue);
+                await ValueChanged.InvokeAsync(typedValue);
                 break;
+        }
+        if(EditContext != null && ValueExpression != null)
+        {
+            var fieldIdentifier = FieldIdentifier.Create(ValueExpression);
+            EditContext.NotifyFieldChanged(fieldIdentifier);
+            EditContext.NotifyValidationStateChanged();
         }
     }
 
-    
-}
-public class BdkIMaskUpdateData<T>
-{
-    public string? Value { get; set; }
-    public string? UnmaskedValue { get; set; }
-    public T? TypedValue { get; set; }
+    private async Task<string> GetUnmaskedValueAsync()
+    {
+        if (_jsInstanceReference is not null)
+        {
+            return await _jsInstanceReference.InvokeAsync<string>("getUnmaskedValue");
+        }
+        return "";
+    }
+
+    public class Context(BdkIMaskBase<T> iMaskComponent)
+    {
+        public string? MaskedValue { get; internal set; }
+        public async Task<string> GetUnmaskedValueAsync() => await iMaskComponent.GetUnmaskedValueAsync();
+    }
+
 }

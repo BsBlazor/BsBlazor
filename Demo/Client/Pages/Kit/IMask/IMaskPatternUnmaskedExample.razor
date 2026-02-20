@@ -1,0 +1,27 @@
+﻿@using System.ComponentModel.DataAnnotations
+<EditForm Model="this">
+    <DataAnnotationsValidator/>
+    <BdkIMaskPattern Mask="000.000.000-00" Context="mask" Value="@Value" BindTarget="BdkIMaskBindTarget.UnmaskedValue">
+        <MaskContext Context="mask">
+            <BspTextField Label="Text field component - OnChange" 
+                          Value="@mask.MaskedValue"
+                          ValueExpression="() => Value"
+                          ValueChanged="async _ => { Value = await mask.GetUnmaskedValueAsync(); }" />
+        </MaskContext>
+    </BdkIMaskPattern>
+    <hr />
+    <BdkIMaskPattern Mask="000.000.000-00" @bind-Value="@Value" @bind-Value:after="StateHasChanged" BindTarget="BdkIMaskBindTarget.UnmaskedValue">
+        <MaskContext Context="mask">
+            <BspTextField Label="Text field component - Immediate" Value="@mask.MaskedValue" ValueExpression="() => Value"/>
+        </MaskContext>
+    </BdkIMaskPattern>
+    <hr />
+    <BspTextField Label="Text field component - Without imask" @bind-Value="Value" Immediate />
+    <hr />
+    <BsButton Type="BsButtonType.Submit" Variant="BsButtonVariant.Primary" >Send</BsButton>
+</EditForm>
+<div>Real value: @Value</div>
+@code {
+    [Required, RegularExpression(@"\d{11}", ErrorMessage = "Invalid pattern")]
+    public string Value { get; set; } = "12345678901";
+}

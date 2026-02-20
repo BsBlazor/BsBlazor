@@ -44,13 +44,15 @@
         });
     }
 
-    async setValue(value, target) {
+    setValue(value, target) {
         if (target == 'typedValue' && value === null) {
             value = '';
             target = 'value';
         }
         this.iMask[target] = value;
     }
+
+    getUnmaskedValue() { return this.iMask.unmaskedValue; }
 
     static async create(dotNetReference, wrapperElement) {
         const bdkIMask = new BdkIMask(dotNetReference, wrapperElement);
