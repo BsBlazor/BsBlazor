@@ -8,15 +8,18 @@ internal class ToastService : IToastService
     public event Action<ToastReference>? OnToastRemoved;
     
     public List<ToastReference> ToastReferences { get; private set; } = [];
-    
+    internal List<BsToastServiceContainer> Containers { get; private set; } = [];
+
     public async Task<IToastReference> ShowAsync(string message, string? title = null, ToastOptions? options = null)
     {
+        options ??= new ToastOptions();
         var toastReference = new ToastReference
         {
             ReferenceType = ToastReferenceType.Standalone,
             Message = message,
             Title = title,
-            Options = options ?? new ToastOptions()
+            Options = options,
+            ContainerRef = Containers[options.ContainerIndex]
         };
         
         return await ShowAsyncInternal(toastReference);
@@ -24,11 +27,13 @@ internal class ToastService : IToastService
 
     public async Task<IToastReference> ShowAsync(RenderFragment toastContent, ToastOptions? options = null)
     {
+        options ??= new ToastOptions();
         var toastReference = new ToastReference
         {
             ReferenceType = ToastReferenceType.RenderFragment,
             RenderFragment = toastContent,
-            Options = options ?? new ToastOptions()
+            Options = options,
+            ContainerRef = Containers[options.ContainerIndex]
         };
         
         return await ShowAsyncInternal(toastReference);
@@ -36,11 +41,13 @@ internal class ToastService : IToastService
 
     public async Task<IToastReference> ShowAsync(RenderFragment<IToastReference> toastContent, ToastOptions? options = null)
     {
+        options ??= new ToastOptions();
         var toastReference = new ToastReference
         {
             ReferenceType = ToastReferenceType.ContextualRenderFragment,
             ContextualRenderFragment = toastContent,
-            Options = options ?? new ToastOptions()
+            Options = options,
+            ContainerRef = Containers[options.ContainerIndex]
         };
         
         return await ShowAsyncInternal(toastReference);
@@ -50,14 +57,16 @@ internal class ToastService : IToastService
         ToastOptions? options = null,
         Action<ToastComponentParameters<TContentComponent>>? parameters = null)
     {
+        options ??= new ToastOptions();
         var p = new ToastComponentParameters<TContentComponent>();
         parameters?.Invoke(p);
         var toastReference = new ToastReference
         {
             ReferenceType = ToastReferenceType.Component,
             ToastContentType = typeof(TContentComponent),
-            Options = options ?? new ToastOptions(),
-            Parameters = p.Parameters
+            Options = options,
+            Parameters = p.Parameters,
+            ContainerRef = Containers[options.ContainerIndex]
         };
         return await ShowAsyncInternal(toastReference);
     }

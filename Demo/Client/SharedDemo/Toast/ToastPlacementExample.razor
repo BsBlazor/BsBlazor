@@ -1,25 +1,18 @@
-﻿@inject IToastService ToastService
-
-<div class="d-flex flex-row flex-wrap gap-2">
-    @foreach (var placement in Enum.GetValues<BsToastPlacement>())
-    {
-        <BsButton OnClick="@(async () => await ShowToastAsync(placement))" Variant="BsButtonVariant.Primary">
-            @placement
-        </BsButton>
-    }
-</div>
-
-<hr/>
-
-<InputSelect @bind-Value="_placement" class="form-select my-3">
-    @foreach (var placement in Enum.GetValues(typeof(BsToastPlacement)).Cast<BsToastPlacement>())
-    {
-        <option value="@placement">@placement</option>
-    }
+﻿<InputSelect @bind-Value="_placement" class="form-select my-3">
+    <option value="" selected>Select a position...</option>
+    <option value="top-0 start-0">Top left</option>
+    <option value="top-0 start-50 translate-middle-x">Top center</option>
+    <option value="top-0 end-0">Top right</option>
+    <option value="top-50 start-0 translate-middle-y">Middle left</option>
+    <option value="top-50 start-50 translate-middle">Middle center</option>
+    <option value="top-50 end-0 translate-middle-y">Middle right</option>
+    <option value="bottom-0 start-0">Bottom left</option>
+    <option value="bottom-0 start-50 translate-middle-x">Bottom center</option>
+    <option value="bottom-0 end-0">Bottom right</option>
 </InputSelect>
 
 <div aria-live="polite" aria-atomic="true" class="bg-secondary position-relative rounded-3 " style="min-height: 400px;">
-    <BsToastContainer Class="position-absolute" Position="null" Placement="_placement">
+    <BsToastContainer Class="@_placement">
         <BsToast Class="fade show" AutoHide="false">
             <BsToastHeader>
                 <MyIcon/>
@@ -35,14 +28,5 @@
 </div>
 
 @code {
-    private BsToastPlacement _placement = BsToastPlacement.TopLeft;
-
-    private async Task ShowToastAsync(BsToastPlacement placement)
-    {
-        await ToastService.ShowAsync("Hello, world! This is a toast message.", "Bootstrap", new ToastOptions
-        {
-            Placement = placement
-        });
-    }
-
+    private string _placement = "top-0 start-0";
 }

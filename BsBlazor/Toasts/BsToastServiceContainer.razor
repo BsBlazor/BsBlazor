@@ -2,44 +2,25 @@
 @inject IToastService ToastService
 @using BsBlazor.Toasts
 @inherits BsComponentBase
+@implements IDisposable
 @if (ConcreteModalService is not null)
 {
-    @*
-    Instead of automatically creating multiple containers,
-    the developer could add multiple containers (perhaps only BsToastContainer would need to exist?).
-    By Id or index, it would be possible to select the desired container to show a toast.
-*@
-    @foreach(var placement in _usedPlacements)
-    {
-        <BsToastContainer @key="@($"toast_service_{placement}")" 
-                          Placement="placement" 
-                          Position="Position" 
-                          Class="@Class" 
-                          AdditionalAttributes="AdditionalAttributes" 
-                          ZIndex="ZIndex" 
-                          Style="@Style">
-            @foreach (var reference in GetToastsFor(placement))
-            {
-                <BsToastReferenceItem @key="reference" Animation="Animation" AutoHide="AutoHide" Color="Color" Delay="Delay" Reference="reference" ToastContentTemplate="ToastContentTemplate" />
-            }
-        </BsToastContainer>
-    }
+    <BsToastContainer Class="@Class"
+                      AdditionalAttributes="AdditionalAttributes"
+                      ZIndex="ZIndex"
+                      Style="@Style">
+        @foreach (var reference in ConcreteModalService.ToastReferences.Where(toast => toast.ContainerRef == this))
+        {
+            <BsToastReferenceItem @key="reference" Animation="Animation" AutoHide="AutoHide" Color="Color" Delay="Delay" Reference="reference" ToastContentTemplate="ToastContentTemplate" />
+        }
+    </BsToastContainer>
 }
+
 @code {
     private ToastService? ConcreteModalService => ToastService as ToastService;
-    private HashSet<BsToastPlacement?> _usedPlacements = [];
+    //private HashSet<BsToastPlacement?> _usedPlacements = [];
 
-    protected override void OnInitialized()
-    {
-        if (ConcreteModalService is null)
-        {
-            return;
-        }
-
-        ConcreteModalService.OnToastAdded += ToastAdded;
-        ConcreteModalService.OnToastRemoved += ToastRemoved;
-    }
-
+  
     [Parameter] public bool? Animation { get; set; }
 
     [Parameter] public bool? AutoHide { get; set; }
@@ -48,42 +29,72 @@
 
     [Parameter] public BsToastColor? Color { get; set; }
 
-    [Parameter] public BsToastPlacement? Placement { get; set; }
+    //[Parameter] public BsToastPlacement? Placement { get; set; }
 
-    [Parameter] public BsToastPosition? Position { get; set; }
+    //[Parameter] public BsToastPosition? Position { get; set; }
     [Parameter] public int ZIndex { get; set; } = 1090;
     [Parameter] public RenderFragment<StandaloneToastData>? ToastContentTemplate { get; set; }
 
-    protected override void OnParametersSet()
-    {
-        if (string.IsNullOrEmpty(Class) && Placement is null)
-        {
-            Placement = BsToastPlacement.TopRight;
-        }
+    // protected override void OnParametersSet()
+    // {
+    //     if (string.IsNullOrEmpty(Class) && Placement is null)
+    //     {
+    //         Placement = BsToastPlacement.TopRight;
+    //     }
 
-        if (string.IsNullOrEmpty(Class) && Position is null)
+    //     if (string.IsNullOrEmpty(Class) && Position is null)
+    //     {
+    //         Position = BsToastPosition.Fixed;
+    //     }
+    // }
+
+    protected override void OnInitialized()
+    {
+        if (ConcreteModalService is null)
         {
-            Position = BsToastPosition.Fixed;
+            return;
         }
+        ConcreteModalService.Containers.Add(this);
+        ConcreteModalService.OnToastAdded += ToastAdded;
+        ConcreteModalService.OnToastRemoved += ToastRemoved;
     }
 
     private void ToastAdded(ToastReference toastReference)
     {
-        _usedPlacements.Add(toastReference.Options.Placement);
+        //_usedPlacements.Add(toastReference.Options.Placement);
+        if(toastReference.ContainerRef != this)
+        {
+            return;
+        }
         StateHasChanged();
     }
 
     private void ToastRemoved(ToastReference toastReference)
     {
+        if(toastReference.ContainerRef != this)
+        {
+            return;
+        }
         StateHasChanged();
     }
 
-    private IEnumerable<ToastReference> GetToastsFor(BsToastPlacement? placement)
+    public void Dispose()
     {
-        return ConcreteModalService!.ToastReferences
-                                    .Where(tRef => tRef.Options.Placement == placement
-                                                // default placement
-                                                || tRef.Options.Placement == null && Placement == placement);
+        if (ConcreteModalService is null)
+        {
+            return;
+        }
+        ConcreteModalService.Containers.Remove(this);
+        ConcreteModalService.OnToastAdded -= ToastAdded;
+        ConcreteModalService.OnToastRemoved -= ToastRemoved;
     }
+
+    // private IEnumerable<ToastReference> GetToastsFor(BsToastPlacement? placement)
+    // {
+    //     return ConcreteModalService!.ToastReferences
+    //                                 .Where(tRef => tRef.Options.Placement == placement
+    //                                             // default placement
+    //                                             || tRef.Options.Placement == null && Placement == placement);
+    // }
 
 }

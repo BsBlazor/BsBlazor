@@ -4,6 +4,8 @@ namespace BsBlazor;
 
 internal class ToastReference : IToastReference
 {
+    internal BsToastServiceContainer? ContainerRef { get; set; }
+
     private readonly TaskCompletionSource<object?> _resultCompletion = new();
     private BsToast? _toast;
     
