@@ -1491,60 +1491,23 @@ Value: @(DecimalValue.HasValue? DecimalValue.Value: "null")
 """
 		},
 		{
-			"ToastPlacementCodeSampleExample",
-"""
-<InputSelect @bind-Value="_placement" class="form-select">
-    @foreach (var placement in Enum.GetValues(typeof(BsToastPlacement)).Cast<BsToastPlacement>())
-    {
-        <option value="@placement">@placement</option>
-    }
-</InputSelect>
-
-<BsToastContainer Placement="_placement">
-    <BsToast>
-        <BsToastHeader>
-            <MyIcon/>
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <BsToastCloseButton/>
-        </BsToastHeader>
-        <BsToastBody>
-            Hello, world! This is a toast message.
-        </BsToastBody>
-    </BsToast>
-</BsToastContainer>
-
-@code 
-{
-    private BsToastPlacement _placement = BsToastPlacement.TopLeft;
-}
-"""
-		},
-		{
 			"ToastPlacementExample",
 """
-@inject IToastService ToastService
-
-<div class="d-flex flex-row flex-wrap gap-2">
-    @foreach (var placement in Enum.GetValues<BsToastPlacement>())
-    {
-        <BsButton OnClick="@(async () => await ShowToastAsync(placement))" Variant="BsButtonVariant.Primary">
-            @placement
-        </BsButton>
-    }
-</div>
-
-<hr/>
-
 <InputSelect @bind-Value="_placement" class="form-select my-3">
-    @foreach (var placement in Enum.GetValues(typeof(BsToastPlacement)).Cast<BsToastPlacement>())
-    {
-        <option value="@placement">@placement</option>
-    }
+    <option value="" selected>Select a position...</option>
+    <option value="top-0 start-0">Top left</option>
+    <option value="top-0 start-50 translate-middle-x">Top center</option>
+    <option value="top-0 end-0">Top right</option>
+    <option value="top-50 start-0 translate-middle-y">Middle left</option>
+    <option value="top-50 start-50 translate-middle">Middle center</option>
+    <option value="top-50 end-0 translate-middle-y">Middle right</option>
+    <option value="bottom-0 start-0">Bottom left</option>
+    <option value="bottom-0 start-50 translate-middle-x">Bottom center</option>
+    <option value="bottom-0 end-0">Bottom right</option>
 </InputSelect>
 
 <div aria-live="polite" aria-atomic="true" class="bg-secondary position-relative rounded-3 " style="min-height: 400px;">
-    <BsToastContainer Class="position-absolute" Position="null" Placement="_placement">
+    <BsToastContainer Class="@_placement">
         <BsToast Class="fade show" AutoHide="false">
             <BsToastHeader>
                 <MyIcon/>
@@ -1560,16 +1523,7 @@ Value: @(DecimalValue.HasValue? DecimalValue.Value: "null")
 </div>
 
 @code {
-    private BsToastPlacement _placement = BsToastPlacement.TopLeft;
-
-    private async Task ShowToastAsync(BsToastPlacement placement)
-    {
-        await ToastService.ShowAsync("Hello, world! This is a toast message.", "Bootstrap", new ToastOptions
-        {
-            Placement = placement
-        });
-    }
-
+    private string _placement = "top-0 start-0";
 }
 """
 		},
@@ -1617,7 +1571,15 @@ Value: @(DecimalValue.HasValue? DecimalValue.Value: "null")
     <BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" OnClick="ShowToastAsync">
         Show simple standalone toast + ToastReference
     </BsButton>
+
+    <BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" 
+             OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body", 
+                                                     "Another container", new ToastOptions{ ContainerIndex = 1 }))">
+        Another position
+    </BsButton>
 </div>
+<BsToastServiceContainer Class="position-fixed bottom-0 end-0 p-3" />
+<BsToastServiceContainer Class="position-fixed top-0 start-0 p-3" />
 
 @code 
 {

@@ -10,30 +10,30 @@
 
     private string CssContainerClass => InternalCssBuilder
         .Default("toast-container")
-        .AddBsClass(bs => bs.Padding3)
-        .AddBsClass(bs => bs.PositionAbsolute, Position is BsToastPosition.Absolute)
-        .AddBsClass(bs => bs.PositionFixed, Position is BsToastPosition.Fixed)
-        .AddBsClass(bs => bs.PositionRelative, Position is BsToastPosition.Relative)
-        .AddBsClass(bs => bs.PositionStatic, Position is BsToastPosition.Static)
-        .AddBsClass(bs => bs.PositionSticky, Position is BsToastPosition.Sticky)
-        .AddBsClass(bs => bs.TopLeft, Placement is BsToastPlacement.TopLeft)
-        .AddBsClass(bs => bs.TopCenter, Placement is BsToastPlacement.TopCenter)
-        .AddBsClass(bs => bs.TopRight, Placement is BsToastPlacement.TopRight)
-        .AddBsClass(bs => bs.MiddleLeft, Placement is BsToastPlacement.MiddleLeft)
-        .AddBsClass(bs => bs.MiddleCenter, Placement is BsToastPlacement.MiddleCenter)
-        .AddBsClass(bs => bs.MiddleRight, Placement is BsToastPlacement.MiddleRight)
-        .AddBsClass(bs => bs.BottomLeft, Placement is BsToastPlacement.BottomLeft)
-        .AddBsClass(bs => bs.BottomCenter, Placement is BsToastPlacement.BottomCenter)
-        .AddBsClass(bs => bs.BottomRight, Placement is BsToastPlacement.BottomRight)
+        //.AddBsClass(bs => bs.Padding3)
+        // .AddBsClass(bs => bs.PositionAbsolute, Position is BsToastPosition.Absolute)
+        // .AddBsClass(bs => bs.PositionFixed, Position is BsToastPosition.Fixed)
+        // .AddBsClass(bs => bs.PositionRelative, Position is BsToastPosition.Relative)
+        // .AddBsClass(bs => bs.PositionStatic, Position is BsToastPosition.Static)
+        // .AddBsClass(bs => bs.PositionSticky, Position is BsToastPosition.Sticky)
+        // .AddBsClass(bs => bs.TopLeft, Placement is BsToastPlacement.TopLeft)
+        // .AddBsClass(bs => bs.TopCenter, Placement is BsToastPlacement.TopCenter)
+        // .AddBsClass(bs => bs.TopRight, Placement is BsToastPlacement.TopRight)
+        // .AddBsClass(bs => bs.MiddleLeft, Placement is BsToastPlacement.MiddleLeft)
+        // .AddBsClass(bs => bs.MiddleCenter, Placement is BsToastPlacement.MiddleCenter)
+        // .AddBsClass(bs => bs.MiddleRight, Placement is BsToastPlacement.MiddleRight)
+        // .AddBsClass(bs => bs.BottomLeft, Placement is BsToastPlacement.BottomLeft)
+        // .AddBsClass(bs => bs.BottomCenter, Placement is BsToastPlacement.BottomCenter)
+        // .AddBsClass(bs => bs.BottomRight, Placement is BsToastPlacement.BottomRight)
         .AddClass(Class)
         .Build();
     
     [Parameter] [EditorRequired] public required RenderFragment ChildContent { get; set; }
     
 
-    [Obsolete("This parameter will be removed in a future version. Components should not rely on Bootstrap utility classes.")]
-    [Parameter] public BsToastPlacement? Placement { get; set; }
-    [Obsolete("This parameter will be removed in a future version. Components should not rely on Bootstrap utility classes.")]
-    [Parameter] public BsToastPosition? Position { get; set; }
+    // [Obsolete("This parameter will be removed in a future version. Components should not rely on Bootstrap utility classes.")]
+    // [Parameter] public BsToastPlacement? Placement { get; set; }
+    // [Obsolete("This parameter will be removed in a future version. Components should not rely on Bootstrap utility classes.")]
+    // [Parameter] public BsToastPosition? Position { get; set; }
     [Parameter] public int ZIndex { get; set; } = 1090;
 }

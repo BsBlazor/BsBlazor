@@ -19,7 +19,15 @@
     <BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" OnClick="ShowToastAsync">
         Show simple standalone toast + ToastReference
     </BsButton>
+
+    <BsButton Variant="BsButtonVariant.Primary" Type="BsButtonType.Button" 
+             OnClick="@(() => ToastService.ShowAsync("Hi, I am a toast body", 
+                                                     "Another container", new ToastOptions{ ContainerIndex = 1 }))">
+        Another position
+    </BsButton>
 </div>
+<BsToastServiceContainer Class="position-fixed bottom-0 end-0 p-3" />
+<BsToastServiceContainer Class="position-fixed top-0 start-0 p-3" />
 
 @code 
 {
