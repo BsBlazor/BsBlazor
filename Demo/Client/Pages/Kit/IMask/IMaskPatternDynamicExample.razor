@@ -1,0 +1,6 @@
+﻿<BdkIMaskPattern Mask="0000000-0|0000000-a|00000000-0|00000000-a" @bind-Value="Value" BindTarget="BdkIMaskBindTarget.Value">
+    <input class="form-control" @bind="Value"/>
+</BdkIMaskPattern>
+@code{
+    private string Value { get; set; } = "12345678-x";
+}

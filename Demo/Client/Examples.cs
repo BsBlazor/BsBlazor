@@ -117,6 +117,17 @@ Value: @(DecimalValue.HasValue? DecimalValue.Value: "null")
 """
 		},
 		{
+			"IMaskPatternDynamicExample",
+"""
+<BdkIMaskPattern Mask="0000000-0|0000000-a|00000000-0|00000000-a" @bind-Value="Value" BindTarget="BdkIMaskBindTarget.Value">
+    <input class="form-control" @bind="Value"/>
+</BdkIMaskPattern>
+@code{
+    private string Value { get; set; } = "12345678-x";
+}
+"""
+		},
+		{
 			"IMaskPatternExample",
 """
 <BdkIMaskPattern Mask="{#}000[aaa]/NIC-`*[**]">
@@ -153,6 +164,25 @@ Value: @(DecimalValue.HasValue? DecimalValue.Value: "null")
 @code {
     [Required, RegularExpression(@"\d{11}", ErrorMessage = "Invalid pattern")]
     public string Value { get; set; } = "12345678901";
+}
+
+"""
+		},
+		{
+			"IMaskPatternUpdateExample",
+"""
+<InputSelect @bind-Value="Mask" class="form-select mb-3">
+    <option selected>000-000</option>
+    <option>0000-00</option>
+    <option>00000-0</option>
+</InputSelect>
+<BdkIMaskPattern Mask="@Mask" Accepted="values => Value = values.MaskedValue">
+    <input class="form-control mb-3" @bind="Value" />
+</BdkIMaskPattern>
+<div>Value: @Value</div>
+@code {
+    public string Value { get; set; } = "123-456";
+    public string Mask { get; set; } = "000-000";
 }
 
 """
@@ -574,10 +604,12 @@ Value: @(DecimalValue.HasValue? DecimalValue.Value: "null")
                       Search="term => ExampleDataStore.SearchItemsAsync(term)"
                       Recover="id => ExampleDataStore.GetItemAsync(id!.Value)!"
                       ValueAccessor="item => item.Id"
+                      Disabled="Disable"
                       TextAccessor="item => item.Name" />
-
+<BspCheckField Label="Disable" @bind-Value="Disable"/>
 @code {
     private int? _selectedValue = null;
+    private bool Disable { get; set; }
 }
 
 """
