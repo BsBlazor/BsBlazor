@@ -14,6 +14,7 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
     [Parameter] public T? Value { get; set; }
     [Parameter] public EventCallback<T?> ValueChanged { get; set; }
     [Parameter] public Expression<Func<T>>? ValueExpression { get; set; }
+    [Parameter] public  EventCallback<BdkIMaskValues<T>> Accepted { get; set; }
     [Parameter] public BdkIMaskBindTarget BindTarget { get; set; } = BdkIMaskBindTarget.None;
     private string BindTargetAsString => BindTarget switch
     {
@@ -26,7 +27,7 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
     [Inject] public required IJSRuntime JS { get; set; }
     private ElementReference _elementReference;
     private IJSObjectReference? _jsModuleReference;
-    private IJSObjectReference? _jsInstanceReference;
+    protected IJSObjectReference? JsInstanceReference { get; private set; }
     protected override void OnInitialized()
     {
         _context = new Context(this);
@@ -37,10 +38,10 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
         if (firstRender)
         {
             _jsModuleReference = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/BlazorDevKit.Core/Components/IMask/BdkIMaskBase.razor.js");
-            _jsInstanceReference = await _jsModuleReference.InvokeAsync<IJSObjectReference>("BdkIMask.create", DotNetObjectReference.Create(this), _elementReference);
+            JsInstanceReference = await _jsModuleReference.InvokeAsync<IJSObjectReference>("BdkIMask.create", DotNetObjectReference.Create(this), _elementReference);
             if (BindTarget != BdkIMaskBindTarget.None)
             {
-                await _jsInstanceReference.InvokeVoidAsync("setValue", Value, BindTargetAsString);
+                await JsInstanceReference.InvokeVoidAsync("setValue", Value, BindTargetAsString);
             }
             StateHasChanged();
         }
@@ -48,9 +49,9 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
 
     protected override async Task OnParametersSetAsync()
     {
-        if (_jsInstanceReference is not null && BindTarget != BdkIMaskBindTarget.None)
+        if (JsInstanceReference is not null && BindTarget != BdkIMaskBindTarget.None)
         {
-            await _jsInstanceReference.InvokeVoidAsync("setValue", Value, BindTargetAsString);
+            await JsInstanceReference.InvokeVoidAsync("setValue", Value, BindTargetAsString);
         }
     }
 
@@ -58,9 +59,9 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
     {
         try
         {
-            if (_jsInstanceReference is not null)
+            if (JsInstanceReference is not null)
             {
-                await _jsInstanceReference.DisposeAsync();
+                await JsInstanceReference.DisposeAsync();
             }
 
             if (_jsModuleReference is not null)
@@ -81,6 +82,15 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
     [JSInvokable]
     public async Task AcceptValue(string? value, string? unmaskedValue, T? typedValue)
     {
+        if(Accepted.HasDelegate)
+        {
+            await Accepted.InvokeAsync(new BdkIMaskValues<T>
+            {
+                MaskedValue = value ?? "",
+                UnmaskedValue = unmaskedValue ?? "",
+                TypedValue = typedValue
+            });
+        }
         _context.MaskedValue = value;      
         var thisAsString = this as BdkIMaskBase<string>;
         switch(BindTarget)
@@ -120,9 +130,9 @@ public abstract partial class BdkIMaskBase<T> : ComponentBase, IAsyncDisposable
 
     private async Task<string> GetUnmaskedValueAsync()
     {
-        if (_jsInstanceReference is not null)
+        if (JsInstanceReference is not null)
         {
-            return await _jsInstanceReference.InvokeAsync<string>("getUnmaskedValue");
+            return await JsInstanceReference.InvokeAsync<string>("getUnmaskedValue");
         }
         return "";
     }

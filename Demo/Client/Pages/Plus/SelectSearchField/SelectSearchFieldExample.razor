@@ -3,8 +3,10 @@
                       Search="term => ExampleDataStore.SearchItemsAsync(term)"
                       Recover="id => ExampleDataStore.GetItemAsync(id!.Value)!"
                       ValueAccessor="item => item.Id"
+                      Disabled="Disable"
                       TextAccessor="item => item.Name" />
-
+<BspCheckField Label="Disable" @bind-Value="Disable"/>
 @code {
     private int? _selectedValue = null;
+    private bool Disable { get; set; }
 }

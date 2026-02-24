@@ -23,7 +23,16 @@
     }
 
     async createPatternMask() {
-        let mask = await this.dotNetReference.invokeMethodAsync('GetMask');
+        const mask = await this.dotNetReference.invokeMethodAsync('GetMask');
+        this.iMask = IMask(this.input, this.buildPatternMaskOptions(mask));
+    }
+
+    async refreshPatternMask() {
+        const mask = await this.dotNetReference.invokeMethodAsync('GetMask');
+        this.iMask.updateOptions(this.buildPatternMaskOptions(mask));
+    }
+
+    buildPatternMaskOptions(mask) {
         if (mask.startsWith('/') && mask.endsWith('/')) {
             mask = new RegExp(mask);
         }
@@ -31,9 +40,7 @@
             mask = mask.split('|');
             mask = mask.map(m => { return { mask: m }; });
         }
-        this.iMask = IMask(this.input, {
-            mask,
-        });
+        return { mask };
     }
 
     async createNumberMask() {
