@@ -17,7 +17,8 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
 
     [Parameter, Obsolete("Use Mode=BdkLoaderMode.Persist")] public bool PreserveState { get; set; }
     [Parameter] public BdkLoaderMode Mode { get; set; } = BdkLoaderMode.Repeat;
-    [Parameter] public bool CanRetry { get; set; }
+    [Parameter] public bool CanRetry { get; set; } = BdkLoaderOptions.Defaults.CanRetry;
+    [Parameter] public bool Retrow { get; set; } = BdkLoaderOptions.Defaults.Retrow;
     [Parameter] public string Message { get; set; } = string.Empty;
     [Parameter] public string CanRetryTitle { get; set; } = string.Empty;
 
@@ -38,7 +39,7 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     {
         try
         {
-            if(Mode == BdkLoaderMode.WebAssemblyOnly && !OperatingSystem.IsBrowser())
+            if (Mode == BdkLoaderMode.WebAssemblyOnly && !OperatingSystem.IsBrowser())
             {
                 return;
             }
@@ -61,6 +62,10 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
             _state = BdkLoaderState.Error;
             _lastErrorResult = new BdkLoaderErrorResult(e, this);
             await OnError.InvokeAsync(_lastErrorResult);
+            if (Retrow)
+            {
+                throw;
+            }
         }
         finally
         {
