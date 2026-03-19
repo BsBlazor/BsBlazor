@@ -5,6 +5,19 @@ namespace BlazorDevKit;
 
 public static class BdkLoaderOptions
 {
+    public static class Defaults
+    {
+        /// <summary>
+        /// Default is false
+        /// </summary>
+        public static bool CanRetry { get; set; }
+
+        /// <summary>
+        /// Default is false
+        /// </summary>
+        public static bool Retrow { get; set; }
+    }
+
     public static class Error
     {
         private static Dictionary<Type, Type> ErrorTemplatesTypes { get; } = [];
