@@ -7,7 +7,10 @@
 <div class="@CssClass" style="@Style" @attributes="AdditionalAttributes">
     @if (ShowLabel)
     {
-        <label for="@_context.Id" class="@LabelCssClass">@Label @(ShowRequiredMark ? "*" : "")</label>
+        <label for="@_context.Id" class="@LabelCssClass">
+            @Label @(ShowRequiredMark ? "*" : "")
+            @AfterLabelContent
+        </label>
     }
     @ChildContent?.Invoke(_context)
     @if(EditContext != null && ValueExpression != null)
@@ -15,15 +18,20 @@
         <ValidationMessage class="invalid-feedback" For="@ValueExpression" />
     }
 </div>
-@code {
-    private BspFieldContext<TValue> _context = default!;
+@code 
+
+{
+    private BspFieldContext<TValue> _context = null!;
     private static int _instanceCount;
+    
     private bool ShowRequiredMark => RequiredMark == BspFieldRequiredMark.Always 
                                      || (RequiredMark == BspFieldRequiredMark.Auto && EditContext?.IsRequired(ValueExpression) == true);
+    
     [Parameter] public string? Id { get; set; }
     [Parameter] public BspFieldRequiredMark RequiredMark { get; set; } = BspFieldRequiredMark.Auto;
     [Parameter] public bool ShowLabel { get; set; } = true;
     [Parameter] public string? Label { get; set; }
+    [Parameter] public RenderFragment? AfterLabelContent { get; set; }
     [Parameter] public RenderFragment<BspFieldContext<TValue>>? ChildContent { get; set; }
     [Parameter] public required Expression<Func<TValue>>? ValueExpression { get; set; }
     [CascadingParameter] private EditContext? EditContext { get; set; }
