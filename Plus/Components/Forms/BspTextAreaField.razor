@@ -10,7 +10,8 @@
           Class="@Class"
           Style="@Style"
           AdditionalAttributes="AdditionalAttributes"
-          ShowLabel="ShowLabel" ValueExpression="ValueExpression">
+          ShowLabel="ShowLabel" ValueExpression="ValueExpression"
+          AfterLabelContent="AfterLabelContent">
     <BdkInputTextArea @ref="_textArea"
                       Value="@Value"
                       ValueChanged="ValueChanged"
@@ -24,9 +25,10 @@
                       rows="@Rows"
                       id="@field.Id" placeholder="@Placeholder" />
 </BspField>
-@code {
-    [Parameter]
-    public int? Rows { get; set; }
+
+@code 
+{
+    [Parameter] public int? Rows { get; set; }
     private BdkInputTextArea _textArea = default!;
     private string InputCss => InternalCssBuilder.Default("form-control")
          .AddClass("form-control-sm", Size == BsFormControlSize.Small)

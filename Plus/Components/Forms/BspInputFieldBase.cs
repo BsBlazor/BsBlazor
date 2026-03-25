@@ -1,11 +1,13 @@
 ﻿namespace BsBlazor.Plus;
 
-public abstract class BspInputFieldBase<TValue> : BsComponentBase
+public abstract class 
+    BspInputFieldBase<TValue> : BsComponentBase
 {
     [CascadingParameter] protected EditContext? EditContext { get; set; }
     [Parameter] public string? Id { get; set; }
     [Parameter] public BsFormControlSize Size { get; set; } = BsFormControlSize.Default;
     [Parameter] public string Label { get; set; } = string.Empty;
+    [Parameter] public RenderFragment? AfterLabelContent { get; set; }
     [Parameter] public bool ShowLabel { get; set; } = true;
     [Parameter] public string Placeholder { get; set; } = string.Empty;
     // Navigating through enhanced navigation to a static page with a field is not supported.
