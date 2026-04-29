@@ -16,7 +16,7 @@ public class CssBuilder
         return this;
     }
     
-    private CssBuilder AddClass(string? value) => value is null ? this : AddValue(" " + value);
+    public CssBuilder AddClass(string? value) => value is null ? this : AddValue(" " + value);
     public CssBuilder AddClass(string? value, bool when) => when ? AddClass(value) : this;
     public CssBuilder AddClass(string? value, bool? when) => when is true ? AddClass(value) : this;
     public string Build() => _buffer.ToString().Trim();
