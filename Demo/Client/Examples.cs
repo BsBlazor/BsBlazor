@@ -423,6 +423,19 @@ Value: @(DecimalValue.HasValue? DecimalValue.Value: "null")
 """
 		},
 		{
+			"BasicWrapperExample",
+"""
+<BspCheckField @bind-Value="_wrapInCard" Label="Wrap in card" />
+<BdkWrapper Condition="_wrapInCard" Element="BdkWrapperElement.Div" class="card p-4">
+    Any content!
+</BdkWrapper>
+@code {
+    private bool _wrapInCard;
+}
+
+"""
+		},
+		{
 			"CheckFieldCustomLabelExample",
 """
 <BspCheckField @bind-Value="_like">
