@@ -36,7 +36,7 @@
         }
         break;
     case BdkLoaderState.Loaded:
-        @ChildContent(_value!)
+        @ChildContent?.Invoke(_value!)
         break;
     case BdkLoaderState.Error:
         @if (ErrorContent is not null)

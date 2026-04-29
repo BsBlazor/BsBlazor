@@ -1,0 +1,63 @@
+@namespace BlazorDevKit
+@if (Condition)
+{
+    @switch (Element)
+    {
+        case BdkWrapperElement.Div:
+            <div @attributes="AdditionalAttributes">
+                @ChildContent
+            </div>
+            break;
+        case BdkWrapperElement.Span:
+            <span @attributes="AdditionalAttributes">
+                @ChildContent
+            </span>
+            break;
+        case BdkWrapperElement.Section:
+            <section @attributes="AdditionalAttributes">
+                @ChildContent
+            </section>
+            break;
+        case BdkWrapperElement.Article:
+            <article @attributes="AdditionalAttributes">
+                @ChildContent
+            </article>
+            break;
+        case BdkWrapperElement.Aside:
+            <aside @attributes="AdditionalAttributes">
+                @ChildContent
+            </aside>
+            break;
+        case BdkWrapperElement.Header:
+            <header @attributes="AdditionalAttributes">
+                @ChildContent
+            </header>
+            break;
+        case BdkWrapperElement.Footer:
+            <footer @attributes="AdditionalAttributes">
+                @ChildContent
+            </footer>
+            break;
+        case BdkWrapperElement.Main:
+            <main @attributes="AdditionalAttributes">
+                @ChildContent
+            </main>
+            break;
+        case BdkWrapperElement.Nav:
+            <nav @attributes="AdditionalAttributes">
+                @ChildContent
+            </nav>
+            break;
+    }
+}
+else
+{
+    @ChildContent
+}
+@code {
+    [Parameter, EditorRequired] public bool Condition { get; set; }
+    [Parameter] public required RenderFragment? ChildContent { get; set; }
+    [Parameter] public BdkWrapperElement Element { get; set; } = BdkWrapperElement.Div;
+
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object?> AdditionalAttributes { get; set; } = [];
+}

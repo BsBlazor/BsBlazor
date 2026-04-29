@@ -2,7 +2,7 @@
 
 namespace BlazorDevKit.Helpers;
 
-internal sealed class CssBuilder
+public class CssBuilder
 {
     private readonly StringBuilder _buffer = new();
     

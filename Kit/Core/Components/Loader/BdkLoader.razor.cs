@@ -23,7 +23,7 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     [Parameter] public string CanRetryTitle { get; set; } = string.Empty;
 
     [Parameter][EditorRequired] public required Func<Task<T>> Load { get; set; }
-    [Parameter][EditorRequired] public required RenderFragment<T> ChildContent { get; set; }
+    [Parameter] public RenderFragment<T>? ChildContent { get; set; }
 
     [Parameter] public EventCallback<T> OnLoaded { get; set; }
     [Parameter] public EventCallback<BdkLoaderErrorResult> OnError { get; set; }
