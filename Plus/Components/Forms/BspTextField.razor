@@ -1,16 +1,14 @@
 ﻿@namespace BsBlazor.Plus
-@using BlazorDevKit
 @using BsBlazor.Helpers
-@using System.Linq.Expressions
-@using Microsoft.AspNetCore.Components.Forms
 @inherits BspInputFieldBase<string>
-<BspField Context="field" 
+<BspField Context="field"
           Id="@Id"
           Label="@Label"
-          Class="@Class" 
+          Class="@Class"
           Style="@Style"
           AdditionalAttributes="AdditionalAttributes"
-          ShowLabel="ShowLabel" ValueExpression="ValueExpression">
+          ShowLabel="ShowLabel" ValueExpression="ValueExpression" 
+          AfterLabelContent="AfterLabelContent">
     <BdkInputText @ref="_input"
                   Value="@Value"
                   ValueChanged="ValueChanged"
@@ -24,7 +22,7 @@
                   id="@field.Id" type="@InputType" placeholder="@Placeholder"/>
 </BspField>
 @code {
-    private BdkInputText _input = default!;
+    private BdkInputText _input = null!;
     private string InputCss => InternalCssBuilder.Default("form-control")
          .AddClass("form-control-color", Type is BsInputType.Color)
          .AddClass("form-control-sm", Size == BsFormControlSize.Small)

@@ -1,14 +1,12 @@
 ﻿@namespace BsBlazor.Plus
-@using BlazorDevKit
 @using BsBlazor.Helpers
-@using System.Linq.Expressions
-@using Microsoft.AspNetCore.Components.Forms
 @using System.Globalization
 @typeparam TValue
 @inherits BspInputFieldBase<TValue>
 <BspField Context="field"
           Id="@Id"
           Label="@Label"
+          AfterLabelContent="AfterLabelContent"
           Class="@Class"
           Style="@Style"
           AdditionalAttributes="AdditionalAttributes"

@@ -1,9 +1,8 @@
-﻿@using System.Linq.Expressions
-@namespace BsBlazor.Plus
+﻿@namespace BsBlazor.Plus
 @inject IJSRuntime JS
 @typeparam TValue
 @typeparam TItem
-<BspField Label="@Label" ValueExpression="ValueExpression" Context="field">
+<BspField Label="@Label" ValueExpression="ValueExpression" Context="field" AfterLabelContent="AfterLabelContent">
     <div class="dropdown" @onshow.bs.dropdown="OnShow">
         <div @ref="_bsDropdownToggleElement" data-bs-toggle="dropdown" data-bs-auto-close="outside">
             <button @onkeydown="OnControlKeyDown"
