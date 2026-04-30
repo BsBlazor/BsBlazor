@@ -52,7 +52,7 @@
     }
 
     setValue(value, target) {
-        if ((target == 'typedValue' || target == 'unmaskedValue') && value === null) {
+        if (value === null) {
             value = '';
             target = 'value';
         }
