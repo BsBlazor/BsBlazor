@@ -18,6 +18,11 @@ public static class BdkLoaderOptions
         public static bool Retrow { get; set; }
     }
 
+    public static class Events
+    {
+        public static Func<IServiceProvider, bool, Task>? OnAfterRenderAsync { get; set; }
+    }
+
     public static class Error
     {
         private static Dictionary<Type, Type> ErrorTemplatesTypes { get; } = [];

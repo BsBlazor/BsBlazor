@@ -13,6 +13,7 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
     private string LoaderToken => Key == null ? "BdkL" + typeof(T).Name + Load.Method.Name : "BdkL" + Key;
 
     [Inject] public required PersistentComponentState PersistentComponentState { get; set; }
+    [Inject] private IServiceProvider ServiceProvider { get; set; } = null!;
     [Parameter] public string? Key { get; set; }
 
     [Parameter, Obsolete("Use Mode=BdkLoaderMode.Persist")] public bool PreserveState { get; set; }
@@ -114,6 +115,14 @@ public partial class BdkLoader<T> : ComponentBase, IDisposable, IBdkLoader
             Console.WriteLine(ex.Message);
         }
         return Task.CompletedTask;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (BdkLoaderOptions.Events.OnAfterRenderAsync != null)
+        {
+            await BdkLoaderOptions.Events.OnAfterRenderAsync.Invoke(ServiceProvider, firstRender);
+        }
     }
 
     public void Dispose()
