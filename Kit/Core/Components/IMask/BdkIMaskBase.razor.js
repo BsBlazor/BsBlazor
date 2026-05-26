@@ -24,23 +24,35 @@
 
     async createPatternMask() {
         const mask = await this.dotNetReference.invokeMethodAsync('GetMask');
-        this.iMask = IMask(this.input, this.buildPatternMaskOptions(mask));
+        const definitions = await this.dotNetReference.invokeMethodAsync('GetDefinitions');
+        this.iMask = IMask(this.input, this.buildPatternMaskOptions(mask, definitions));
     }
 
     async refreshPatternMask() {
         const mask = await this.dotNetReference.invokeMethodAsync('GetMask');
-        this.iMask.updateOptions(this.buildPatternMaskOptions(mask));
+        const definitions = await this.dotNetReference.invokeMethodAsync('GetDefinitions');
+        this.iMask.updateOptions(this.buildPatternMaskOptions(mask, definitions));
     }
 
-    buildPatternMaskOptions(mask) {
+    buildPatternMaskOptions(mask, definitions) {
+        if (definitions) {
+            for (const key in definitions) {
+                definitions[key] = new RegExp(definitions[key]);
+            }
+        }
+     
         if (mask.startsWith('/') && mask.endsWith('/')) {
             mask = new RegExp(mask);
         }
         else {
             mask = mask.split('|');
-            mask = mask.map(m => { return { mask: m }; });
+            if (mask.length === 1) {
+                mask = mask[0]; // definitions does not work with array of masks, so if there is only one, we will not use array
+            } else {
+                mask = mask.map(m => { return { mask: m }; });
+            }
         }
-        return { mask };
+        return { mask, definitions };
     }
 
     async createNumberMask() {

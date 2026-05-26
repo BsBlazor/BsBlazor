@@ -117,6 +117,14 @@ Value: @(DecimalValue.HasValue? DecimalValue.Value: "null")
 """
 		},
 		{
+			"IMaskPatternDefinitionsExample",
+"""
+<BdkIMaskPattern Mask="##.###.###/0000-00" Definitions="@(new() { { '#', "[a-zA-Z0-9]" } })">
+    <input class="form-control" value="X3.Z26.AB5/0001-01" />
+</BdkIMaskPattern>
+"""
+		},
+		{
 			"IMaskPatternDynamicExample",
 """
 <BdkIMaskPattern Mask="0000000-0|0000000-a|00000000-0|00000000-a" @bind-Value="Value" BindTarget="BdkIMaskBindTarget.Value">
