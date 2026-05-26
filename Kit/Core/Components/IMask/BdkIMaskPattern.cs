@@ -6,7 +6,9 @@ public class BdkIMaskPattern : BdkIMaskBase<string>
 {
     protected override string IMaskType => "Pattern";
     [Parameter, EditorRequired] public required string Mask { get; set; }
+    [Parameter] public Dictionary<char, string>? Definitions { get; set; }
     [JSInvokable] public string GetMask() => Mask;
+    [JSInvokable] public Dictionary<char, string>? GetDefinitions() => Definitions;
     private string? _previousMask = null;
     protected override async Task OnParametersSetAsync()
     {
